@@ -24,14 +24,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/vendors")
 public class VendorController {
-    private final CreateNewVendorOperation addVendorService;
+    private final CreateNewVendorOperation createNewVendorService;
     private final EditVendorNameOperation editVendorNameService;
     private final EditVendorPhoneOperation editVendorPhoneService;
 
     @Operation(description = "From the users request creates a new vendor that does not exist in the database yet.", summary = "Creates a new tag.")
     @PostMapping("/create")
     public ResponseEntity<CreateNewVendorResponse> createVendor(@RequestBody CreateNewVendorRequest request) throws MultimediaNotFoundInRepositoryException, ItemNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
-        return new ResponseEntity<>(addVendorService.process(request), HttpStatus.CREATED);
+        return new ResponseEntity<>(createNewVendorService.process(request), HttpStatus.CREATED);
     }
 
     @Operation(description = "Edits an existing in the database vendor name with the given id from the users request.", summary = "Edits a vendors name.")

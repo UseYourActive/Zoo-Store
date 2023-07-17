@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/tags")
 public class TagController {
-    private final CreateNewTagOperation addTagService;
+    private final CreateNewTagOperation createNewTagService;
     private final EditTagOperation editTagService;
 
     @Operation(description = "From the users request creates a new tag that does not exist in the database yet.", summary = "Creates a new tag.")
     @PostMapping("/create")
-    public ResponseEntity<CreateNewTagResponse> createTag(@RequestBody CreateNewTagRequest request) throws MultimediaNotFoundInRepositoryException, ItemNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
-        return new ResponseEntity<>(addTagService.process(request), HttpStatus.CREATED);
+    public ResponseEntity<CreateNewTagResponse> createNewTag(@RequestBody CreateNewTagRequest request) throws MultimediaNotFoundInRepositoryException, ItemNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+        return new ResponseEntity<>(createNewTagService.process(request), HttpStatus.CREATED);
     }
 
     @Operation(description = "Edits an existing in the database tag title with the given id from the users request.", summary = "Edits a tag title.")

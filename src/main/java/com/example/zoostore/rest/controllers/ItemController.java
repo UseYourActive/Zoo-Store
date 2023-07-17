@@ -2,25 +2,25 @@ package com.example.zoostore.rest.controllers;
 
 import com.example.zoostore.api.operations.item.archive.ArchiveItemRequest;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemResponse;
-import com.example.zoostore.api.operations.item.archive.ArchiveItemService;
+import com.example.zoostore.api.operations.item.archive.ArchiveItemOperation;
 import com.example.zoostore.api.operations.item.create.CreateNewItemRequest;
 import com.example.zoostore.api.operations.item.create.CreateNewItemResponse;
-import com.example.zoostore.api.operations.item.create.CreateItemService;
+import com.example.zoostore.api.operations.item.create.CreateNewItemOperation;
 import com.example.zoostore.api.operations.item.edit.description.EditItemDescriptionRequest;
 import com.example.zoostore.api.operations.item.edit.description.EditItemDescriptionResponse;
-import com.example.zoostore.api.operations.item.edit.description.EditItemDescriptionService;
+import com.example.zoostore.api.operations.item.edit.description.EditItemDescriptionOperation;
 import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLRequest;
 import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLResponse;
-import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLService;
-import com.example.zoostore.api.operations.item.edit.product.name.EditItemProductNameService;
+import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLOperation;
+import com.example.zoostore.api.operations.item.edit.product.name.EditItemProductNameOperation;
 import com.example.zoostore.api.operations.item.edit.tag.EditItemTagRequest;
 import com.example.zoostore.api.operations.item.edit.tag.EditItemTagResponse;
 import com.example.zoostore.api.operations.item.edit.product.name.EditItemProductNameRequest;
 import com.example.zoostore.api.operations.item.edit.product.name.EditItemProductNameResponse;
-import com.example.zoostore.api.operations.item.edit.tag.EditItemTagService;
+import com.example.zoostore.api.operations.item.edit.tag.EditItemTagOperation;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorRequest;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorResponse;
-import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorService;
+import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import com.example.zoostore.core.exceptions.multimedia.MultimediaNotFoundInRepositoryException;
 import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
@@ -35,13 +35,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/items")
 public class ItemController {
-    private final CreateItemService createItemService;
-    private final EditItemVendorService editItemVendorService;
-    private final EditItemProductNameService editItemProductNameService;
-    private final EditItemDescriptionService editItemDescriptionService;
-    private final EditItemMultimediaURLService editItemMultimediaURLService;
-    private final EditItemTagService editItemTagService;
-    private final ArchiveItemService archiveItemService;
+    private final CreateNewItemOperation createItemService;
+    private final EditItemVendorOperation editItemVendorService;
+    private final EditItemProductNameOperation editItemProductNameService;
+    private final EditItemDescriptionOperation editItemDescriptionService;
+    private final EditItemMultimediaURLOperation editItemMultimediaURLService;
+    private final EditItemTagOperation editItemTagService;
+    private final ArchiveItemOperation archiveItemService;
 
     @Operation(description = "From the users request creates a new item that does not exist in the database yet.", summary = "Creates a new item.")
     @PostMapping("/create")

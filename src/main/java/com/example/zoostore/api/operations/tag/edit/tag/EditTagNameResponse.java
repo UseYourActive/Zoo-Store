@@ -1,6 +1,6 @@
 package com.example.zoostore.api.operations.tag.edit.tag;
 
-import com.example.zoostore.api.operations.OperationResult;
+import com.example.zoostore.api.base.OperationResult;
 import lombok.*;
 
 import java.util.UUID;

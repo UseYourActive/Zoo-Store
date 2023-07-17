@@ -2,10 +2,10 @@ package com.example.zoostore.rest.controllers;
 
 import com.example.zoostore.api.operations.tag.create.CreateNewTagRequest;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagResponse;
-import com.example.zoostore.api.operations.tag.create.AddTagService;
+import com.example.zoostore.api.operations.tag.create.CreateNewTagOperation;
 import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameRequest;
 import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameResponse;
-import com.example.zoostore.api.operations.tag.edit.tag.EditTagService;
+import com.example.zoostore.api.operations.tag.edit.tag.EditTagOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import com.example.zoostore.core.exceptions.multimedia.MultimediaNotFoundInRepositoryException;
 import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/tags")
 public class TagController {
-    private final AddTagService addTagService;
-    private final EditTagService editTagService;
+    private final CreateNewTagOperation addTagService;
+    private final EditTagOperation editTagService;
 
     @Operation(description = "From the users request creates a new tag that does not exist in the database yet.", summary = "Creates a new tag.")
     @PostMapping("/create")

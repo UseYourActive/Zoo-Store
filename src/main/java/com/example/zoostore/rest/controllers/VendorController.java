@@ -2,13 +2,13 @@ package com.example.zoostore.rest.controllers;
 
 import com.example.zoostore.api.operations.vendor.create.CreateNewVendorRequest;
 import com.example.zoostore.api.operations.vendor.create.CreateNewVendorResponse;
-import com.example.zoostore.api.operations.vendor.create.AddVendorService;
+import com.example.zoostore.api.operations.vendor.create.CreateNewVendorOperation;
 import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameRequest;
 import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameResponse;
-import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameService;
+import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameOperation;
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneRequest;
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneResponse;
-import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneService;
+import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import com.example.zoostore.core.exceptions.multimedia.MultimediaNotFoundInRepositoryException;
 import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/vendors")
 public class VendorController {
-    private final AddVendorService addVendorService;
-    private final EditVendorNameService editVendorNameService;
-    private final EditVendorPhoneService editVendorPhoneService;
+    private final CreateNewVendorOperation addVendorService;
+    private final EditVendorNameOperation editVendorNameService;
+    private final EditVendorPhoneOperation editVendorPhoneService;
 
     @Operation(description = "From the users request creates a new vendor that does not exist in the database yet.", summary = "Creates a new tag.")
     @PostMapping("/create")

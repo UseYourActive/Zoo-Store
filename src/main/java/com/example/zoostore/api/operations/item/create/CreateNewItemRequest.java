@@ -1,6 +1,6 @@
 package com.example.zoostore.api.operations.item.create;
 
-import com.example.zoostore.api.operations.OperationInput;
+import com.example.zoostore.api.base.OperationInput;
 import lombok.*;
 
 import java.util.Set;

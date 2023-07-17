@@ -2,8 +2,8 @@ package com.example.zoostore.rest.controllers;
 
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaRequest;
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaResponse;
-import com.example.zoostore.api.operations.multimedia.create.AddMultimediaService;
-import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaService;
+import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaOperation;
+import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaOperation;
 import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLRequest;
 import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLResponse;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/multimedia")
 public class MultimediaController {
-    private final AddMultimediaService addMultimediaService;
-    private final EditMultimediaService editMultimediaService;
+    private final CreateNewMultimediaOperation addMultimediaService;
+    private final EditMultimediaOperation editMultimediaService;
 
     @Operation(description = "From the users request creates a new url that does not exist in the database yet.", summary = "Creates a new URL.")
     @PostMapping("/create")

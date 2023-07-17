@@ -1,6 +1,6 @@
 package com.example.zoostore.api.operations.multimedia.create;
 
-import com.example.zoostore.api.operations.OperationInput;
+import com.example.zoostore.api.base.OperationInput;
 import lombok.*;
 
 import java.util.UUID;

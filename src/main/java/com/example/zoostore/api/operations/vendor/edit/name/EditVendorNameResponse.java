@@ -1,6 +1,6 @@
 package com.example.zoostore.api.operations.vendor.edit.name;
 
-import com.example.zoostore.api.operations.OperationResult;
+import com.example.zoostore.api.base.OperationResult;
 import lombok.*;
 
 import java.util.UUID;

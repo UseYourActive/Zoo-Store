@@ -1,7 +1,6 @@
 package com.example.zoostore.api.operations.multimedia.create;
 
-import com.example.zoostore.exceptions.item.ItemNotFoundInRepositoryException;
+import com.example.zoostore.api.operations.OperationProcessor;
 
-public interface AddMultimediaService {
-    CreateNewMultimediaResponse addMultimedia(CreateNewMultimediaRequest request) throws ItemNotFoundInRepositoryException;
+public interface AddMultimediaService extends OperationProcessor<CreateNewMultimediaResponse, CreateNewMultimediaRequest> {
 }

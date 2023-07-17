@@ -1,5 +1,6 @@
 package com.example.zoostore.api.operations.tag.edit.tag;
 
+import com.example.zoostore.api.operations.OperationInput;
 import lombok.*;
 
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class EditTagNameRequest {
+public class EditTagNameRequest implements OperationInput {
     private UUID id;
     private String title;
 }

@@ -1,5 +1,6 @@
 package com.example.zoostore.api.operations.item.archive;
 
+import com.example.zoostore.api.operations.OperationResult;
 import lombok.*;
 
 import java.util.Set;
@@ -10,7 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class ArchiveItemResponse {
+public class ArchiveItemResponse implements OperationResult {
     private UUID id;
     private String title;
     private String description;

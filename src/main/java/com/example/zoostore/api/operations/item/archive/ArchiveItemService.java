@@ -1,7 +1,6 @@
 package com.example.zoostore.api.operations.item.archive;
 
-import com.example.zoostore.exceptions.item.ItemNotFoundInRepositoryException;
+import com.example.zoostore.api.operations.OperationProcessor;
 
-public interface ArchiveItemService {
-    ArchiveItemResponse archiveItem(ArchiveItemRequest request) throws ItemNotFoundInRepositoryException;
+public interface ArchiveItemService extends OperationProcessor<ArchiveItemResponse, ArchiveItemRequest> {
 }

@@ -1,5 +1,6 @@
 package com.example.zoostore.api.operations.vendor.edit.phone;
 
+import com.example.zoostore.api.operations.OperationInput;
 import lombok.*;
 
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class EditVendorPhoneRequest {
+public class EditVendorPhoneRequest implements OperationInput {
     private UUID id;
     private String phone;
 }

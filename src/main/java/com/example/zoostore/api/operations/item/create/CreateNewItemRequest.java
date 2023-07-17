@@ -1,5 +1,6 @@
 package com.example.zoostore.api.operations.item.create;
 
+import com.example.zoostore.api.operations.OperationInput;
 import lombok.*;
 
 import java.util.Set;
@@ -10,7 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CreateNewItemRequest {
+public class CreateNewItemRequest implements OperationInput {
     private String title;
     private String description;
     private UUID vendor;

@@ -1,5 +1,6 @@
 package com.example.zoostore.api.operations.tag.create;
 
+import com.example.zoostore.api.operations.OperationInput;
 import lombok.*;
 
 @Getter
@@ -7,6 +8,6 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CreateNewTagRequest {
+public class CreateNewTagRequest implements OperationInput {
     private String title;
 }

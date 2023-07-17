@@ -1,5 +1,6 @@
 package com.example.zoostore.api.operations.vendor.create;
 
+import com.example.zoostore.api.operations.OperationInput;
 import lombok.*;
 
 @Getter
@@ -7,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CreateNewVendorRequest {
+public class CreateNewVendorRequest implements OperationInput {
     private String name;
     private String phone;
 }

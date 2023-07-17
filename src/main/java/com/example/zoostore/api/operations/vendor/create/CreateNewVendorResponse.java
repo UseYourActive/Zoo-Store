@@ -1,5 +1,6 @@
 package com.example.zoostore.api.operations.vendor.create;
 
+import com.example.zoostore.api.operations.OperationResult;
 import lombok.*;
 
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CreateNewVendorResponse {
+public class CreateNewVendorResponse implements OperationResult {
     private UUID id;
     private String name;
     private String phone;

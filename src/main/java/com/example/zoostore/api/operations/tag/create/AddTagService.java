@@ -1,5 +1,6 @@
 package com.example.zoostore.api.operations.tag.create;
 
-public interface AddTagService {
-    CreateNewTagResponse addTag(CreateNewTagRequest request);
+import com.example.zoostore.api.operations.OperationProcessor;
+
+public interface AddTagService extends OperationProcessor<CreateNewTagResponse, CreateNewTagRequest> {
 }

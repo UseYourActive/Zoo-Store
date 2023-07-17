@@ -5,10 +5,9 @@ import com.example.zoostore.api.operations.vendor.create.CreateNewVendorResponse
 import com.example.zoostore.api.operations.vendor.create.AddVendorService;
 import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameRequest;
 import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameResponse;
-import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameService;
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneRequest;
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneResponse;
-import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneService;
+import com.example.zoostore.api.operations.vendor.edit.EditVendorService;
 import com.example.zoostore.exceptions.vendor.VendorNotFoundInRepositoryException;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -22,8 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/vendors")
 public class VendorController {
     private final AddVendorService addVendorService;
-    private final EditVendorPhoneService editVendorService;
-    private final EditVendorNameService editVendorNameService;
+    private final EditVendorService editVendorService;
 
     @Operation(description = "From the users request creates a new vendor that does not exist in the database yet.", summary = "Creates a new tag.")
     @PostMapping("/create")
@@ -34,7 +32,7 @@ public class VendorController {
     @Operation(description = "Edits an existing in the database vendor name with the given id from the users request.", summary = "Edits a vendors name.")
     @PatchMapping("/edit/name")
     public ResponseEntity<EditVendorNameResponse> editVendorName(@RequestBody EditVendorNameRequest request) throws VendorNotFoundInRepositoryException {
-        return new ResponseEntity<>(editVendorNameService.editVendorName(request), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(editVendorService.editVendorName(request), HttpStatus.ACCEPTED);
     }
 
     @Operation(description = "Edits an existing in the database vendor phone with the given id from the users request.", summary = "Edits a vendors phone.")

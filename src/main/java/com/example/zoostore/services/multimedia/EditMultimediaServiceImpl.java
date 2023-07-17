@@ -1,8 +1,8 @@
 package com.example.zoostore.services.multimedia;
 
-import com.example.zoostore.api.operations.multimedia.edit.EditMultimediaService;
-import com.example.zoostore.api.operations.multimedia.edit.EditMultimediaURLRequest;
-import com.example.zoostore.api.operations.multimedia.edit.EditMultimediaURLResponse;
+import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaService;
+import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLRequest;
+import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLResponse;
 import com.example.zoostore.data.entities.Multimedia;
 import com.example.zoostore.data.repositories.MultimediaRepository;
 import com.example.zoostore.exceptions.multimedia.MultimediaNotFoundInRepositoryException;

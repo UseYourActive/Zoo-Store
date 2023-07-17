@@ -1,4 +1,4 @@
-package com.example.zoostore.api.operations.item.edit.title;
+package com.example.zoostore.api.operations.tag.edit.tag;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class EditItemTitleRequest {
+public class EditTagNameRequest {
     private UUID id;
     private String title;
 }

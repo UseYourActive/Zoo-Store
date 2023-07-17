@@ -1,4 +1,4 @@
-package com.example.zoostore.api.operations.multimedia.edit;
+package com.example.zoostore.api.operations.multimedia.edit.url;
 
 import com.example.zoostore.exceptions.item.ItemNotFoundInRepositoryException;
 import com.example.zoostore.exceptions.multimedia.MultimediaNotFoundInRepositoryException;

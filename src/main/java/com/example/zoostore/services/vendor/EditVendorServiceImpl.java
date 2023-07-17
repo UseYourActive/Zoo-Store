@@ -2,10 +2,9 @@ package com.example.zoostore.services.vendor;
 
 import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameRequest;
 import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameResponse;
-import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameService;
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneRequest;
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneResponse;
-import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneService;
+import com.example.zoostore.api.operations.vendor.edit.EditVendorService;
 import com.example.zoostore.data.entities.Vendor;
 import com.example.zoostore.data.repositories.VendorRepository;
 import com.example.zoostore.exceptions.vendor.VendorNotFoundInRepositoryException;
@@ -17,8 +16,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class EditVendorServiceImpl implements   EditVendorPhoneService,
-                                                EditVendorNameService {
+public class EditVendorServiceImpl implements EditVendorService {
     private final VendorRepository vendorRepository;
 
     @Override

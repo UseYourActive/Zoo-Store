@@ -1,8 +1,8 @@
 package com.example.zoostore.services.tag;
 
-import com.example.zoostore.api.operations.tag.edit.EditTagNameRequest;
-import com.example.zoostore.api.operations.tag.edit.EditTagNameResponse;
-import com.example.zoostore.api.operations.tag.edit.EditTagService;
+import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameRequest;
+import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameResponse;
+import com.example.zoostore.api.operations.tag.edit.tag.EditTagService;
 import com.example.zoostore.data.entities.Tag;
 import com.example.zoostore.data.repositories.TagRepository;
 import com.example.zoostore.exceptions.tag.TagNotFoundInRepositoryException;

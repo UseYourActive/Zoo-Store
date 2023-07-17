@@ -1,4 +1,4 @@
-package com.example.zoostore.api.operations.tag.edit;
+package com.example.zoostore.api.operations.tag.edit.tag;
 
 import lombok.*;
 

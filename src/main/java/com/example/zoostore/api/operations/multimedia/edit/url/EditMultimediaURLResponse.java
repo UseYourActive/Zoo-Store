@@ -1,4 +1,4 @@
-package com.example.zoostore.api.operations.multimedia.edit;
+package com.example.zoostore.api.operations.multimedia.edit.url;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class EditMultimediaURLRequest {
+public class EditMultimediaURLResponse {
     private UUID id;
     private String url;
 }

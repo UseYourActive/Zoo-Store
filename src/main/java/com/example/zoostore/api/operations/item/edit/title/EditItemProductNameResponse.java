@@ -9,7 +9,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class EditItemTitleResponse {
+public class EditItemProductNameResponse {
     private UUID id;
     private String title;
 }

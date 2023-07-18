@@ -7,10 +7,7 @@ import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.TagRepository;
 import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -19,7 +16,8 @@ public class EditTagOperationProcessor implements EditTagOperation {
 
     @Override
     public EditTagNameResponse process(EditTagNameRequest editTagNameRequest) {
-        Tag foundInRepo = findItemById(editTagNameRequest.getId());
+        Tag foundInRepo = tagRepository.findById(editTagNameRequest.getId())
+                .orElseThrow(TagNotFoundInRepositoryException::new);
 
         foundInRepo.setTitle(editTagNameRequest.getTitle());
 
@@ -29,10 +27,5 @@ public class EditTagOperationProcessor implements EditTagOperation {
                 .id(save.getId())
                 .title(save.getTitle())
                 .build();
-    }
-
-    private Tag findItemById(UUID id) {
-        return tagRepository.findById(id)
-                .orElseThrow(() -> new TagNotFoundInRepositoryException(HttpStatus.NOT_FOUND));
     }
 }

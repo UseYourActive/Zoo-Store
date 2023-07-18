@@ -43,45 +43,52 @@ public class ItemController {
     private final EditItemTagOperation editItemTagService;
     private final ArchiveItemOperation archiveItemService;
 
-    @Operation(description = "From the users request creates a new item that does not exist in the database yet.", summary = "Creates a new item.")
+    @Operation(description = "From the users request creates a new item that does not exist in the database yet.",
+            summary = "Creates a new item.")
     @PostMapping("/create")
-    public ResponseEntity<CreateNewItemResponse> createItem(@RequestBody CreateNewItemRequest request) throws MultimediaNotFoundInRepositoryException, ItemNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<CreateNewItemResponse> createItem(@RequestBody CreateNewItemRequest request) {
         return new ResponseEntity<>(createItemService.process(request), HttpStatus.CREATED);
     }
 
-    @Operation(description = "Edits an existing in the database name of the product with the given id from the users request.", summary = "Edits a products name.")
+    @Operation(description = "Edits an existing in the database name of the product with the given id from the users request.",
+            summary = "Edits a products name.")
     @PatchMapping("/edit/product-name")
-    public ResponseEntity<EditItemProductNameResponse> editItemProductName(@RequestBody EditItemProductNameRequest request) throws ItemNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<EditItemProductNameResponse> editItemProductName(@RequestBody EditItemProductNameRequest request) {
         return new ResponseEntity<>(editItemProductNameService.process(request), HttpStatus.ACCEPTED);
     }
 
-    @Operation(description = "Edits an existing in the database description of the product with the given id from the users request.", summary = "Edits a products description.")
+    @Operation(description = "Edits an existing in the database description of the product with the given id from the users request.",
+            summary = "Edits a products description.")
     @PatchMapping("/edit/description")
-    public ResponseEntity<EditItemDescriptionResponse> editItemDescription(@RequestBody EditItemDescriptionRequest request) throws ItemNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<EditItemDescriptionResponse> editItemDescription(@RequestBody EditItemDescriptionRequest request) {
         return new ResponseEntity<>(editItemDescriptionService.process(request), HttpStatus.ACCEPTED);
     }
 
-    @Operation(description = "Edits an existing in the database vendor of the product with the given id from the users request.", summary = "Edits a products vendor.")
+    @Operation(description = "Edits an existing in the database vendor of the product with the given id from the users request.",
+            summary = "Edits a products vendor.")
     @PatchMapping("/edit/vendor")
-    public ResponseEntity<EditItemVendorResponse> editItemVendor(@RequestBody EditItemVendorRequest request) throws ItemNotFoundInRepositoryException, VendorNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, TagNotFoundInRepositoryException {
+    public ResponseEntity<EditItemVendorResponse> editItemVendor(@RequestBody EditItemVendorRequest request) {
         return new ResponseEntity<>(editItemVendorService.process(request), HttpStatus.ACCEPTED);
     }
 
-    @Operation(description = "Edits an existing in the database urls of the product with the given id from the users request.", summary = "Edits a products urls.")
+    @Operation(description = "Edits an existing in the database urls of the product with the given id from the users request.",
+            summary = "Edits a products urls.")
     @PatchMapping("/edit/multimedia")
-    public ResponseEntity<EditItemMultimediaURLResponse> replaceItemMultimediaURL(@RequestBody EditItemMultimediaURLRequest request) throws ItemNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<EditItemMultimediaURLResponse> replaceItemMultimediaURL(@RequestBody EditItemMultimediaURLRequest request) {
         return new ResponseEntity<>(editItemMultimediaURLService.process(request), HttpStatus.ACCEPTED);
     }
 
-    @Operation(description = "Edits an existing in the database tag title of the product with the given id from the users request.", summary = "Edits a products tag title.")
+    @Operation(description = "Edits an existing in the database tag title of the product with the given id from the users request.",
+            summary = "Edits a products tag title.")
     @PatchMapping("/edit/tag")
-    public ResponseEntity<EditItemTagResponse> editItemTag(@RequestBody EditItemTagRequest request) throws ItemNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<EditItemTagResponse> editItemTag(@RequestBody EditItemTagRequest request) {
         return new ResponseEntity<>(editItemTagService.process(request), HttpStatus.ACCEPTED);
     }
 
-    @Operation(description = "Archives an existing in the database product with the given id from the users request, hiding it from the clients vision.", summary = "Archives an item.")
+    @Operation(description = "Archives an existing in the database product with the given id from the users request, hiding it from the clients vision.",
+            summary = "Archives an item.")
     @PatchMapping("/archive")
-    public ResponseEntity<ArchiveItemResponse> archiveItem(@RequestBody ArchiveItemRequest request) throws ItemNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<ArchiveItemResponse> archiveItem(@RequestBody ArchiveItemRequest request) {
         return new ResponseEntity<>(archiveItemService.process(request), HttpStatus.ACCEPTED);
     }
 }

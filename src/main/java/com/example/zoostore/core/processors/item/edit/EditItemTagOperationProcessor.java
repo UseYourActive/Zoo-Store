@@ -28,7 +28,8 @@ public class EditItemTagOperationProcessor implements EditItemTagOperation {
 
     @Override
     public EditItemTagResponse process(EditItemTagRequest editItemTagRequest) {
-        Item itemFoundInRepository = findItemById(editItemTagRequest.getId());
+        Item itemFoundInRepository = itemRepository.findById(editItemTagRequest.getId())
+                .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Set<Tag> tags = getTagService.getTagsByID(Collections.singleton(editItemTagRequest.getId()));
 
@@ -42,10 +43,5 @@ public class EditItemTagOperationProcessor implements EditItemTagOperation {
                 .build();
 
         //TODO opravi returnovete da pravqt proverki dali kolekciqta e prazna
-    }
-
-    private Item findItemById(UUID id) {
-        return itemRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundInRepositoryException(HttpStatus.NOT_FOUND));
     }
 }

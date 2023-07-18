@@ -25,7 +25,8 @@ public class EditItemProductNameOperationProcessor implements EditItemProductNam
 
     @Override
     public EditItemProductNameResponse process(EditItemProductNameRequest editItemProductNameRequest) {
-        Item itemFoundInRepository = findItemById(editItemProductNameRequest.getId());
+        Item itemFoundInRepository = itemRepository.findById(editItemProductNameRequest.getId())
+                .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         itemFoundInRepository.setProductName(editItemProductNameRequest.getTitle());
 
@@ -35,10 +36,5 @@ public class EditItemProductNameOperationProcessor implements EditItemProductNam
                 .id(savedItem.getId())
                 .title(savedItem.getProductName())
                 .build();
-    }
-
-    private Item findItemById(UUID id) {
-        return itemRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundInRepositoryException(HttpStatus.NOT_FOUND));
     }
 }

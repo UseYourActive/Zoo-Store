@@ -28,21 +28,24 @@ public class VendorController {
     private final EditVendorNameOperation editVendorNameService;
     private final EditVendorPhoneOperation editVendorPhoneService;
 
-    @Operation(description = "From the users request creates a new vendor that does not exist in the database yet.", summary = "Creates a new tag.")
+    @Operation(description = "From the users request creates a new vendor that does not exist in the database yet.",
+            summary = "Creates a new tag.")
     @PostMapping("/create")
-    public ResponseEntity<CreateNewVendorResponse> createVendor(@RequestBody CreateNewVendorRequest request) throws MultimediaNotFoundInRepositoryException, ItemNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<CreateNewVendorResponse> createVendor(@RequestBody CreateNewVendorRequest request) {
         return new ResponseEntity<>(createNewVendorService.process(request), HttpStatus.CREATED);
     }
 
-    @Operation(description = "Edits an existing in the database vendor name with the given id from the users request.", summary = "Edits a vendors name.")
+    @Operation(description = "Edits an existing in the database vendor name with the given id from the users request.",
+            summary = "Edits a vendors name.")
     @PatchMapping("/edit/name")
-    public ResponseEntity<EditVendorNameResponse> editVendorName(@RequestBody EditVendorNameRequest request) throws VendorNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, ItemNotFoundInRepositoryException, TagNotFoundInRepositoryException {
+    public ResponseEntity<EditVendorNameResponse> editVendorName(@RequestBody EditVendorNameRequest request) {
         return new ResponseEntity<>(editVendorNameService.process(request), HttpStatus.ACCEPTED);
     }
 
-    @Operation(description = "Edits an existing in the database vendor phone with the given id from the users request.", summary = "Edits a vendors phone.")
+    @Operation(description = "Edits an existing in the database vendor phone with the given id from the users request.",
+            summary = "Edits a vendors phone.")
     @PatchMapping("/edit/phone")
-    public ResponseEntity<EditVendorPhoneResponse> editVendorPhone(@RequestBody @Valid EditVendorPhoneRequest request) throws VendorNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, ItemNotFoundInRepositoryException, TagNotFoundInRepositoryException {
+    public ResponseEntity<EditVendorPhoneResponse> editVendorPhone(@RequestBody @Valid EditVendorPhoneRequest request) {
         return new ResponseEntity<>(editVendorPhoneService.process(request), HttpStatus.ACCEPTED);
     }
 }

@@ -28,7 +28,8 @@ public class EditItemVendorOperationProcessor implements EditItemVendorOperation
 
     @Override
     public EditItemVendorResponse process(EditItemVendorRequest editItemVendorRequest) {
-        Item itemFoundInRepository = findItemById(editItemVendorRequest.getId());
+        Item itemFoundInRepository = itemRepository.findById(editItemVendorRequest.getId())
+                .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Optional<Vendor> vendorOptional = Optional.ofNullable(getVendorService.getVendorsByID(editItemVendorRequest.getVendor()));
 
@@ -43,10 +44,5 @@ public class EditItemVendorOperationProcessor implements EditItemVendorOperation
                 .id(savedItem.getId())
                 .vendor(savedItem.getVendor().getId())
                 .build();
-    }
-
-    private Item findItemById(UUID id) {
-        return itemRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundInRepositoryException(HttpStatus.NOT_FOUND));
     }
 }

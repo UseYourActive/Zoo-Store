@@ -28,7 +28,8 @@ public class EditItemMultimediaURLOperationProcessor implements EditItemMultimed
 
     @Override
     public EditItemMultimediaURLResponse process(EditItemMultimediaURLRequest editItemMultimediaURLRequest) {
-        Item itemFoundInRepository = findItemById(editItemMultimediaURLRequest.getId());
+        Item itemFoundInRepository = itemRepository.findById(editItemMultimediaURLRequest.getId())
+                .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Set<Multimedia> multimediaSet = editItemMultimediaURLRequest.getUrl().stream()
                 .map(url -> Multimedia.builder().url(url).build())
@@ -48,10 +49,5 @@ public class EditItemMultimediaURLOperationProcessor implements EditItemMultimed
                 .build();
 
         //TODO opravi returnovete da pravqt proverki dali kolekciqta e prazna
-    }
-
-    private Item findItemById(UUID id) {
-        return itemRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundInRepositoryException(HttpStatus.NOT_FOUND));
     }
 }

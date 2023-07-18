@@ -5,4 +5,8 @@ import org.springframework.http.HttpStatus;
 public class VendorNotFoundInRepositoryException extends VendorException {
     public VendorNotFoundInRepositoryException(HttpStatus httpStatus) {
     }
+
+    public VendorNotFoundInRepositoryException() {
+
+    }
 }

@@ -5,4 +5,7 @@ import org.springframework.http.HttpStatus;
 public class ItemNotFoundInRepositoryException extends ItemException {
     public ItemNotFoundInRepositoryException(HttpStatus status) {
     }
+
+    public ItemNotFoundInRepositoryException() {
+    }
 }

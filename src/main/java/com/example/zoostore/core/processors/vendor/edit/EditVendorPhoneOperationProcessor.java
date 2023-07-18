@@ -18,7 +18,8 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
     private final VendorRepository vendorRepository;
     @Override
     public EditVendorPhoneResponse process(EditVendorPhoneRequest editVendorPhoneRequest) {
-        Vendor foundInRepo = findById(editVendorPhoneRequest.getId());
+        Vendor foundInRepo = vendorRepository.findById(editVendorPhoneRequest.getId())
+                .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         foundInRepo.setPhone(editVendorPhoneRequest.getPhone());
 
@@ -29,10 +30,5 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
                 .name(save.getName())
                 .phone(save.getPhone())
                 .build();
-    }
-
-    private Vendor findById(UUID id) {
-        return vendorRepository.findById(id)
-                .orElseThrow(() -> new VendorNotFoundInRepositoryException(HttpStatus.NOT_FOUND));
     }
 }

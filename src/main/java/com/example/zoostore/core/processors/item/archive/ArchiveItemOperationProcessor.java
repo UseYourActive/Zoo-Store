@@ -21,7 +21,8 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
 
     @Override
     public ArchiveItemResponse process(ArchiveItemRequest request) {
-        Item found = findItemById(request.getId());
+        Item found = itemRepository.findById(request.getId())
+                .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Item item = Item.builder()
                 .id(found.getId())
@@ -44,10 +45,5 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
                 .tags(save.getTags().stream().map(Tag::getId).collect(Collectors.toSet()))
                 .isArchived(true)
                 .build();
-    }
-
-    private Item findItemById(UUID id) {
-        return itemRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundInRepositoryException(HttpStatus.NOT_FOUND));
     }
 }

@@ -23,15 +23,17 @@ public class MultimediaController {
     private final CreateNewMultimediaOperation createNewMultimediaService;
     private final EditMultimediaOperation editMultimediaService;
 
-    @Operation(description = "From the users request creates a new url that does not exist in the database yet.", summary = "Creates a new URL.")
+    @Operation(description = "From the users request creates a new url that does not exist in the database yet.",
+            summary = "Creates a new URL.")
     @PostMapping("/create")
-    public ResponseEntity<CreateNewMultimediaResponse> createMultimedia(@RequestBody CreateNewMultimediaRequest request) throws ItemNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<CreateNewMultimediaResponse> createMultimedia(@RequestBody CreateNewMultimediaRequest request) {
         return new ResponseEntity<>(createNewMultimediaService.process(request), HttpStatus.CREATED);
     }
 
-    @Operation(description = "Replaces an existing in the database urls with another with the given id from the users request.", summary = "Edits existing urls.")
+    @Operation(description = "Replaces an existing in the database urls with another with the given id from the users request.",
+            summary = "Edits existing urls.")
     @PatchMapping("/edit/url")
-    public ResponseEntity<EditMultimediaURLResponse> editMultimediaURl(@RequestBody EditMultimediaURLRequest request) throws ItemNotFoundInRepositoryException, MultimediaNotFoundInRepositoryException, TagNotFoundInRepositoryException, VendorNotFoundInRepositoryException {
+    public ResponseEntity<EditMultimediaURLResponse> editMultimediaURl(@RequestBody EditMultimediaURLRequest request) {
         return new ResponseEntity<>(editMultimediaService.process(request), HttpStatus.ACCEPTED);
     }
 }

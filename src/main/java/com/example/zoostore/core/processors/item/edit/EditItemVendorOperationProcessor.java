@@ -5,7 +5,6 @@ import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorRespon
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import com.example.zoostore.core.exceptions.vendor.VendorNotFoundInRepositoryException;
-import com.example.zoostore.core.processors.item.GetVendorService;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Vendor;
 import com.example.zoostore.persistence.repositories.ItemRepository;

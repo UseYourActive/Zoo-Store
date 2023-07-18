@@ -4,7 +4,6 @@ import com.example.zoostore.api.operations.item.edit.product.name.EditItemProduc
 import com.example.zoostore.api.operations.item.edit.product.name.EditItemProductNameResponse;
 import com.example.zoostore.api.operations.item.edit.product.name.EditItemProductNameOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
-import com.example.zoostore.core.processors.item.GetVendorService;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class EditItemProductNameOperationProcessor implements EditItemProductNameOperation {
     private final ItemRepository itemRepository;
-    private final GetTagService getTagService;
-    private final GetVendorService getVendorService;
 
     @Override
     public EditItemProductNameResponse process(EditItemProductNameRequest editItemProductNameRequest) {

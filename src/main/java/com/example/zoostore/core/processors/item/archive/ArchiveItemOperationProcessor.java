@@ -10,7 +10,6 @@ import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryExcepti
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor

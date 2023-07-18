@@ -4,7 +4,7 @@ import com.example.zoostore.api.operations.item.edit.tag.EditItemTagRequest;
 import com.example.zoostore.api.operations.item.edit.tag.EditItemTagResponse;
 import com.example.zoostore.api.operations.item.edit.tag.EditItemTagOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
-import com.example.zoostore.core.processors.item.GetVendorService;
+import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
@@ -20,14 +20,14 @@ import java.util.Set;
 public class EditItemTagOperationProcessor implements EditItemTagOperation {
     private final ItemRepository itemRepository;
     private final TagRepository tagRepository;
-    private final GetVendorService getVendorService;
 
     @Override
     public EditItemTagResponse process(EditItemTagRequest editItemTagRequest) {
         Item itemFoundInRepository = itemRepository.findById(editItemTagRequest.getId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
-        Set<Tag> tags = tagRepository.findAllByIdIn(Collections.singleton(editItemTagRequest.getId()));
+        Set<Tag> tags = tagRepository.findAllByIdIn(Collections.singleton(editItemTagRequest.getId()))
+                .orElseThrow(TagNotFoundInRepositoryException::new);
 
         itemFoundInRepository.setTags(tags);
 

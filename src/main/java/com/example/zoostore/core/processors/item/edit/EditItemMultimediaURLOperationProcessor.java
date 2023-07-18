@@ -4,7 +4,6 @@ import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimed
 import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLResponse;
 import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
-import com.example.zoostore.core.processors.item.GetVendorService;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.repositories.ItemRepository;
@@ -18,8 +17,6 @@ import java.util.stream.Collectors;
 @Service
 public class EditItemMultimediaURLOperationProcessor implements EditItemMultimediaURLOperation {
     private final ItemRepository itemRepository;
-    private final GetTagService getTagService;
-    private final GetVendorService getVendorService;
 
     @Override
     public EditItemMultimediaURLResponse process(EditItemMultimediaURLRequest editItemMultimediaURLRequest) {

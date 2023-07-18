@@ -7,10 +7,7 @@ import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import com.example.zoostore.core.exceptions.multimedia.MultimediaNotFoundInRepositoryException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service

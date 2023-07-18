@@ -9,10 +9,7 @@ import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -22,7 +19,8 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
 
     @Override
     public CreateNewMultimediaResponse process(CreateNewMultimediaRequest createNewMultimediaRequest) {
-        Item item = findItemById(createNewMultimediaRequest.getId());
+        Item item = itemRepository.findById(createNewMultimediaRequest.getId())
+                .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Multimedia multimedia = Multimedia.builder()
                 .item(item)
@@ -35,10 +33,5 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
                 .id(save.getId())
                 .url(save.getUrl())
                 .build();
-    }
-
-    private Item findItemById(UUID id) {
-        return itemRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundInRepositoryException(HttpStatus.NOT_FOUND));
     }
 }

@@ -8,7 +8,6 @@ import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

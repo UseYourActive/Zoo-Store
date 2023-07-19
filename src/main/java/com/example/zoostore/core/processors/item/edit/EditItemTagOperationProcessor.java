@@ -4,7 +4,6 @@ import com.example.zoostore.api.operations.item.edit.tag.EditItemTagRequest;
 import com.example.zoostore.api.operations.item.edit.tag.EditItemTagResponse;
 import com.example.zoostore.api.operations.item.edit.tag.EditItemTagOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
-import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
@@ -12,7 +11,6 @@ import com.example.zoostore.persistence.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Set;
 
 @RequiredArgsConstructor

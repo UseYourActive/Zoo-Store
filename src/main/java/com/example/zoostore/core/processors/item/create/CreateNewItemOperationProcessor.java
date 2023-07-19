@@ -29,8 +29,11 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
         Vendor vendor = vendorRepository.findById(createNewItemRequest.getVendor())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
-        Set<Tag> tags = tagRepository.findAllByIdIn(createNewItemRequest.getTags())
-                .orElseThrow(TagNotFoundInRepositoryException::new);
+        Set<Tag> tags = tagRepository.findAllByIdIn(createNewItemRequest.getTags());
+
+        if(tags.size() != createNewItemRequest.getTags().size()){ //TODO ruchen fetch ot bazata findbyid na vseki tak i da se natrupat nesushtestvuvashtite ID-ta v list
+            throw new TagNotFoundInRepositoryException();
+        }
 
         Item item = Item.builder()
                 .tags(tags)

@@ -9,5 +9,5 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface TagRepository extends JpaRepository<Tag, UUID> {
-    Optional<Set<Tag>> findAllByIdIn(Set<UUID> uuids);
+    Set<Tag> findAllByIdIn(Set<UUID> uuids);
 }

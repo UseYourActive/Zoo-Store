@@ -16,16 +16,16 @@ public class EditItemProductNameOperationProcessor implements EditItemProductNam
 
     @Override
     public EditItemProductNameResponse process(EditItemProductNameRequest editItemProductNameRequest) {
-        Item itemFoundInRepository = itemRepository.findById(editItemProductNameRequest.getId())
+        Item itemFoundInRepository = itemRepository.findById(editItemProductNameRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
-        itemFoundInRepository.setProductName(editItemProductNameRequest.getTitle());
+        itemFoundInRepository.setProductName(editItemProductNameRequest.getProductName());
 
         Item savedItem = itemRepository.save(itemFoundInRepository);
 
         return EditItemProductNameResponse.builder()
-                .id(savedItem.getId())
-                .title(savedItem.getProductName())
+                .itemId(savedItem.getId())
+                .productName(savedItem.getProductName())
                 .build();
     }
 }

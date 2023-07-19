@@ -12,11 +12,11 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ArchiveItemResponse implements OperationResult {
-    private UUID id;
+    private UUID itemId;
     private String title;
     private String description;
-    private UUID vendor;
-    private Set<UUID> multimedia;
-    private Set<UUID> tags;
+    private UUID vendorId;
+    private Set<UUID> multimediaIds;
+    private Set<UUID> tagIds;
     private boolean isArchived;
 }

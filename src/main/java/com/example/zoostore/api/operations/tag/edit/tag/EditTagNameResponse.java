@@ -11,6 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditTagNameResponse implements OperationResult {
-    private UUID id;
+    private UUID tagId;
     private String title;
 }

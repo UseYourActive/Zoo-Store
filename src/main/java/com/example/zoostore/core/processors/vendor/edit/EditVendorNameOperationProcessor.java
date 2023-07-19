@@ -19,7 +19,7 @@ public class EditVendorNameOperationProcessor implements EditVendorNameOperation
 
     @Override
     public EditVendorNameResponse process(EditVendorNameRequest editVendorNameRequest) {
-        Vendor foundInRepo = vendorRepository.findById(editVendorNameRequest.getId())
+        Vendor foundInRepo = vendorRepository.findById(editVendorNameRequest.getVendorId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         foundInRepo.setName(editVendorNameRequest.getName());
@@ -27,9 +27,8 @@ public class EditVendorNameOperationProcessor implements EditVendorNameOperation
         Vendor save = vendorRepository.save(foundInRepo);
 
         return EditVendorNameResponse.builder()
-                .id(save.getId())
+                .vendorId(save.getId())
                 .name(save.getName())
-                .phone(save.getPhone())
                 .build();
     }
 }

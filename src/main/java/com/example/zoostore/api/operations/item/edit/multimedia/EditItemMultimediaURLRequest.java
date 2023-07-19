@@ -12,6 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemMultimediaURLRequest implements OperationInput {
-    private UUID id;
-    private Set<String> url;
+    private UUID itemId;
+    private Set<String> urls;
 }

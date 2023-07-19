@@ -7,10 +7,7 @@ import com.example.zoostore.persistence.entities.Vendor;
 import com.example.zoostore.persistence.repositories.VendorRepository;
 import com.example.zoostore.core.exceptions.vendor.VendorNotFoundInRepositoryException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -18,7 +15,7 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
     private final VendorRepository vendorRepository;
     @Override
     public EditVendorPhoneResponse process(EditVendorPhoneRequest editVendorPhoneRequest) {
-        Vendor foundInRepo = vendorRepository.findById(editVendorPhoneRequest.getId())
+        Vendor foundInRepo = vendorRepository.findById(editVendorPhoneRequest.getVendorId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         foundInRepo.setPhone(editVendorPhoneRequest.getPhone());
@@ -26,8 +23,7 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
         Vendor save = vendorRepository.save(foundInRepo);
 
         return EditVendorPhoneResponse.builder()
-                .id(save.getId())
-                .name(save.getName())
+                .vendorId(save.getId())
                 .phone(save.getPhone())
                 .build();
     }

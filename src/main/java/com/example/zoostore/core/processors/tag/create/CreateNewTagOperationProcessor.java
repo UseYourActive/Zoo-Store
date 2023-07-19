@@ -22,7 +22,7 @@ public class CreateNewTagOperationProcessor implements CreateNewTagOperation {
         Tag save = tagRepository.save(tag);
 
         return CreateNewTagResponse.builder()
-                .id(save.getId())
+                .tagId(save.getId())
                 .title(save.getTitle())
                 .build();
     }

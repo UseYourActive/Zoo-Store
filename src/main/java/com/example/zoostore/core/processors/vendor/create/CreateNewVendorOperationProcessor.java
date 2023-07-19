@@ -23,7 +23,7 @@ public class CreateNewVendorOperationProcessor implements CreateNewVendorOperati
         Vendor save = vendorRepository.save(vendor);
 
         return CreateNewVendorResponse.builder()
-                .id(save.getId())
+                .vendorId(save.getId())
                 .name(save.getName())
                 .phone(save.getPhone())
                 .build();

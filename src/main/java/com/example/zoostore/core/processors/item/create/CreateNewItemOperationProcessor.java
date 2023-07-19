@@ -26,12 +26,12 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
 
     @Override
     public CreateNewItemResponse process(CreateNewItemRequest createNewItemRequest) {
-        Vendor vendor = vendorRepository.findById(createNewItemRequest.getVendor())
-                .orElseThrow(VendorNotFoundInRepositoryException::new);
+        Vendor vendor = vendorRepository.findById(createNewItemRequest.getVendorId())
+                .orElseThrow(() -> new VendorNotFoundInRepositoryException("Vendor not found while creating a new item!"));
 
-        Set<Tag> tags = tagRepository.findAllByIdIn(createNewItemRequest.getTags());
+        Set<Tag> tags = tagRepository.findAllByIdIn(createNewItemRequest.getTagIds());
 
-        if(tags.size() != createNewItemRequest.getTags().size()){ //TODO ruchen fetch ot bazata findbyid na vseki tak i da se natrupat nesushtestvuvashtite ID-ta v list
+        if(tags.size() != createNewItemRequest.getTagIds().size()){ //TODO ruchen fetch ot bazata findbyid na vseki tak i da se natrupat nesushtestvuvashtite ID-ta v list
             throw new TagNotFoundInRepositoryException();
         }
 
@@ -45,12 +45,12 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
         Item save = itemRepository.save(item);
 
         return CreateNewItemResponse.builder()
-                .id(save.getId())
-                .vendor(save.getVendor().getId())
+                .itemId(save.getId())
+                .vendorId(save.getVendor().getId())
                 .description(save.getDescription())
                 //.multimedia(save.getMultimedia().stream().map(Multimedia::getId).collect(Collectors.toSet())) null pointer because URLs can't be attached to a new item immediately
                 .title(save.getProductName())
-                .tags(save.getTags().stream().map(Tag::getId).collect(Collectors.toSet()))
+                .tagIds(save.getTags().stream().map(Tag::getId).collect(Collectors.toSet()))
                 .build();
     }
 }

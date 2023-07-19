@@ -14,7 +14,7 @@ import java.util.UUID;
 public class CreateNewItemRequest implements OperationInput {
     private String title;
     private String description;
-    private UUID vendor;
-    private Set<UUID> tags;
+    private UUID vendorId;
+    private Set<UUID> tagIds;
 }
 //@NotBlank // da ne e prazno

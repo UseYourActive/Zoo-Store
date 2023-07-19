@@ -11,6 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemVendorResponse implements OperationResult {
-    private UUID id;
-    private UUID vendor;
+    private UUID itemId;
+    private UUID vendorId;
 }

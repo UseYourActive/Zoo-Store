@@ -11,6 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditVendorNameRequest implements OperationInput {
-    private UUID id;
+    private UUID vendorId;
     private String name;
 }

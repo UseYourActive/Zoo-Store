@@ -23,19 +23,18 @@ public class EditItemTagOperationProcessor implements EditItemTagOperation {
 
     @Override
     public EditItemTagResponse process(EditItemTagRequest editItemTagRequest) {
-        Item itemFoundInRepository = itemRepository.findById(editItemTagRequest.getId())
+        Item itemFoundInRepository = itemRepository.findById(editItemTagRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
-        Set<Tag> tags = tagRepository.findAllByIdIn(Collections.singleton(editItemTagRequest.getId()))
-                .orElseThrow(TagNotFoundInRepositoryException::new);
+        Set<Tag> tags = tagRepository.findAllByIdIn(editItemTagRequest.getTagIds());
 
         itemFoundInRepository.setTags(tags);
 
         Item savedItem = itemRepository.save(itemFoundInRepository);
 
         return EditItemTagResponse.builder()
-                .id(savedItem.getId())
-                .title(savedItem.getTags().toString())
+                .itemId(savedItem.getId())
+                .tagTitle(savedItem.getTags().toString())
                 .build();
 
         //TODO opravi returnovete da pravqt proverki dali kolekciqta e prazna

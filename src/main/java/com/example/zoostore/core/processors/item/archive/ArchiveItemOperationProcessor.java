@@ -19,7 +19,7 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
 
     @Override
     public ArchiveItemResponse process(ArchiveItemRequest request) {
-        Item found = itemRepository.findById(request.getId())
+        Item found = itemRepository.findById(request.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Item item = Item.builder()
@@ -35,12 +35,12 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
         Item save = itemRepository.save(item);
 
         return ArchiveItemResponse.builder()
-                .id(save.getId())
-                .vendor(save.getVendor().getId())
+                .itemId(save.getId())
+                .vendorId(save.getVendor().getId())
                 .description(save.getDescription())
                 //.multimedia(save.getMultimedia().stream().map(Multimedia::getId).collect(Collectors.toSet()))
                 .title(save.getProductName())
-                .tags(save.getTags().stream().map(Tag::getId).collect(Collectors.toSet()))
+                .tagIds(save.getTags().stream().map(Tag::getId).collect(Collectors.toSet()))
                 .isArchived(true)
                 .build();
     }

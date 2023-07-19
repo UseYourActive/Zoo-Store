@@ -12,6 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemMultimediaURLResponse implements OperationResult {
-    private UUID id;
+    private UUID itemId;
     private Set<String> multimedia;
 }

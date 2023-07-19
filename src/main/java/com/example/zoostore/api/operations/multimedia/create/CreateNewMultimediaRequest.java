@@ -11,6 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class CreateNewMultimediaRequest implements OperationInput {
-    private UUID id;
+    private UUID itemId;
     private String url;
 }

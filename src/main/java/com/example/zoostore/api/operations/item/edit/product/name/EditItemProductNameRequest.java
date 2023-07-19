@@ -11,6 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemProductNameRequest implements OperationInput {
-    private UUID id;
-    private String title;
+    private UUID itemId;
+    private String productName;
 }

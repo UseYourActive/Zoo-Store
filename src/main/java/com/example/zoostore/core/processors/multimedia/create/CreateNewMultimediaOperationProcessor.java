@@ -19,7 +19,7 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
 
     @Override
     public CreateNewMultimediaResponse process(CreateNewMultimediaRequest createNewMultimediaRequest) {
-        Item item = itemRepository.findById(createNewMultimediaRequest.getId())
+        Item item = itemRepository.findById(createNewMultimediaRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Multimedia multimedia = Multimedia.builder()
@@ -30,7 +30,7 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
         Multimedia save = multimediaRepository.save(multimedia);
 
         return CreateNewMultimediaResponse.builder()
-                .id(save.getId())
+                .itemId(save.getId())
                 .url(save.getUrl())
                 .build();
     }

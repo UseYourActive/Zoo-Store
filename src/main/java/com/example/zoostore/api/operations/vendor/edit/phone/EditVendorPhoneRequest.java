@@ -11,6 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditVendorPhoneRequest implements OperationInput {
-    private UUID id;
+    private UUID vendorId;
     private String phone;
 }

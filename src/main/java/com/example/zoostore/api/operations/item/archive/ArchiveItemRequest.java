@@ -11,5 +11,5 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ArchiveItemRequest implements OperationInput {
-    private UUID id;
+    private UUID itemId;
 }

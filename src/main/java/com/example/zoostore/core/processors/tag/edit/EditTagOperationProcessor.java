@@ -16,7 +16,7 @@ public class EditTagOperationProcessor implements EditTagOperation {
 
     @Override
     public EditTagNameResponse process(EditTagNameRequest editTagNameRequest) {
-        Tag foundInRepo = tagRepository.findById(editTagNameRequest.getId())
+        Tag foundInRepo = tagRepository.findById(editTagNameRequest.getTagId())
                 .orElseThrow(TagNotFoundInRepositoryException::new);
 
         foundInRepo.setTitle(editTagNameRequest.getTitle());
@@ -24,7 +24,7 @@ public class EditTagOperationProcessor implements EditTagOperation {
         Tag save = tagRepository.save(foundInRepo);
 
         return EditTagNameResponse.builder()
-                .id(save.getId())
+                .tagId(save.getId())
                 .title(save.getTitle())
                 .build();
     }

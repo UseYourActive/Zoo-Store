@@ -16,7 +16,7 @@ public class EditMultimediaOperationProcessor implements EditMultimediaOperation
 
     @Override
     public EditMultimediaURLResponse process(EditMultimediaURLRequest editMultimediaURLRequest) {
-        Multimedia foundInRepo = multimediaRepository.findById(editMultimediaURLRequest.getId())
+        Multimedia foundInRepo = multimediaRepository.findById(editMultimediaURLRequest.getMultimediaId())
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
 
         foundInRepo.setUrl(editMultimediaURLRequest.getUrl());
@@ -24,7 +24,7 @@ public class EditMultimediaOperationProcessor implements EditMultimediaOperation
         Multimedia save = multimediaRepository.save(foundInRepo);
 
         return EditMultimediaURLResponse.builder()
-                .id(save.getId())
+                .itemId(save.getId())
                 .url(save.getUrl())
                 .build();
     }

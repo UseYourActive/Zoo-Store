@@ -11,7 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditVendorNameResponse implements OperationResult {
-    private UUID id;
+    private UUID vendorId;
     private String name;
-    private String phone;
 }

@@ -9,4 +9,8 @@ public class VendorNotFoundInRepositoryException extends VendorException {
     public VendorNotFoundInRepositoryException() {
 
     }
+
+    public VendorNotFoundInRepositoryException(String s) {
+        super();
+    }
 }

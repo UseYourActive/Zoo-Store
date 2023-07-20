@@ -20,7 +20,7 @@ public class EditItemMultimediaURLOperationProcessor implements EditItemMultimed
 
     @Override
     public EditItemMultimediaURLResponse process(EditItemMultimediaURLRequest editItemMultimediaURLRequest) {
-        Item itemFoundInRepository = itemRepository.findById(editItemMultimediaURLRequest.getItemId())
+        Item itemFoundInRepository = itemRepository.findItemById(editItemMultimediaURLRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Set<Multimedia> multimediaSet = editItemMultimediaURLRequest.getUrls().stream()

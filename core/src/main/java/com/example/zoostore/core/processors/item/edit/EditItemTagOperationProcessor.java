@@ -21,7 +21,7 @@ public class EditItemTagOperationProcessor implements EditItemTagOperation {
 
     @Override
     public EditItemTagResponse process(EditItemTagRequest editItemTagRequest) {
-        Item itemFoundInRepository = itemRepository.findById(editItemTagRequest.getItemId())
+        Item itemFoundInRepository = itemRepository.findItemById(editItemTagRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Set<Tag> tags = tagRepository.findAllByIdIn(editItemTagRequest.getTagIds());

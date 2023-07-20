@@ -16,7 +16,7 @@ public class EditItemDescriptionOperationProcessor implements EditItemDescriptio
 
     @Override
     public EditItemDescriptionResponse process(EditItemDescriptionRequest editItemDescriptionRequest) {
-        Item itemFoundInRepository = itemRepository.findById(editItemDescriptionRequest.getItemId())
+        Item itemFoundInRepository = itemRepository.findItemById(editItemDescriptionRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         itemFoundInRepository.setDescription(editItemDescriptionRequest.getDescription());

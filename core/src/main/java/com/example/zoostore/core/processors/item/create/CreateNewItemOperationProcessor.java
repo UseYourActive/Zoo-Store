@@ -26,7 +26,7 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
 
     @Override
     public CreateNewItemResponse process(CreateNewItemRequest createNewItemRequest) {
-        Vendor vendor = vendorRepository.findById(createNewItemRequest.getVendorId())
+        Vendor vendor = vendorRepository.findVendorById(createNewItemRequest.getVendorId())
                 .orElseThrow(() -> new VendorNotFoundInRepositoryException("Vendor not found while creating a new item!"));
 
         Set<Tag> tags = tagRepository.findAllByIdIn(createNewItemRequest.getTagIds());

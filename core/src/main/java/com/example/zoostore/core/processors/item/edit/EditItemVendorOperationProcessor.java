@@ -22,10 +22,10 @@ public class EditItemVendorOperationProcessor implements EditItemVendorOperation
 
     @Override
     public EditItemVendorResponse process(EditItemVendorRequest editItemVendorRequest) {
-        Item itemFoundInRepository = itemRepository.findById(editItemVendorRequest.getVendorId())
+        Item itemFoundInRepository = itemRepository.findItemById(editItemVendorRequest.getVendorId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
-        Optional<Vendor> vendorOptional = vendorRepository.findById(editItemVendorRequest.getItemId());
+        Optional<Vendor> vendorOptional = vendorRepository.findVendorById(editItemVendorRequest.getItemId());
 
         Vendor vendor = vendorOptional
                 .orElseThrow(VendorNotFoundInRepositoryException::new);

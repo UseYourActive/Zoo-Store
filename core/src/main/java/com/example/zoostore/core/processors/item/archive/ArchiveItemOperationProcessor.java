@@ -19,7 +19,7 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
 
     @Override
     public ArchiveItemResponse process(ArchiveItemRequest request) {
-        Item found = itemRepository.findById(request.getItemId())
+        Item found = itemRepository.findItemById(request.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Item item = Item.builder()

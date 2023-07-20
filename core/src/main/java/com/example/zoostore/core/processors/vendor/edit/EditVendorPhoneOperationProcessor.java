@@ -9,18 +9,23 @@ import com.example.zoostore.core.exceptions.vendor.VendorNotFoundInRepositoryExc
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperation {
     private final VendorRepository vendorRepository;
     @Override
     public EditVendorPhoneResponse process(EditVendorPhoneRequest editVendorPhoneRequest) {
-        Vendor foundInRepo = vendorRepository.findById(editVendorPhoneRequest.getVendorId())
+        Optional<Vendor> vendorOptional = vendorRepository.findVendorById(editVendorPhoneRequest.getVendorId());
+
+        Vendor vendor = vendorOptional
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
-        foundInRepo.setPhone(editVendorPhoneRequest.getPhone());
+        vendor.setPhone(editVendorPhoneRequest.getPhone());
+        vendor.setName(vendor.getName());
 
-        Vendor save = vendorRepository.save(foundInRepo);
+        Vendor save = vendorRepository.save(vendor);
 
         return EditVendorPhoneResponse.builder()
                 .vendorId(save.getId())

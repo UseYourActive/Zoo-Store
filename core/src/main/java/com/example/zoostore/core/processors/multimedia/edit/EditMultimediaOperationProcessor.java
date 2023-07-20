@@ -9,6 +9,8 @@ import com.example.zoostore.core.exceptions.multimedia.MultimediaNotFoundInRepos
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class EditMultimediaOperationProcessor implements EditMultimediaOperation {
@@ -16,12 +18,17 @@ public class EditMultimediaOperationProcessor implements EditMultimediaOperation
 
     @Override
     public EditMultimediaURLResponse process(EditMultimediaURLRequest editMultimediaURLRequest) {
-        Multimedia foundInRepo = multimediaRepository.findById(editMultimediaURLRequest.getMultimediaId())
+        Optional<Multimedia> multimediaOptional = multimediaRepository.findMultimediaById(editMultimediaURLRequest.getMultimediaId());
+
+        Multimedia multimedia = multimediaOptional
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
 
-        foundInRepo.setUrl(editMultimediaURLRequest.getUrl());
+//        Multimedia foundInRepo = multimediaRepository.findMultimediaById(editMultimediaURLRequest.getMultimediaId())
+//                .orElseThrow(MultimediaNotFoundInRepositoryException::new);
 
-        Multimedia save = multimediaRepository.save(foundInRepo);
+        multimedia.setUrl(editMultimediaURLRequest.getUrl());
+
+        Multimedia save = multimediaRepository.save(multimedia);
 
         return EditMultimediaURLResponse.builder()
                 .itemId(save.getId())

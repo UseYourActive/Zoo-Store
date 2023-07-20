@@ -21,11 +21,8 @@ import com.example.zoostore.api.operations.item.edit.tag.EditItemTagOperation;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorRequest;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorResponse;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorOperation;
-import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
-import com.example.zoostore.core.exceptions.multimedia.MultimediaNotFoundInRepositoryException;
-import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
-import com.example.zoostore.core.exceptions.vendor.VendorNotFoundInRepositoryException;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,49 +43,49 @@ public class ItemController {
     @Operation(description = "From the users request creates a new item that does not exist in the database yet.",
             summary = "Creates a new item.")
     @PostMapping("/create")
-    public ResponseEntity<CreateNewItemResponse> createItem(@RequestBody CreateNewItemRequest request) {
+    public ResponseEntity<CreateNewItemResponse> createItem(@Valid  @RequestBody CreateNewItemRequest request) {
         return new ResponseEntity<>(createItemService.process(request), HttpStatus.CREATED);
     }
 
     @Operation(description = "Edits an existing in the database name of the product with the given id from the users request.",
             summary = "Edits a products name.")
     @PatchMapping("/edit/product-name")
-    public ResponseEntity<EditItemProductNameResponse> editItemProductName(@RequestBody EditItemProductNameRequest request) {
+    public ResponseEntity<EditItemProductNameResponse> editItemProductName(@Valid @RequestBody EditItemProductNameRequest request) {
         return new ResponseEntity<>(editItemProductNameService.process(request), HttpStatus.ACCEPTED);
     }
 
     @Operation(description = "Edits an existing in the database description of the product with the given id from the users request.",
             summary = "Edits a products description.")
     @PatchMapping("/edit/description")
-    public ResponseEntity<EditItemDescriptionResponse> editItemDescription(@RequestBody EditItemDescriptionRequest request) {
+    public ResponseEntity<EditItemDescriptionResponse> editItemDescription(@Valid @RequestBody EditItemDescriptionRequest request) {
         return new ResponseEntity<>(editItemDescriptionService.process(request), HttpStatus.ACCEPTED);
     }
 
     @Operation(description = "Edits an existing in the database vendor of the product with the given id from the users request.",
             summary = "Edits a products vendor.")
     @PatchMapping("/edit/vendor")
-    public ResponseEntity<EditItemVendorResponse> editItemVendor(@RequestBody EditItemVendorRequest request) {
+    public ResponseEntity<EditItemVendorResponse> editItemVendor(@Valid @RequestBody EditItemVendorRequest request) {
         return new ResponseEntity<>(editItemVendorService.process(request), HttpStatus.ACCEPTED);
     }
 
     @Operation(description = "Edits an existing in the database urls of the product with the given id from the users request.",
             summary = "Edits a products urls.")
     @PatchMapping("/edit/multimedia")
-    public ResponseEntity<EditItemMultimediaURLResponse> replaceItemMultimediaURL(@RequestBody EditItemMultimediaURLRequest request) {
+    public ResponseEntity<EditItemMultimediaURLResponse> replaceItemMultimediaURL(@Valid @RequestBody EditItemMultimediaURLRequest request) {
         return new ResponseEntity<>(editItemMultimediaURLService.process(request), HttpStatus.ACCEPTED);
     }
 
     @Operation(description = "Edits an existing in the database tag title of the product with the given id from the users request.",
             summary = "Edits a products tag title.")
     @PatchMapping("/edit/tag")
-    public ResponseEntity<EditItemTagResponse> editItemTag(@RequestBody EditItemTagRequest request) {
+    public ResponseEntity<EditItemTagResponse> editItemTag(@Valid @RequestBody EditItemTagRequest request) {
         return new ResponseEntity<>(editItemTagService.process(request), HttpStatus.ACCEPTED);
     }
 
     @Operation(description = "Archives an existing in the database product with the given id from the users request, hiding it from the clients vision.",
             summary = "Archives an item.")
     @PatchMapping("/archive")
-    public ResponseEntity<ArchiveItemResponse> archiveItem(@RequestBody ArchiveItemRequest request) {
+    public ResponseEntity<ArchiveItemResponse> archiveItem(@Valid @RequestBody ArchiveItemRequest request) {
         return new ResponseEntity<>(archiveItemService.process(request), HttpStatus.ACCEPTED);
     }
 }

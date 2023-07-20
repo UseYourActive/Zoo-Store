@@ -1,6 +1,7 @@
 package com.example.zoostore.api.operations.tag.edit.tag;
 
 import com.example.zoostore.api.base.OperationInput;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.UUID;
@@ -11,6 +12,9 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditTagNameRequest implements OperationInput {
+    @NotBlank(message = "Was not a valid input!")
     private UUID tagId;
+
+    @NotBlank(message = "Was not a valid input!")
     private String title;
 }

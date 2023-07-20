@@ -1,6 +1,7 @@
 package com.example.zoostore.api.operations.item.archive;
 
 import com.example.zoostore.api.base.OperationInput;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.UUID;
@@ -11,5 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ArchiveItemRequest implements OperationInput {
+    @NotBlank(message = "Was not a valid input!")
     private UUID itemId;
 }

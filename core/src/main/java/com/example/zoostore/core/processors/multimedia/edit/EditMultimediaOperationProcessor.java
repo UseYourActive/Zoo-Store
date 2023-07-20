@@ -18,13 +18,8 @@ public class EditMultimediaOperationProcessor implements EditMultimediaOperation
 
     @Override
     public EditMultimediaURLResponse process(EditMultimediaURLRequest editMultimediaURLRequest) {
-        Optional<Multimedia> multimediaOptional = multimediaRepository.findMultimediaById(editMultimediaURLRequest.getMultimediaId());
-
-        Multimedia multimedia = multimediaOptional
+        Multimedia multimedia = multimediaRepository.findMultimediaById(editMultimediaURLRequest.getMultimediaId())
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
-
-//        Multimedia foundInRepo = multimediaRepository.findMultimediaById(editMultimediaURLRequest.getMultimediaId())
-//                .orElseThrow(MultimediaNotFoundInRepositoryException::new);
 
         multimedia.setUrl(editMultimediaURLRequest.getUrl());
 

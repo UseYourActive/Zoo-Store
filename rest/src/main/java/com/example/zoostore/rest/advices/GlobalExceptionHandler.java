@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
-        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("That was an invalid request input! " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("That was an invalid request input! " + e.getMessage());
     }
 
     @ExceptionHandler(ItemNotFoundInRepositoryException.class)

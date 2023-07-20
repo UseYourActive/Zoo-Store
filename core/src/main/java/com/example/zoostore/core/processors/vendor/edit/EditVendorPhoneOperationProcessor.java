@@ -17,9 +17,7 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
     private final VendorRepository vendorRepository;
     @Override
     public EditVendorPhoneResponse process(EditVendorPhoneRequest editVendorPhoneRequest) {
-        Optional<Vendor> vendorOptional = vendorRepository.findVendorById(editVendorPhoneRequest.getVendorId());
-
-        Vendor vendor = vendorOptional
+        Vendor vendor = vendorRepository.findVendorById(editVendorPhoneRequest.getVendorId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         vendor.setPhone(editVendorPhoneRequest.getPhone());

@@ -19,9 +19,7 @@ public class EditVendorNameOperationProcessor implements EditVendorNameOperation
 
     @Override
     public EditVendorNameResponse process(EditVendorNameRequest editVendorNameRequest) {
-        Optional<Vendor> vendorOptional = vendorRepository.findVendorById(editVendorNameRequest.getVendorId());
-
-        Vendor vendor = vendorOptional
+        Vendor vendor = vendorRepository.findVendorById(editVendorNameRequest.getVendorId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         vendor.setName(editVendorNameRequest.getName());

@@ -20,9 +20,7 @@ public class EditTagOperationProcessor implements EditTagOperation {
 
     @Override
     public EditTagNameResponse process(EditTagNameRequest editTagNameRequest) {
-        Optional<Tag> tagOptional = tagRepository.findTagById(editTagNameRequest.getTagId());
-
-        Tag tag = tagOptional
+        Tag tag = tagRepository.findTagById(editTagNameRequest.getTagId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         tag.setTitle(editTagNameRequest.getTitle());

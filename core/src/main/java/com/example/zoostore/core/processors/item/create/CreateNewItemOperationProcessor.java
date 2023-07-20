@@ -39,7 +39,7 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
                 .tags(tags)
                 .vendor(vendor)
                 .description(createNewItemRequest.getDescription())
-                .productName(createNewItemRequest.getTitle())
+                .productName(createNewItemRequest.getProductName())
                 .build();
 
         Item save = itemRepository.save(item);

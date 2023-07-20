@@ -2,6 +2,7 @@ package com.example.zoostore.api.operations.vendor.edit.phone;
 
 import com.example.zoostore.api.base.OperationInput;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.UUID;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditVendorPhoneRequest implements OperationInput {
-    @NotBlank(message = "Vendor UUID is required!")
+    @NotNull(message = "Vendor UUID is required!")
     private UUID vendorId;
 
     @NotBlank(message = "Phone is required!")

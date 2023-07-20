@@ -1,6 +1,7 @@
 package com.example.zoostore.rest.configs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,11 @@ public class AppConfig {
         ObjectMapper objectMapper = new ObjectMapper();
         //configuraciq na objectmapper-a
         return objectMapper; //vrushtame go
+    }
+
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
 
     @Bean

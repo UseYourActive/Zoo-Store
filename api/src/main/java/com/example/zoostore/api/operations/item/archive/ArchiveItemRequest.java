@@ -1,7 +1,7 @@
 package com.example.zoostore.api.operations.item.archive;
 
 import com.example.zoostore.api.base.OperationInput;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.UUID;
@@ -12,6 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ArchiveItemRequest implements OperationInput {
-    @NotBlank(message = "Item UUID is required!")
+    @NotNull(message = "Item UUID is required!")
     private UUID itemId;
 }

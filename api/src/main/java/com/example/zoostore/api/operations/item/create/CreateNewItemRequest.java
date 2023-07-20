@@ -3,6 +3,7 @@ package com.example.zoostore.api.operations.item.create;
 import com.example.zoostore.api.base.OperationInput;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -21,9 +22,9 @@ public class CreateNewItemRequest implements OperationInput {
     @Size(min = 10, max = 100, message = "Description must be between 10 and 100 characters long to be valid!")
     private String description;
 
-    @NotBlank(message = "Vendor UUID is required!")
+    @NotNull(message = "Vendor UUID is required!")
     private UUID vendorId;
 
-    @NotEmpty(message = "Tags UUIDs are required!")
+    @NotNull(message = "Tags UUIDs are required!")
     private Set<UUID> tagIds;
 }

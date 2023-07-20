@@ -12,9 +12,9 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditMultimediaURLRequest implements OperationInput {
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Multimedia UUID is required!")
     private UUID multimediaId;
 
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "URL is required!")
     private String url;
 }

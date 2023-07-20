@@ -21,9 +21,9 @@ public class CreateNewItemRequest implements OperationInput {
     @Size(min = 10, max = 100, message = "Description must be between 10 and 100 characters long to be valid!")
     private String description;
 
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Vendor UUID is required!")
     private UUID vendorId;
 
-    @NotEmpty(message = "Was not a valid input!")
+    @NotEmpty(message = "Tags UUIDs are required!")
     private Set<UUID> tagIds;
 }

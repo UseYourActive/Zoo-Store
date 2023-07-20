@@ -12,9 +12,9 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditTagNameRequest implements OperationInput {
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Tag UUID is required!")
     private UUID tagId;
 
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Title is required!")
     private String title;
 }

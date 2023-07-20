@@ -14,9 +14,9 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemTagRequest implements OperationInput {
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Item UUID is required!")
     private UUID itemId;
 
-    @NotEmpty(message = "Was not a valid input!")
+    @NotEmpty(message = "Tags UUIDs are required!")
     private Set<UUID> tagIds;
 }

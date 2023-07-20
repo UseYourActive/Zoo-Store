@@ -10,6 +10,6 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class CreateNewTagRequest implements OperationInput {
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Title is required!")
     private String title;
 }

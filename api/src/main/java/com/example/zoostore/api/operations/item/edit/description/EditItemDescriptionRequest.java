@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemDescriptionRequest implements OperationInput {
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Vendor UUID is required!")
     private UUID itemId;
 
     @Size(min = 10, max = 100, message = "Description must be between 10 and 100 characters long to be valid!")

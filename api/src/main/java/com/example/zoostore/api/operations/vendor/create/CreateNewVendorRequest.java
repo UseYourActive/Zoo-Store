@@ -10,9 +10,9 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class CreateNewVendorRequest implements OperationInput {
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Name is required!")
     private String name;
 
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Phone is required!")
     private String phone;
 }

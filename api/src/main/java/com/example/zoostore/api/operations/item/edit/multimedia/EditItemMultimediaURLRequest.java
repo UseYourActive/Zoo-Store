@@ -15,9 +15,9 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemMultimediaURLRequest implements OperationInput {
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Vendor UUID is required!")
     private UUID itemId;
 
-    @NotEmpty(message = "Was not a valid input!")
+    @NotEmpty(message = "URLs are required!")
     private Set<String> urls;
 }

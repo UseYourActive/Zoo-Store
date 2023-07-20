@@ -12,9 +12,9 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditVendorNameRequest implements OperationInput {
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Vendor UUID is required!")
     private UUID vendorId;
 
-    @NotBlank(message = "Was not a valid input!")
+    @NotBlank(message = "Name is required!")
     private String name;
 }

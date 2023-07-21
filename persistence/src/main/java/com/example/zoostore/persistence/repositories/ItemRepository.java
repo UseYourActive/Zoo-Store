@@ -1,7 +1,6 @@
 package com.example.zoostore.persistence.repositories;
 
 import com.example.zoostore.persistence.entities.Item;
-import com.example.zoostore.persistence.entities.Vendor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

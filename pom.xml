@@ -8,7 +8,7 @@
         <version>3.1.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>com.example.zoostore</groupId>
     <artifactId>zoostore</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
@@ -24,7 +24,7 @@
     </modules>
 
     <properties>
-        <revision>0.0.2-SNAPSHOT</revision>
+        <revision>0.0.3-SNAPSHOT</revision>
         <java.version>17</java.version>
     </properties>
 
@@ -65,35 +65,30 @@
             <version>3.1.1</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>4.0.3</version>
-        </dependency>
-        <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-jackson</artifactId>
             <version>12.4</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
-<!--            <version>${openfeign.cloud.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.github.openfeign.form</groupId>-->
-<!--            <artifactId>feign-form</artifactId>-->
-<!--            <version>${openfeign.form.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.github.openfeign.form</groupId>-->
-<!--            <artifactId>feign-form-spring</artifactId>-->
-<!--            <version>${openfeign.form.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign.form</groupId>
+            <artifactId>feign-form</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign.form</groupId>
+            <artifactId>feign-form-spring</artifactId>
+            <version>3.8.0</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.cloud</groupId>-->
 <!--            <artifactId>spring-cloud-openfeign-core</artifactId>-->
-<!--            <version>${openfeign.cloud.version}</version>-->
+<!--            <version>4.0.3</version>-->
 <!--        </dependency>-->
     </dependencies>
 

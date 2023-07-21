@@ -1,5 +1,7 @@
 package com.example.zoostore.rest.controllers;
 
+import com.example.zoostore.api.operations.item.findbyid.FindItemByIdRequest;
+import com.example.zoostore.api.operations.item.findbyid.FindItemByIdResponse;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemRequest;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemResponse;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemOperation;
@@ -21,12 +23,15 @@ import com.example.zoostore.api.operations.item.edit.tag.EditItemTagOperation;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorRequest;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorResponse;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorOperation;
+import com.example.zoostore.api.operations.item.findbyid.FindItemByIdOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,6 +44,7 @@ public class ItemController {
     private final EditItemMultimediaURLOperation editItemMultimediaURLService;
     private final EditItemTagOperation editItemTagService;
     private final ArchiveItemOperation archiveItemService;
+    private final FindItemByIdOperation findItemByIdOperation;
 
     @Operation(description = "From the users request creates a new item that does not exist in the database yet.",
             summary = "Creates a new item.")
@@ -87,5 +93,10 @@ public class ItemController {
     @PatchMapping("/archive")
     public ResponseEntity<ArchiveItemResponse> archiveItem(@Valid @RequestBody ArchiveItemRequest request) {
         return new ResponseEntity<>(archiveItemService.process(request), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/{request}")
+    public ResponseEntity<FindItemByIdResponse> getItemById(@PathVariable @org.hibernate.validator.constraints.UUID UUID request){
+        return new ResponseEntity<>(findItemByIdOperation.process(FindItemByIdRequest.builder().id(request).build()), HttpStatus.OK);
     }
 }

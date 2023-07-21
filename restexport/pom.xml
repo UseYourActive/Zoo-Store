@@ -9,17 +9,12 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>domain</artifactId>
+    <artifactId>restexport</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>rest</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>restexport</artifactId>
+            <artifactId>api</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>

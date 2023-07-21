@@ -4,6 +4,7 @@ import com.example.zoostore.api.operations.item.archive.ArchiveItemRequest;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemResponse;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemOperation;
 import com.example.zoostore.persistence.entities.Item;
+import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
@@ -34,13 +35,30 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
 
         Item save = itemRepository.save(item);
 
+        if(save.getMultimedia().isEmpty()){
+            return ArchiveItemResponse.builder()
+                    .itemId(save.getId())
+                    .vendorId(save.getVendor().getId())
+                    .description(save.getDescription())
+                    .title(save.getProductName())
+                    .tagIds(save.getTags().stream()
+                            .map(Tag::getId)
+                            .collect(Collectors.toSet()))
+                    .isArchived(true)
+                    .build();
+        }
+
         return ArchiveItemResponse.builder()
                 .itemId(save.getId())
                 .vendorId(save.getVendor().getId())
                 .description(save.getDescription())
-                //.multimedia(save.getMultimedia().stream().map(Multimedia::getId).collect(Collectors.toSet()))
+                .multimediaIds(save.getMultimedia().stream()
+                        .map(Multimedia::getId)
+                        .collect(Collectors.toSet()))
                 .title(save.getProductName())
-                .tagIds(save.getTags().stream().map(Tag::getId).collect(Collectors.toSet()))
+                .tagIds(save.getTags().stream()
+                        .map(Tag::getId)
+                        .collect(Collectors.toSet()))
                 .isArchived(true)
                 .build();
     }

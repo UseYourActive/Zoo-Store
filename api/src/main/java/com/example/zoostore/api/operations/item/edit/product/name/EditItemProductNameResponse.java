@@ -3,6 +3,7 @@ package com.example.zoostore.api.operations.item.edit.product.name;
 import com.example.zoostore.api.base.OperationResult;
 import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -13,4 +14,9 @@ import java.util.UUID;
 public class EditItemProductNameResponse implements OperationResult {
     private UUID itemId;
     private String productName;
+    private String description;
+    private UUID vendorId;
+    private Set<UUID> multimediaIds;
+    private Set<UUID> tagIds;
+    private boolean isArchived;
 }

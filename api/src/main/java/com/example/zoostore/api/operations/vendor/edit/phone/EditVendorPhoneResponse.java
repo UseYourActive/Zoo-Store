@@ -12,5 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditVendorPhoneResponse implements OperationResult {
     private UUID vendorId;
+    private String vendorName;
     private String phone;
 }

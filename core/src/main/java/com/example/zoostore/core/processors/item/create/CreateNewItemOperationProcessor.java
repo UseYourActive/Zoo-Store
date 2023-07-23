@@ -48,9 +48,11 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
                 .itemId(save.getId())
                 .vendorId(save.getVendor().getId())
                 .description(save.getDescription())
-                //.multimedia(save.getMultimedia().stream().map(Multimedia::getId).collect(Collectors.toSet())) null pointer because URLs can't be attached to a new item immediately
-                .title(save.getProductName())
-                .tagIds(save.getTags().stream().map(Tag::getId).collect(Collectors.toSet()))
+                .productName(save.getProductName())
+                .tagIds(save.getTags().stream()
+                        .map(Tag::getId)
+                        .collect(Collectors.toSet()))
+                .isArchived(save.isArchived())
                 .build();
     }
 }

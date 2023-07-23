@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperation {
     private final VendorRepository vendorRepository;
+
     @Override
     public EditVendorPhoneResponse process(EditVendorPhoneRequest editVendorPhoneRequest) {
         Vendor vendor = vendorRepository.findVendorById(editVendorPhoneRequest.getVendorId())
@@ -27,6 +28,7 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
 
         return EditVendorPhoneResponse.builder()
                 .vendorId(save.getId())
+                .vendorName(save.getName())
                 .phone(save.getPhone())
                 .build();
     }

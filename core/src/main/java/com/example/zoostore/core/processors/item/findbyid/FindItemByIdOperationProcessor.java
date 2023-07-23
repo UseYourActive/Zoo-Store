@@ -25,29 +25,29 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation {
 
         if(item.getMultimedia().isEmpty()){
             return FindItemByIdResponse.builder()
-                    .id(item.getId())
+                    .itemId(item.getId())
                     .productName(item.getProductName())
-                    .description(item.getDescription())
-                    .vendor(item.getVendor().getId())
-                    .tags(item.getTags().stream()
+                    .isArchived(item.isArchived())
+                    .tagIds(item.getTags().stream()
                             .map(Tag::getId)
                             .collect(Collectors.toSet()))
-                    .archived(item.isArchived())
+                    .vendorId(item.getVendor().getId())
+                    .description(item.getDescription())
                     .build();
         }
 
         return FindItemByIdResponse.builder()
-                .id(item.getId())
+                .itemId(item.getId())
                 .productName(item.getProductName())
-                .description(item.getDescription())
-                .vendor(item.getVendor().getId())
-                .tags(item.getTags().stream()
+                .isArchived(item.isArchived())
+                .tagIds(item.getTags().stream()
                         .map(Tag::getId)
                         .collect(Collectors.toSet()))
-                .multimedia(item.getMultimedia().stream()
+                .vendorId(item.getVendor().getId())
+                .multimediaIds(item.getMultimedia().stream()
                         .map(Multimedia::getId)
                         .collect(Collectors.toSet()))
-                .archived(item.isArchived())
+                .description(item.getDescription())
                 .build();
     }
 }

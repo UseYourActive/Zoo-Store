@@ -23,24 +23,26 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
         Item found = itemRepository.findItemById(request.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
-        Item item = Item.builder()
-                .id(found.getId())
-                .tags(found.getTags())
-                .productName(found.getProductName())
-                .description(found.getDescription())
-                .vendor(found.getVendor())
-                .multimedia(found.getMultimedia()) // moje da nqma multimedii i da stane null pointer
-                .archived(true)
-                .build();
+//        Item item = Item.builder()
+//                .id(found.getId())
+//                .tags(found.getTags())
+//                .productName(found.getProductName())
+//                .description(found.getDescription())
+//                .vendor(found.getVendor())
+//                .multimedia(found.getMultimedia()) // moje da nqma multimedii i da stane null pointer
+//                .archived(true)
+//                .build();
 
-        Item save = itemRepository.save(item);
+        found.setArchived(true);
+
+        Item save = itemRepository.save(found);
 
         if(save.getMultimedia().isEmpty()){
             return ArchiveItemResponse.builder()
                     .itemId(save.getId())
                     .vendorId(save.getVendor().getId())
                     .description(save.getDescription())
-                    .title(save.getProductName())
+                    .productName(save.getProductName())
                     .tagIds(save.getTags().stream()
                             .map(Tag::getId)
                             .collect(Collectors.toSet()))
@@ -55,7 +57,7 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
                 .multimediaIds(save.getMultimedia().stream()
                         .map(Multimedia::getId)
                         .collect(Collectors.toSet()))
-                .title(save.getProductName())
+                .productName(save.getProductName())
                 .tagIds(save.getTags().stream()
                         .map(Tag::getId)
                         .collect(Collectors.toSet()))

@@ -6,6 +6,7 @@ import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimed
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Multimedia;
+import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,17 +28,22 @@ public class EditItemMultimediaURLOperationProcessor implements EditItemMultimed
                 .map(url -> Multimedia.builder().url(url).build())
                 .collect(Collectors.toSet());
 
-        itemFoundInRepository.setMultimedia(multimediaSet);
+        itemFoundInRepository.getMultimedia().add((Multimedia) multimediaSet);
 
         Item savedItem = itemRepository.save(itemFoundInRepository);
 
-        Set<String> multimediaUrls = savedItem.getMultimedia().stream()
-                .map(Multimedia::getUrl)
-                .collect(Collectors.toSet());
-
         return EditItemMultimediaURLResponse.builder()
                 .itemId(savedItem.getId())
-                .multimedia(multimediaUrls)
+                .title(savedItem.getProductName())
+                .isArchived(savedItem.isArchived())
+                .tagIds(savedItem.getTags().stream()
+                        .map(Tag::getId)
+                        .collect(Collectors.toSet()))
+                .vendorId(savedItem.getVendor().getId())
+                .multimediaIds(savedItem.getMultimedia().stream()
+                        .map(Multimedia::getId)
+                        .collect(Collectors.toSet()))
+                .description(savedItem.getDescription())
                 .build();
 
         //TODO opravi returnovete da pravqt proverki dali kolekciqta e prazna

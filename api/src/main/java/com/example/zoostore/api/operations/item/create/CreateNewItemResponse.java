@@ -13,9 +13,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CreateNewItemResponse implements OperationResult {
     private UUID itemId;
-    private String title;
+    private String productName;
     private String description;
     private UUID vendorId;
+    private Set<UUID> multimediaIds; // will always be empty because a URL needs an item to be created.
     private Set<UUID> tagIds;
     private boolean isArchived;
 }

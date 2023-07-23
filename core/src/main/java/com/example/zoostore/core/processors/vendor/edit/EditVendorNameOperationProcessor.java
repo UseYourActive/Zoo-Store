@@ -29,7 +29,8 @@ public class EditVendorNameOperationProcessor implements EditVendorNameOperation
 
         return EditVendorNameResponse.builder()
                 .vendorId(save.getId())
-                .name(save.getName())
+                .vendorName(save.getName())
+                .phone(save.getPhone())
                 .build();
     }
 }

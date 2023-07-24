@@ -96,7 +96,7 @@ public class ItemController {
     }
 
     @GetMapping("/{request}")
-    public ResponseEntity<FindItemByIdResponse> getItemById(@PathVariable @org.hibernate.validator.constraints.UUID UUID request){
-        return new ResponseEntity<>(findItemByIdOperation.process(FindItemByIdRequest.builder().id(request).build()), HttpStatus.OK);
+    public ResponseEntity<FindItemByIdResponse> getItemById(@PathVariable @org.hibernate.validator.constraints.UUID String request){
+        return new ResponseEntity<>(findItemByIdOperation.process(FindItemByIdRequest.builder().id(UUID.fromString(request)).build()), HttpStatus.OK);
     }
 }

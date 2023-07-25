@@ -12,8 +12,8 @@ public class AppConfig {
     @Bean //vzima stoinostta ot return i otiva v konteinera na Spring
     public ObjectMapper getObjectMapper(){
         ObjectMapper objectMapper = new ObjectMapper();
-        //configuraciq na objectmapper-a
-        return objectMapper; //vrushtame go
+        //objectMapper.findAndRegisterModules();
+        return objectMapper;
     }
 
     @Bean

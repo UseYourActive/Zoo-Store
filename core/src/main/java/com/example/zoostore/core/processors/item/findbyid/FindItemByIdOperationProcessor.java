@@ -20,21 +20,21 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation {
 
     @Override
     public FindItemByIdResponse process(FindItemByIdRequest findItemByIdRequest) {
-        Item item = this.itemRepository.findItemById(findItemByIdRequest.getId())
+        Item item = this.itemRepository.findById(findItemByIdRequest.getId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
-        if(item.getMultimedia().isEmpty()){
-            return FindItemByIdResponse.builder()
-                    .itemId(item.getId())
-                    .productName(item.getProductName())
-                    .isArchived(item.isArchived())
-                    .tagIds(item.getTags().stream()
-                            .map(Tag::getId)
-                            .collect(Collectors.toSet()))
-                    .vendorId(item.getVendor().getId())
-                    .description(item.getDescription())
-                    .build();
-        }
+//        if(item.getMultimedia().isEmpty()){
+//            return FindItemByIdResponse.builder()
+//                    .itemId(item.getId())
+//                    .productName(item.getProductName())
+//                    .isArchived(item.isArchived())
+//                    .tagIds(item.getTags().stream()
+//                            .map(Tag::getId)
+//                            .collect(Collectors.toSet()))
+//                    .vendorId(item.getVendor().getId())
+//                    .description(item.getDescription())
+//                    .build();
+//        }
 
         return FindItemByIdResponse.builder()
                 .itemId(item.getId())

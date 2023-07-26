@@ -20,7 +20,7 @@ public class EditItemDescriptionOperationProcessor implements EditItemDescriptio
 
     @Override
     public EditItemDescriptionResponse process(EditItemDescriptionRequest editItemDescriptionRequest) {
-        Item itemFoundInRepository = itemRepository.findItemById(editItemDescriptionRequest.getItemId())
+        Item itemFoundInRepository = itemRepository.findById(editItemDescriptionRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         itemFoundInRepository.setDescription(editItemDescriptionRequest.getDescription());

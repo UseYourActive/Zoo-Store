@@ -21,7 +21,7 @@ public class EditItemProductNameOperationProcessor implements EditItemProductNam
 
     @Override
     public EditItemProductNameResponse process(EditItemProductNameRequest editItemProductNameRequest) {
-        Item itemFoundInRepository = itemRepository.findItemById(editItemProductNameRequest.getItemId())
+        Item itemFoundInRepository = itemRepository.findById(editItemProductNameRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         itemFoundInRepository.setProductName(editItemProductNameRequest.getProductName());

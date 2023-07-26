@@ -19,7 +19,7 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
 
     @Override
     public CreateNewMultimediaResponse process(CreateNewMultimediaRequest createNewMultimediaRequest) {
-        Item item = itemRepository.findItemById(createNewMultimediaRequest.getItemId())
+        Item item = itemRepository.findById(createNewMultimediaRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
         Multimedia multimedia = Multimedia.builder()

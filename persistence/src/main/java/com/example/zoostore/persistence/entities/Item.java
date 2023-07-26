@@ -6,13 +6,27 @@ import lombok.*;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+//@Data
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Entity
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "items") //plural name
 public class Item {
+    @Builder
+    public Item(String productName, String description, Vendor vendor, Set<Multimedia> multimedia, Set<Tag> tags) {
+        this.productName = productName;
+        this.description = description;
+        this.vendor = vendor;
+        this.multimedia = multimedia;
+        this.tags = tags;
+        this.archived = false;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id") //singular name
@@ -25,20 +39,19 @@ public class Item {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "vendor_id", nullable = false) // moje i bez referencedColumnName
+//    @JoinColumn(name = "vendor_id", nullable = false) // moje i bez referencedColumnName
     private Vendor vendor;
 
     @OneToMany(mappedBy = "item") //shte imame mnojestvo url-ove
-    @Column(name = "multimedia")
+//    @Column(name = "multimedia")
     private Set<Multimedia> multimedia;
 
     @ManyToMany
-    @Column(name = "tag")
-    @JoinTable(
-            name = "item_tag",
-            joinColumns = {@JoinColumn(name = "item_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
-    )
+//    @JoinTable(
+//            name = "item_tag",
+//            joinColumns = {@JoinColumn(name = "item_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+//    )
     private Set<Tag> tags;
 
     private boolean archived = false;

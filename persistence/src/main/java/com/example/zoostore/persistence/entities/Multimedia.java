@@ -21,6 +21,6 @@ public class Multimedia {
     private String url;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
+//    @JoinColumn(name = "item_id")
     private Item item;
 }

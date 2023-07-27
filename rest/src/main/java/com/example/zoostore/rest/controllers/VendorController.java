@@ -1,5 +1,7 @@
 package com.example.zoostore.rest.controllers;
 
+import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaRequest;
+import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaResponse;
 import com.example.zoostore.api.operations.vendor.create.CreateNewVendorRequest;
 import com.example.zoostore.api.operations.vendor.create.CreateNewVendorResponse;
 import com.example.zoostore.api.operations.vendor.create.CreateNewVendorOperation;
@@ -9,6 +11,9 @@ import com.example.zoostore.api.operations.vendor.edit.name.EditVendorNameOperat
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneRequest;
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneResponse;
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneOperation;
+import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsOperation;
+import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsRequest;
+import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +28,7 @@ public class VendorController {
     private final CreateNewVendorOperation createNewVendorService;
     private final EditVendorNameOperation editVendorNameService;
     private final EditVendorPhoneOperation editVendorPhoneService;
+    private final FindAllVendorsOperation findAllVendorsOperation;
 
     @Operation(description = "From the users request creates a new vendor that does not exist in the database yet.",
             summary = "Creates a new tag.")
@@ -43,5 +49,10 @@ public class VendorController {
     @PatchMapping("/edit/phone")
     public ResponseEntity<EditVendorPhoneResponse> editVendorPhone(@Valid @RequestBody EditVendorPhoneRequest request) {
         return new ResponseEntity<>(editVendorPhoneService.process(request), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/find-all")
+    public ResponseEntity<FindAllVendorsResponse> findAllVendors(FindAllVendorsRequest request) {
+        return new ResponseEntity<>(findAllVendorsOperation.process(request), HttpStatus.OK);
     }
 }

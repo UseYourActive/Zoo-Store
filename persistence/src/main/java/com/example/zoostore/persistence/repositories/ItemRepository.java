@@ -1,13 +1,15 @@
 package com.example.zoostore.persistence.repositories;
 
 import com.example.zoostore.persistence.entities.Item;
+import com.example.zoostore.persistence.entities.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public interface ItemRepository extends JpaRepository<Item, UUID> {
-//    Optional<Item> findItemById(UUID id);
-    List<Item> findItemsByProductName(String productName);
+    //Set<Item> findAll(Boolean isArchived);
+    Page<Item> findAllByArchivedAndTagsContaining(Boolean archived, Tag tag, Pageable pageable);
 }

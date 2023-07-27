@@ -1,5 +1,8 @@
 package com.example.zoostore.rest.controllers;
 
+import com.example.zoostore.api.operations.item.findall.FindAllItemsInput;
+import com.example.zoostore.api.operations.item.findall.FindAllItemsOperation;
+import com.example.zoostore.api.operations.item.findall.FindAllItemsResult;
 import com.example.zoostore.api.operations.item.findbyid.FindItemByIdRequest;
 import com.example.zoostore.api.operations.item.findbyid.FindItemByIdResponse;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemRequest;
@@ -29,12 +32,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
+@Validated
 @RequestMapping("/items")
 public class ItemController {
     private final CreateNewItemOperation createItemService;
@@ -45,6 +50,7 @@ public class ItemController {
     private final EditItemTagOperation editItemTagService;
     private final ArchiveItemOperation archiveItemService;
     private final FindItemByIdOperation findItemByIdOperation;
+    private final FindAllItemsOperation findAllItemsOperation;
 
     @Operation(description = "From the users request creates a new item that does not exist in the database yet.",
             summary = "Creates a new item.")
@@ -98,5 +104,21 @@ public class ItemController {
     @GetMapping("/{request}")
     public ResponseEntity<FindItemByIdResponse> getItemById(@PathVariable @org.hibernate.validator.constraints.UUID String request){
         return new ResponseEntity<>(findItemByIdOperation.process(FindItemByIdRequest.builder().id(UUID.fromString(request)).build()), HttpStatus.OK);
+    }
+
+    //(required = false, defaultValue = "false")
+    @GetMapping("/find-all")
+    public ResponseEntity<FindAllItemsResult> getAllItems(@RequestParam Boolean includeArchived,
+                                                          @RequestParam Integer pageNumber,
+                                                          @RequestParam Integer numberOfItemsPerPage,
+                                                          @RequestParam @org.hibernate.validator.constraints.UUID String tagId) {
+        FindAllItemsInput build = FindAllItemsInput.builder()
+                .shouldIncludeArchivedItems(includeArchived)
+                .numberOfItemsPerPage(numberOfItemsPerPage)
+                .pageNumber(pageNumber)
+                .tagId(UUID.fromString(tagId))
+                .build();
+
+        return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
     }
 }

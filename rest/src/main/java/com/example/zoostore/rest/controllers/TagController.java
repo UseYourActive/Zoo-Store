@@ -1,11 +1,16 @@
 package com.example.zoostore.rest.controllers;
 
+import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaRequest;
+import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaResponse;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagRequest;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagResponse;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagOperation;
 import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameRequest;
 import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameResponse;
 import com.example.zoostore.api.operations.tag.edit.tag.EditTagOperation;
+import com.example.zoostore.api.operations.tag.findall.FindAllTagsOperation;
+import com.example.zoostore.api.operations.tag.findall.FindAllTagsRequest;
+import com.example.zoostore.api.operations.tag.findall.FindAllTagsResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class TagController {
     private final CreateNewTagOperation createNewTagService;
     private final EditTagOperation editTagService;
+    private final FindAllTagsOperation findAllTagsOperation;
 
     @Operation(description = "From the users request creates a new tag that does not exist in the database yet.",
             summary = "Creates a new tag.")
@@ -32,5 +38,10 @@ public class TagController {
     @PatchMapping("/edit/name")
     public ResponseEntity<EditTagNameResponse> editTagName(@Valid @RequestBody EditTagNameRequest request) {
         return new ResponseEntity<>(editTagService.process(request), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/find-all")
+    public ResponseEntity<FindAllTagsResponse> findAllMultimedia(FindAllTagsRequest request) {
+        return new ResponseEntity<>(findAllTagsOperation.process(request), HttpStatus.OK);
     }
 }

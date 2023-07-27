@@ -24,22 +24,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/multimedia")
 public class MultimediaController {
-    private final CreateNewMultimediaOperation createNewMultimediaService;
-    private final EditMultimediaOperation editMultimediaService;
+    private final CreateNewMultimediaOperation createNewMultimediaOperation;
+    private final EditMultimediaOperation editMultimediaOperation;
     private final FindAllMultimediaOperation findAllMultimediaOperation;
 
     @Operation(description = "From the users request creates a new url that does not exist in the database yet.",
             summary = "Creates a new URL.")
     @PostMapping("/create")
     public ResponseEntity<CreateNewMultimediaResponse> createMultimedia(@Valid @RequestBody CreateNewMultimediaRequest request) {
-        return new ResponseEntity<>(createNewMultimediaService.process(request), HttpStatus.CREATED);
+        return new ResponseEntity<>(createNewMultimediaOperation.process(request), HttpStatus.CREATED);
     }
 
     @Operation(description = "Replaces an existing in the database urls with another with the given id from the users request.",
             summary = "Edits existing urls.")
     @PatchMapping("/edit/url")
     public ResponseEntity<EditMultimediaURLResponse> editMultimediaURl(@Valid @RequestBody EditMultimediaURLRequest request) {
-        return new ResponseEntity<>(editMultimediaService.process(request), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(editMultimediaOperation.process(request), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/find-all")

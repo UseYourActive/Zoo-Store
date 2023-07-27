@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface MultimediaRepository extends JpaRepository<Multimedia, UUID> {
     Set<Multimedia> findAllMultimediaByIdIn(Set<UUID> uuids);
     Optional<Multimedia> findMultimediaById(UUID id);
+    Set<Multimedia> findAllByIdIn(Set<UUID> uuids);
+
 }

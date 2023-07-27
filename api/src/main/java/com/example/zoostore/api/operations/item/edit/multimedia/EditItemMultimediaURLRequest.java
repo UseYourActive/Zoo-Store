@@ -19,6 +19,6 @@ public class EditItemMultimediaURLRequest implements OperationInput {
     @NotNull(message = "Vendor UUID is required!")
     private UUID itemId;
 
-    @NotEmpty(message = "URLs are required!")
-    private Set<String> urls;
+    @org.hibernate.validator.constraints.UUID
+    private Set<UUID> multimediaIds;
 }

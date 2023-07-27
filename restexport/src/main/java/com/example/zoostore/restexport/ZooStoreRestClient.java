@@ -8,6 +8,10 @@ import feign.RequestLine;
 
 @Headers({"Content-Type: application/json"})
 public interface ZooStoreRestClient {
+    //region Items
+
+    //endregion
+
     @RequestLine("GET /items/{request}")
     FindItemByIdResponse getItemById(@Param String request);
 

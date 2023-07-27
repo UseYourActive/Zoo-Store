@@ -4,10 +4,12 @@ import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimed
 import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLResponse;
 import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLOperation;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
+import com.example.zoostore.core.exceptions.multimedia.MultimediaNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
+import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +20,20 @@ import java.util.stream.Collectors;
 @Service
 public class EditItemMultimediaURLOperationProcessor implements EditItemMultimediaURLOperation {
     private final ItemRepository itemRepository;
+    private final MultimediaRepository multimediaRepository;
 
     @Override
     public EditItemMultimediaURLResponse process(EditItemMultimediaURLRequest editItemMultimediaURLRequest) {
         Item itemFoundInRepository = itemRepository.findById(editItemMultimediaURLRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
-        Set<Multimedia> multimediaSet = editItemMultimediaURLRequest.getUrls().stream()
-                .map(url -> Multimedia.builder().url(url).build())
-                .collect(Collectors.toSet());
+        Set<Multimedia> multimedia = this.multimediaRepository.findAllByIdIn(editItemMultimediaURLRequest.getMultimediaIds());
 
-        itemFoundInRepository.getMultimedia().add((Multimedia) multimediaSet);
+        if (multimedia.size() != editItemMultimediaURLRequest.getMultimediaIds().size()) {
+            throw new MultimediaNotFoundInRepositoryException();
+        }
+
+        itemFoundInRepository.setMultimedia(multimedia);
 
         Item savedItem = itemRepository.save(itemFoundInRepository);
 

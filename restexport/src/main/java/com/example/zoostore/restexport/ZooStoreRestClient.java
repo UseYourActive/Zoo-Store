@@ -22,7 +22,6 @@ import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimedia
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaResponse;
 import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLRequest;
 import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLResponse;
-import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaRequest;
 import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaResponse;
 import com.example.zoostore.api.operations.multimedia.findbyid.FindMultimediaByIdResponse;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagRequest;

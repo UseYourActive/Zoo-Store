@@ -1,9 +1,9 @@
 package com.example.zoostore.core.processors.item.findall;
 
 import com.example.zoostore.api.operations.item.findall.FindALlItemsInRepo;
-import com.example.zoostore.api.operations.item.findall.FindAllItemsInput;
+import com.example.zoostore.api.operations.item.findall.FindAllItemsRequest;
 import com.example.zoostore.api.operations.item.findall.FindAllItemsOperation;
-import com.example.zoostore.api.operations.item.findall.FindAllItemsResult;
+import com.example.zoostore.api.operations.item.findall.FindAllItemsResponse;
 import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Multimedia;
@@ -25,14 +25,14 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
     private final TagRepository tagRepository;
 
     @Override
-    public FindAllItemsResult process(FindAllItemsInput findAllItemsInput) {
+    public FindAllItemsResponse process(FindAllItemsRequest findAllItemsInput) {
         Tag tag = tagRepository.findById(findAllItemsInput.getTagId())
                 .orElseThrow(TagNotFoundInRepositoryException::new);
 
         Pageable firstPageWithTwoElements = PageRequest.of(findAllItemsInput.getPageNumber(), findAllItemsInput.getNumberOfItemsPerPage());
         Page<Item> allItems = itemRepository.findAllByArchivedAndTagsContaining(false, tag, firstPageWithTwoElements);
 
-        return  FindAllItemsResult.builder()
+        return  FindAllItemsResponse.builder()
                 .items(allItems.stream()
                         .map(this::mapAllItemsToObject)
                         .collect(Collectors.toSet()))

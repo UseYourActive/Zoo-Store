@@ -10,6 +10,6 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class FindAllItemsResult implements OperationResult {
+public class FindAllItemsResponse implements OperationResult {
     private Set<FindALlItemsInRepo> items;
 }

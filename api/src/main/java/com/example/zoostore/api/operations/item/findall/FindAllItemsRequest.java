@@ -10,7 +10,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class FindAllItemsInput implements OperationInput {
+public class FindAllItemsRequest implements OperationInput {
     private Boolean shouldIncludeArchivedItems;
     private UUID tagId;
     private Integer pageNumber;

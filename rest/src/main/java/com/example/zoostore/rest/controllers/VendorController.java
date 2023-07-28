@@ -37,8 +37,9 @@ public class VendorController {
 
     //region GET
     @GetMapping()
-    public ResponseEntity<FindAllVendorsResponse> findAllVendors(FindAllVendorsRequest request) {
-        return new ResponseEntity<>(findAllVendorsOperation.process(request), HttpStatus.OK);
+    public ResponseEntity<FindAllVendorsResponse> findAllVendors() {
+        FindAllVendorsRequest build = FindAllVendorsRequest.builder().build();
+        return new ResponseEntity<>(findAllVendorsOperation.process(build), HttpStatus.OK);
     }
 
     @GetMapping("/{vendorId}")

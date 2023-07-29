@@ -14,12 +14,6 @@
   <dependencies>
     <dependency>
       <groupId>com.example.zoostore</groupId>
-      <artifactId>api</artifactId>
-      <version>0.0.4-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.example.zoostore</groupId>
       <artifactId>core</artifactId>
       <version>0.0.4-SNAPSHOT</version>
       <scope>compile</scope>
@@ -42,12 +36,6 @@
       <version>1.18.28</version>
       <scope>compile</scope>
       <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.modelmapper</groupId>
-      <artifactId>modelmapper</artifactId>
-      <version>3.1.1</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>io.github.openfeign</groupId>

@@ -12,11 +12,11 @@
     <artifactId>rest</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.example.zoostore</groupId>
-            <artifactId>api</artifactId>
-            <version>${revision}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.example.zoostore</groupId>-->
+<!--            <artifactId>api</artifactId>-->
+<!--            <version>${revision}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.example.zoostore</groupId>
             <artifactId>core</artifactId>

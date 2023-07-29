@@ -21,12 +21,6 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>org.modelmapper</groupId>
-      <artifactId>modelmapper</artifactId>
-      <version>3.1.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>io.github.openfeign</groupId>
       <artifactId>feign-jackson</artifactId>
       <version>12.4</version>

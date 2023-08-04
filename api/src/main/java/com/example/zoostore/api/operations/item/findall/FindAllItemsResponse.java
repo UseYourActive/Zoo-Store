@@ -11,5 +11,5 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindAllItemsResponse implements OperationResult {
-    private Set<FindALlItemsInRepo> items;
+    private Set<FindAllItemsInRepo> items;
 }

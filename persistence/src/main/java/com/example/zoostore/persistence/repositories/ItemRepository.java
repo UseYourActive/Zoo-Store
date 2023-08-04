@@ -10,6 +10,6 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface ItemRepository extends JpaRepository<Item, UUID> {
-    //Set<Item> findAll(Boolean isArchived);
     Page<Item> findAllByArchivedAndTagsContaining(Boolean archived, Tag tag, Pageable pageable);
+    Page<Item> findAllByTagsContaining(Tag tag, Pageable pageable);
 }

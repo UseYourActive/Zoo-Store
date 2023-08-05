@@ -13,5 +13,5 @@ import java.util.UUID;
 public interface ItemRepository extends JpaRepository<Item, UUID> {
     Page<Item> findAllByArchivedAndTagsContaining(Boolean archived, Tag tag, Pageable pageable);
     Page<Item> findAllByTagsContaining(Tag tag, Pageable pageable);
-    Page<Item> findItemsByProductName(String productName, Boolean archived, Tag tag, Pageable pageable);
+    Page<Item> findItemsByProductName(String productName, Boolean archived, Pageable pageable);
 }

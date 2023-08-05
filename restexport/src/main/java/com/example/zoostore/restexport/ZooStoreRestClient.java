@@ -61,8 +61,10 @@ public interface ZooStoreRestClient {
                                      @Param(value = "numberOfItemsPerPage") Integer numberOfItemsPerPage,
                                      @Param(value = "tagId") String tagId);
 
-    @RequestLine("GET /items/all/{request}")
-    FindItemsByProductNameResponse findItemsByProductName(@Param String request);
+    @RequestLine("GET /items/by-product-names/productName={productName}&pageNumber={pageNumber}&numberOfItemsPerPage={numberOfItemsPerPage}")
+    FindItemsByProductNameResponse findItemsByProductName(@Param(value = "productName") String productName,
+                                                          @Param(value = "pageNumber") Number pageNumber,
+                                                          @Param(value = "numberOfItemsPerPage") Number numberOfItemsPerPage);
 
     @RequestLine("POST /items/create")
     CreateNewItemResponse createItem(@Param CreateNewItemRequest request);

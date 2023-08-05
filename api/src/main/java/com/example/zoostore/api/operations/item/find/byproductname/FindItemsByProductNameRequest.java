@@ -19,9 +19,6 @@ public class FindItemsByProductNameRequest implements OperationInput {
     @Size(min = 1, max = 50, message = "Product name must be between 1 and 50 characters long to be valid!")
     private String productName;
 
-    @NotNull(message = "Tag id is required!")
-    private UUID tagId;
-
     @NotNull(message = "Page number is required!")
     @Positive(message = "Page number must be a positive number!")
     private Integer pageNumber;

@@ -9,7 +9,6 @@ import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
-import com.example.zoostore.persistence.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,16 +21,11 @@ import java.util.stream.Collectors;
 @Service
 public class FindItemsByProductNameOperationProcessor implements FindItemsByProductNameOperation {
     private final ItemRepository itemRepository;
-    private final TagRepository tagRepository;
 
     @Override
     public FindItemsByProductNameResponse process(FindItemsByProductNameRequest findItemByProductNameRequest) {
-
-        Tag tag = tagRepository.findById(findItemByProductNameRequest.getTagId())
-                .orElseThrow(TagNotFoundInRepositoryException::new);
-
         Pageable pageable = PageRequest.of(findItemByProductNameRequest.getPageNumber(), findItemByProductNameRequest.getNumberOfItemsPerPage());
-        Page<Item> items = itemRepository.findItemsByProductName(findItemByProductNameRequest.getProductName(), false, tag, pageable);
+        Page<Item> items = itemRepository.findItemsByProductName(findItemByProductNameRequest.getProductName(), false, pageable);
 
         return FindItemsByProductNameResponse.builder()
                 .items(items.stream()

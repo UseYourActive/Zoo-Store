@@ -1,9 +1,9 @@
 package com.example.zoostore.core.processors.item;
 
-import com.example.zoostore.api.operations.item.findall.FindAllItemsInRepo;
-import com.example.zoostore.api.operations.item.findall.FindAllItemsRequest;
-import com.example.zoostore.api.operations.item.findall.FindAllItemsOperation;
-import com.example.zoostore.api.operations.item.findall.FindAllItemsResponse;
+import com.example.zoostore.api.operations.item.find.all.FindAllItemsInRepo;
+import com.example.zoostore.api.operations.item.find.all.FindAllItemsRequest;
+import com.example.zoostore.api.operations.item.find.all.FindAllItemsOperation;
+import com.example.zoostore.api.operations.item.find.all.FindAllItemsResponse;
 import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Multimedia;
@@ -29,8 +29,8 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
         Tag tag = tagRepository.findById(findAllItemsInput.getTagId())
                 .orElseThrow(TagNotFoundInRepositoryException::new);
 
-        Pageable firstPageWithTwoElements = PageRequest.of(findAllItemsInput.getPageNumber(), findAllItemsInput.getNumberOfItemsPerPage());
-        Page<Item> allItems = itemRepository.findAllByArchivedAndTagsContaining(false, tag, firstPageWithTwoElements);
+        Pageable pageable = PageRequest.of(findAllItemsInput.getPageNumber(), findAllItemsInput.getNumberOfItemsPerPage());
+        Page<Item> allItems = itemRepository.findAllByArchivedAndTagsContaining(false, tag, pageable);
 
         return FindAllItemsResponse.builder()
                 .items(allItems.stream()
@@ -41,7 +41,7 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
 
     private FindAllItemsInRepo mapAllItemsToObject(Item item){
         return FindAllItemsInRepo.builder()
-                .id(item.getId())
+                .itemId(item.getId())
                 .productName(item.getProductName())
                 .description(item.getDescription())
                 .vendorId(item.getVendor().getId())
@@ -51,7 +51,7 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
                 .multimediaIds(item.getMultimedia().stream()
                         .map(Multimedia::getId)
                         .collect(Collectors.toSet()))
-                .isArchived(item.isArchived())
+                .isArchived(item.getArchived())
                 .build();
     }
 }

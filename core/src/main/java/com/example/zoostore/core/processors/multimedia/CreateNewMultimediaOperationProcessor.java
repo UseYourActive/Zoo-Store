@@ -30,6 +30,7 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
         Multimedia save = multimediaRepository.save(multimedia);
 
         return CreateNewMultimediaResponse.builder()
+                .id(save.getId())
                 .itemId(save.getId())
                 .url(save.getUrl())
                 .build();

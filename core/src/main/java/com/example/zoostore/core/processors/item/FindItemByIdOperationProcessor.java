@@ -1,8 +1,8 @@
 package com.example.zoostore.core.processors.item;
 
-import com.example.zoostore.api.operations.item.findbyid.FindItemByIdOperation;
-import com.example.zoostore.api.operations.item.findbyid.FindItemByIdRequest;
-import com.example.zoostore.api.operations.item.findbyid.FindItemByIdResponse;
+import com.example.zoostore.api.operations.item.find.byid.FindItemByIdOperation;
+import com.example.zoostore.api.operations.item.find.byid.FindItemByIdRequest;
+import com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Multimedia;
@@ -23,23 +23,10 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation {
         Item item = this.itemRepository.findById(findItemByIdRequest.getId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 
-//        if(item.getMultimedia().isEmpty()){
-//            return FindItemByIdResponse.builder()
-//                    .itemId(item.getId())
-//                    .productName(item.getProductName())
-//                    .isArchived(item.isArchived())
-//                    .tagIds(item.getTags().stream()
-//                            .map(Tag::getId)
-//                            .collect(Collectors.toSet()))
-//                    .vendorId(item.getVendor().getId())
-//                    .description(item.getDescription())
-//                    .build();
-//        }
-
         return FindItemByIdResponse.builder()
                 .itemId(item.getId())
                 .productName(item.getProductName())
-                .isArchived(item.isArchived())
+                .isArchived(item.getArchived())
                 .tagIds(item.getTags().stream()
                         .map(Tag::getId)
                         .collect(Collectors.toSet()))

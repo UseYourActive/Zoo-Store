@@ -1,4 +1,4 @@
-package com.example.zoostore.api.operations.item.findall;
+package com.example.zoostore.api.operations.item.find.byproductname;
 
 import lombok.*;
 
@@ -10,8 +10,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class FindAllItemsInRepo {
-    private UUID id;
+public class FindItemsByProductNamesRepo {
+    private UUID itemId;
     private String productName;
     private String description;
     private UUID vendorId;

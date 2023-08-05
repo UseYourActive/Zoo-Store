@@ -35,23 +35,10 @@ public class EditItemVendorOperationProcessor implements EditItemVendorOperation
 
         Item savedItem = itemRepository.save(itemFoundInRepository);
 
-        if(savedItem.getMultimedia().isEmpty()){
-            return EditItemVendorResponse.builder()
-                    .itemId(savedItem.getId())
-                    .productName(savedItem.getProductName())
-                    .isArchived(savedItem.isArchived())
-                    .tagIds(savedItem.getTags().stream()
-                            .map(Tag::getId)
-                            .collect(Collectors.toSet()))
-                    .vendorId(savedItem.getVendor().getId())
-                    .description(savedItem.getDescription())
-                    .build();
-        }
-
         return EditItemVendorResponse.builder()
                 .itemId(savedItem.getId())
                 .productName(savedItem.getProductName())
-                .isArchived(savedItem.isArchived())
+                .isArchived(savedItem.getArchived())
                 .tagIds(savedItem.getTags().stream()
                         .map(Tag::getId)
                         .collect(Collectors.toSet()))

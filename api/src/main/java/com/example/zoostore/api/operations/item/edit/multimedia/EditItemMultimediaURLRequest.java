@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemMultimediaURLRequest implements OperationInput {
-    @NotNull(message = "Vendor UUID is required!")
+    @NotNull(message = "Item id is required!")
     private UUID itemId;
 
     @org.hibernate.validator.constraints.UUID

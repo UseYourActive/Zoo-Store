@@ -1,6 +1,7 @@
 package com.example.zoostore.api.operations.multimedia.findbyid;
 
 import com.example.zoostore.api.base.OperationInput;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.UUID;
@@ -11,5 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindMultimediaByIdRequest implements OperationInput {
+    @NotNull(message = "Multimedia id is required!")
     private UUID id;
 }

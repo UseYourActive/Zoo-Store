@@ -11,6 +11,7 @@ import com.example.zoostore.persistence.repositories.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -25,20 +26,20 @@ public class UnArchiveItemOperationProcessor implements UnArchiveItemOperation {
 
         item.setArchived(false);
 
-        Item savedItem = itemRepository.save(item);
+        Item save = itemRepository.save(item);
 
         return UnArchiveItemResponse.builder()
-                .id(savedItem.getId())
-                .tagIds(savedItem.getTags().stream()
-                        .map(Tag::getId)
-                        .collect(Collectors.toSet()))
-                .description(savedItem.getDescription())
-                .multimediaIds(savedItem.getMultimedia().stream()
+                .itemId(save.getId())
+                .vendorId(save.getVendor().getId())
+                .description(save.getDescription())
+                .multimediaIds(save.getMultimedia().stream()
                         .map(Multimedia::getId)
                         .collect(Collectors.toSet()))
-                .isArchived(savedItem.isArchived())
-                .productName(savedItem.getProductName())
-                .vendorId(savedItem.getVendor().getId())
+                .productName(save.getProductName())
+                .tagIds(save.getTags().stream()
+                        .map(Tag::getId)
+                        .collect(Collectors.toSet()))
+                .isArchived(true)
                 .build();
     }
 }

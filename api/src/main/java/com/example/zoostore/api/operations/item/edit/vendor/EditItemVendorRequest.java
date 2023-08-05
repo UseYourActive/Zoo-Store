@@ -13,9 +13,9 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemVendorRequest implements OperationInput {
-    @NotNull(message = "Item UUID is required!")
+    @NotNull(message = "Item id is required!")
     private UUID itemId;
 
-    @NotNull(message = "Vendor UUID is required!")
+    @NotNull(message = "Vendor id is required!")
     private UUID vendorId;
 }

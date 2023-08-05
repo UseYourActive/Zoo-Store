@@ -1,4 +1,4 @@
-package com.example.zoostore.api.operations.item.findall;
+package com.example.zoostore.api.operations.item.find.all;
 
 import com.example.zoostore.api.base.OperationResult;
 import lombok.*;

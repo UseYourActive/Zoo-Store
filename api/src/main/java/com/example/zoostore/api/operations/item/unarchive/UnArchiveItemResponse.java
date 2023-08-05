@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class UnArchiveItemResponse implements OperationResult {
-    private UUID id;
+    private UUID itemId;
     private String productName;
     private String description;
     private UUID vendorId;

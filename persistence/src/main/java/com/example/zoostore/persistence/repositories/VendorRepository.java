@@ -9,8 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface VendorRepository  extends JpaRepository<Vendor, UUID> {
-    Optional<Vendor> findVendorById(UUID id);
     Set<Vendor> findVendorsByIdIn(Set<UUID> id);
     List<Vendor> findVendorsByName(String name);
-    Optional<Vendor> findVendorsByPhone(String phone);
+    Optional<Vendor> findVendorByPhone(String phone);
 }

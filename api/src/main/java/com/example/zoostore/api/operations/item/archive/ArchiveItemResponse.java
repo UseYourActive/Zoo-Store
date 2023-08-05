@@ -18,5 +18,5 @@ public class ArchiveItemResponse implements OperationResult {
     private UUID vendorId;
     private Set<UUID> multimediaIds;
     private Set<UUID> tagIds;
-    private boolean isArchived;
+    private Boolean isArchived;
 }

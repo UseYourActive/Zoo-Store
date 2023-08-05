@@ -25,33 +25,20 @@ public class EditItemDescriptionOperationProcessor implements EditItemDescriptio
 
         itemFoundInRepository.setDescription(editItemDescriptionRequest.getDescription());
 
-        Item savedItem = itemRepository.save(itemFoundInRepository);
-
-        if(savedItem.getMultimedia().isEmpty()){
-            return EditItemDescriptionResponse.builder()
-                    .itemId(savedItem.getId())
-                    .productName(savedItem.getProductName())
-                    .isArchived(savedItem.isArchived())
-                    .tagIds(savedItem.getTags().stream()
-                            .map(Tag::getId)
-                            .collect(Collectors.toSet()))
-                    .vendorId(savedItem.getVendor().getId())
-                    .description(savedItem.getDescription())
-                    .build();
-        }
+        Item save = itemRepository.save(itemFoundInRepository);
 
         return EditItemDescriptionResponse.builder()
-                .itemId(savedItem.getId())
-                .productName(savedItem.getProductName())
-                .isArchived(savedItem.isArchived())
-                .tagIds(savedItem.getTags().stream()
-                        .map(Tag::getId)
-                        .collect(Collectors.toSet()))
-                .vendorId(savedItem.getVendor().getId())
-                .multimediaIds(savedItem.getMultimedia().stream()
+                .itemId(save.getId())
+                .vendorId(save.getVendor().getId())
+                .description(save.getDescription())
+                .multimediaIds(save.getMultimedia().stream()
                         .map(Multimedia::getId)
                         .collect(Collectors.toSet()))
-                .description(savedItem.getDescription())
+                .productName(save.getProductName())
+                .tagIds(save.getTags().stream()
+                        .map(Tag::getId)
+                        .collect(Collectors.toSet()))
+                .isArchived(true)
                 .build();
     }
 }

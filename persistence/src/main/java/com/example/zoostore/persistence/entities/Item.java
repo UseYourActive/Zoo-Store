@@ -6,11 +6,6 @@ import lombok.*;
 import java.util.Set;
 import java.util.UUID;
 
-//@Data
-//@Builder
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Entity
 @Entity
 @Getter
 @Setter
@@ -54,6 +49,5 @@ public class Item {
 //    )
     private Set<Tag> tags;
 
-    private boolean archived = false;
+    private Boolean archived = false;
 }
-//TODO da vrushtam razlichni builder obekti ot tozi klas pri editvane. Moje da nqma multimediq ili neshto shodno za tova trqbva purvo da se deklarira i posle da se vurne sprqmo situaciqta. Purvo obhojdame kolekciite za sushestvuvaneto na MM i posle s if davame konkretnoto neshto, koeto shte vryshtame

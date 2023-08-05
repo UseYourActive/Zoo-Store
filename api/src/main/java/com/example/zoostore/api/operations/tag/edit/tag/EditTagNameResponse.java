@@ -3,6 +3,7 @@ package com.example.zoostore.api.operations.tag.edit.tag;
 import com.example.zoostore.api.base.OperationResult;
 import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -13,4 +14,5 @@ import java.util.UUID;
 public class EditTagNameResponse implements OperationResult {
     private UUID tagId;
     private String title;
+    private Set<UUID> itemIds;
 }

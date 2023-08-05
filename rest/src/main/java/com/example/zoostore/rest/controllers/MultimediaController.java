@@ -32,12 +32,16 @@ public class MultimediaController {
     private final FindMultimediaByIdOperation findMultimediaByIdOperation;
 
     //region GET
+    @Operation(description = "Finds all multimedia in the database.",
+            summary = "Finds all multimedia in the database.")
     @GetMapping()
     public ResponseEntity<FindAllMultimediaResponse> findAllMultimedia() {
         FindAllMultimediaRequest build = FindAllMultimediaRequest.builder().build();
         return new ResponseEntity<>(findAllMultimediaOperation.process(build), HttpStatus.OK);
     }
 
+    @Operation(description = "Finds a multimedia in the database by a given by the user id.",
+            summary = "Finds a multimedia by id.")
     @GetMapping("/{multimediaId}")
     public ResponseEntity<FindMultimediaByIdResponse> findMultimediaById(@PathVariable @UUID String multimediaId) {
         FindMultimediaByIdRequest build = FindMultimediaByIdRequest.builder()

@@ -26,6 +26,7 @@ public class EditMultimediaOperationProcessor implements EditMultimediaOperation
         Multimedia save = multimediaRepository.save(multimedia);
 
         return EditMultimediaURLResponse.builder()
+                .id(save.getId())
                 .itemId(save.getId())
                 .url(save.getUrl())
                 .build();

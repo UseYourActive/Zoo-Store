@@ -15,6 +15,12 @@ import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsResponse
 import com.example.zoostore.api.operations.vendor.findbyid.FindVendorByIdOperation;
 import com.example.zoostore.api.operations.vendor.findbyid.FindVendorByIdRequest;
 import com.example.zoostore.api.operations.vendor.findbyid.FindVendorByIdResponse;
+import com.example.zoostore.api.operations.vendor.full.EditVendorOperation;
+import com.example.zoostore.api.operations.vendor.full.EditVendorRequest;
+import com.example.zoostore.api.operations.vendor.full.EditVendorResponse;
+import com.example.zoostore.api.operations.vendor.items.EditVendorItemsOperation;
+import com.example.zoostore.api.operations.vendor.items.EditVendorItemsRequest;
+import com.example.zoostore.api.operations.vendor.items.EditVendorItemsResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,16 +38,22 @@ public class VendorController {
     private final CreateNewVendorOperation createNewVendorOperation;
     private final EditVendorNameOperation editVendorNameOperation;
     private final EditVendorPhoneOperation editVendorPhoneOperation;
+    private final EditVendorItemsOperation editVendorItemsOperation;
+    private final EditVendorOperation editVendorOperation;
     private final FindAllVendorsOperation findAllVendorsOperation;
     private final FindVendorByIdOperation findVendorByIdOperation;
 
     //region GET
+    @Operation(description = "Finds all vendors in the database.",
+            summary = "Finds all vendors in the database.")
     @GetMapping()
     public ResponseEntity<FindAllVendorsResponse> findAllVendors() {
         FindAllVendorsRequest build = FindAllVendorsRequest.builder().build();
         return new ResponseEntity<>(findAllVendorsOperation.process(build), HttpStatus.OK);
     }
 
+    @Operation(description = "Finds a vendor in the database by a given by the user id.",
+            summary = "Finds a vendor by id.")
     @GetMapping("/{vendorId}")
     public ResponseEntity<FindVendorByIdResponse> findVendorById(@PathVariable @UUID String vendorId) {
         FindVendorByIdRequest build = FindVendorByIdRequest.builder()
@@ -61,6 +73,13 @@ public class VendorController {
     //endregion
 
     //region PUT/PATCH
+    @Operation(description = "Edits an existing in the database vendor with the given id from the users request.",
+            summary = "Edits a vendor.")
+    @PatchMapping("/full")
+    public ResponseEntity<EditVendorResponse> editVendor(@Valid @RequestBody EditVendorRequest request) {
+        return new ResponseEntity<>(editVendorOperation.process(request), HttpStatus.ACCEPTED);
+    }
+
     @Operation(description = "Edits an existing in the database vendor name with the given id from the users request.",
             summary = "Edits a vendors name.")
     @PatchMapping("/name")
@@ -73,6 +92,13 @@ public class VendorController {
     @PatchMapping("/phone")
     public ResponseEntity<EditVendorPhoneResponse> editVendorPhone(@Valid @RequestBody EditVendorPhoneRequest request) {
         return new ResponseEntity<>(editVendorPhoneOperation.process(request), HttpStatus.ACCEPTED);
+    }
+
+    @Operation(description = "Edits an existing in the database vendor phone with the given id from the users request.",
+            summary = "Edits a vendors phone.")
+    @PatchMapping("/items")
+    public ResponseEntity<EditVendorItemsResponse> editVendorItems(@Valid @RequestBody EditVendorItemsRequest request) {
+        return new ResponseEntity<>(editVendorItemsOperation.process(request), HttpStatus.ACCEPTED);
     }
     //endregion
 

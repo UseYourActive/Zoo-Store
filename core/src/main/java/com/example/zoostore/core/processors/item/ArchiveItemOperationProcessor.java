@@ -29,26 +29,15 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
 //                .productName(found.getProductName())
 //                .description(found.getDescription())
 //                .vendor(found.getVendor())
-//                .multimedia(found.getMultimedia()) // moje da nqma multimedii i da stane null pointer
+//                .multimedia(found.getMultimedia())
 //                .archived(true)
 //                .build();
+//                  used for PutMapping
 
         found.setArchived(true);
 
         Item save = itemRepository.save(found);
 
-        if(save.getMultimedia().isEmpty()){
-            return ArchiveItemResponse.builder()
-                    .itemId(save.getId())
-                    .vendorId(save.getVendor().getId())
-                    .description(save.getDescription())
-                    .productName(save.getProductName())
-                    .tagIds(save.getTags().stream()
-                            .map(Tag::getId)
-                            .collect(Collectors.toSet()))
-                    .isArchived(true)
-                    .build();
-        }
 
         return ArchiveItemResponse.builder()
                 .itemId(save.getId())

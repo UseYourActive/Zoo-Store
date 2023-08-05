@@ -13,6 +13,7 @@ import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,22 +36,20 @@ public class EditItemMultimediaURLOperationProcessor implements EditItemMultimed
 
         itemFoundInRepository.setMultimedia(multimedia);
 
-        Item savedItem = itemRepository.save(itemFoundInRepository);
+        Item save = itemRepository.save(itemFoundInRepository);
 
         return EditItemMultimediaURLResponse.builder()
-                .itemId(savedItem.getId())
-                .title(savedItem.getProductName())
-                .isArchived(savedItem.isArchived())
-                .tagIds(savedItem.getTags().stream()
-                        .map(Tag::getId)
-                        .collect(Collectors.toSet()))
-                .vendorId(savedItem.getVendor().getId())
-                .multimediaIds(savedItem.getMultimedia().stream()
+                .itemId(save.getId())
+                .vendorId(save.getVendor().getId())
+                .description(save.getDescription())
+                .multimediaIds(save.getMultimedia().stream()
                         .map(Multimedia::getId)
                         .collect(Collectors.toSet()))
-                .description(savedItem.getDescription())
+                .productName(save.getProductName())
+                .tagIds(save.getTags().stream()
+                        .map(Tag::getId)
+                        .collect(Collectors.toSet()))
+                .isArchived(true)
                 .build();
-
-        //TODO opravi returnovete da pravqt proverki dali kolekciqta e prazna
     }
 }

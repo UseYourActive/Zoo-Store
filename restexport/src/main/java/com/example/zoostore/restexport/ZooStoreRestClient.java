@@ -6,6 +6,8 @@ import com.example.zoostore.api.operations.item.create.CreateNewItemRequest;
 import com.example.zoostore.api.operations.item.create.CreateNewItemResponse;
 import com.example.zoostore.api.operations.item.edit.description.EditItemDescriptionRequest;
 import com.example.zoostore.api.operations.item.edit.description.EditItemDescriptionResponse;
+import com.example.zoostore.api.operations.item.edit.full.EditItemRequest;
+import com.example.zoostore.api.operations.item.edit.full.EditItemResponse;
 import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLRequest;
 import com.example.zoostore.api.operations.item.edit.multimedia.EditItemMultimediaURLResponse;
 import com.example.zoostore.api.operations.item.edit.product.name.EditItemProductNameRequest;
@@ -14,8 +16,9 @@ import com.example.zoostore.api.operations.item.edit.tag.EditItemTagRequest;
 import com.example.zoostore.api.operations.item.edit.tag.EditItemTagResponse;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorRequest;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorResponse;
-import com.example.zoostore.api.operations.item.findall.FindAllItemsResponse;
-import com.example.zoostore.api.operations.item.findbyid.FindItemByIdResponse;
+import com.example.zoostore.api.operations.item.find.all.FindAllItemsResponse;
+import com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse;
+import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameResponse;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemRequest;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemResponse;
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaRequest;
@@ -38,6 +41,10 @@ import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneRequ
 import com.example.zoostore.api.operations.vendor.edit.phone.EditVendorPhoneResponse;
 import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsResponse;
 import com.example.zoostore.api.operations.vendor.findbyid.FindVendorByIdResponse;
+import com.example.zoostore.api.operations.vendor.full.EditVendorRequest;
+import com.example.zoostore.api.operations.vendor.full.EditVendorResponse;
+import com.example.zoostore.api.operations.vendor.items.EditVendorItemsRequest;
+import com.example.zoostore.api.operations.vendor.items.EditVendorItemsResponse;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
@@ -54,8 +61,14 @@ public interface ZooStoreRestClient {
                                      @Param(value = "numberOfItemsPerPage") Integer numberOfItemsPerPage,
                                      @Param(value = "tagId") String tagId);
 
+    @RequestLine("GET /items/all/{request}")
+    FindItemsByProductNameResponse findItemsByProductName(@Param String request);
+
     @RequestLine("POST /items/create")
     CreateNewItemResponse createItem(@Param CreateNewItemRequest request);
+
+    @RequestLine("PATCH /items/full")
+    EditItemResponse editItem(@Param EditItemRequest request);
 
     @RequestLine("PATCH /items/product-name")
     EditItemProductNameResponse editItemProductName(@Param EditItemProductNameRequest request);
@@ -67,7 +80,7 @@ public interface ZooStoreRestClient {
     EditItemVendorResponse editItemVendor(@Param EditItemVendorRequest request);
 
     @RequestLine("PATCH /items/multimedia")
-    EditItemMultimediaURLResponse replaceItemMultimediaURL(@Param EditItemMultimediaURLRequest request);
+    EditItemMultimediaURLResponse editItemMultimediaURL(@Param EditItemMultimediaURLRequest request);
 
     @RequestLine("PATCH /items/tag")
     EditItemTagResponse editItemTag(@Param EditItemTagRequest request);
@@ -75,7 +88,7 @@ public interface ZooStoreRestClient {
     @RequestLine("PATCH /items/archive")
     ArchiveItemResponse archiveItem(@Param ArchiveItemRequest request);
 
-    @RequestLine("PATCH /items/unArchive")
+    @RequestLine("PATCH /items/un-archive")
     UnArchiveItemResponse unArchiveItem(@Param UnArchiveItemRequest request);
     //endregion
 
@@ -117,10 +130,16 @@ public interface ZooStoreRestClient {
     @RequestLine("POST /vendors/create")
     CreateNewVendorResponse createVendor(@Param CreateNewVendorRequest request);
 
+    @RequestLine("PATCH /vendors/full")
+    EditVendorResponse editVendor(@Param EditVendorRequest request);
+
     @RequestLine("PATCH /vendors/name")
     EditVendorNameResponse editVendorName(@Param EditVendorNameRequest request);
 
     @RequestLine("PATCH /vendors/phone")
     EditVendorPhoneResponse editVendorPhone(@Param EditVendorPhoneRequest request);
+
+    @RequestLine("PATCH /vendors/items")
+    EditVendorItemsResponse editVendorItems(@Param EditVendorItemsRequest request);
     //endregion
 }

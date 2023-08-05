@@ -16,7 +16,7 @@ public class CreateNewItemResponse implements OperationResult {
     private String productName;
     private String description;
     private UUID vendorId;
-    private Set<UUID> multimediaIds; // will always be empty because a URL needs an item to be created.
+    private Set<UUID> multimediaIds;
     private Set<UUID> tagIds;
-    private boolean isArchived;
+    private Boolean isArchived;
 }

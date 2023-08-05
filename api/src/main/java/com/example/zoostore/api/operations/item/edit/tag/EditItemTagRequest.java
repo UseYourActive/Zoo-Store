@@ -15,9 +15,10 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemTagRequest implements OperationInput {
-    @NotNull(message = "Item UUID is required!")
+    @NotNull(message = "Item id is required!")
     private UUID itemId;
 
-    @NotNull(message = "Tags UUIDs are required!")
+    //@NotNull(message = "Tags UUIDs are required!")
+    @org.hibernate.validator.constraints.UUID
     private Set<UUID> tagIds;
 }

@@ -32,12 +32,16 @@ public class TagController {
     private final FindTagByIdOperation findTagByIdOperation;
 
     //region GET
+    @Operation(description = "Finds all tags in the database.",
+            summary = "Finds all tags in the database.")
     @GetMapping()
     public ResponseEntity<FindAllTagsResponse> findAllTags() {
         FindAllTagsRequest build = FindAllTagsRequest.builder().build();
         return new ResponseEntity<>(findAllTagsOperation.process(build), HttpStatus.OK);
     }
 
+    @Operation(description = "Finds a tag in the database by a given by the user id.",
+            summary = "Finds a tag by id.")
     @GetMapping("/{tagId}")
     public ResponseEntity<FindTagByIdResponse> findTagById(@PathVariable @UUID String tagId) {
         FindTagByIdRequest build = FindTagByIdRequest.builder()
@@ -58,7 +62,7 @@ public class TagController {
 
     //region PUT/PATCH
     @Operation(description = "Edits an existing in the database tag title with the given id from the users request.",
-            summary = "Edits a tag title.")
+            summary = "Edits a tag name.")
     @PatchMapping("/name")
     public ResponseEntity<EditTagNameResponse> editTagName(@Valid @RequestBody EditTagNameRequest request) {
         return new ResponseEntity<>(editTagOperation.process(request), HttpStatus.ACCEPTED);

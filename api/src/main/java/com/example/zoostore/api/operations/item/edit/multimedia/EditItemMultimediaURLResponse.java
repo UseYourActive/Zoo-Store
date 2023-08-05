@@ -13,10 +13,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditItemMultimediaURLResponse implements OperationResult {
     private UUID itemId;
-    private String title;
+    private String productName;
     private String description;
     private UUID vendorId;
     private Set<UUID> multimediaIds;
     private Set<UUID> tagIds;
-    private boolean isArchived;
+    private Boolean isArchived;
 }

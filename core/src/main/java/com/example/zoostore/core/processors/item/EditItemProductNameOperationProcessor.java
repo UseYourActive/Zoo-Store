@@ -28,23 +28,10 @@ public class EditItemProductNameOperationProcessor implements EditItemProductNam
 
         Item savedItem = itemRepository.save(itemFoundInRepository);
 
-        if(savedItem.getMultimedia().isEmpty()){
-            return EditItemProductNameResponse.builder()
-                    .itemId(savedItem.getId())
-                    .productName(savedItem.getProductName())
-                    .isArchived(savedItem.isArchived())
-                    .tagIds(savedItem.getTags().stream()
-                            .map(Tag::getId)
-                            .collect(Collectors.toSet()))
-                    .vendorId(savedItem.getVendor().getId())
-                    .description(savedItem.getDescription())
-                    .build();
-        }
-
         return EditItemProductNameResponse.builder()
                 .itemId(savedItem.getId())
                 .productName(savedItem.getProductName())
-                .isArchived(savedItem.isArchived())
+                .isArchived(savedItem.getArchived())
                 .tagIds(savedItem.getTags().stream()
                         .map(Tag::getId)
                         .collect(Collectors.toSet()))

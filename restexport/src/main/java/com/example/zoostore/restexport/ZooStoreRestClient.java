@@ -55,7 +55,7 @@ public interface ZooStoreRestClient {
     @RequestLine("GET /items/{request}")
     FindItemByIdResponse getItemById(@Param("request") String request);
 
-    @RequestLine("GET /items/?includeArchived={includeArchived}&pageNumber={pageNumber}&numberOfItemsPerPage={numberOfItemsPerPage}&tagId={tagId}")
+    @RequestLine("GET /items?includeArchived={includeArchived}&pageNumber={pageNumber}&numberOfItemsPerPage={numberOfItemsPerPage}&tagId={tagId}")
     FindAllItemsResponse getAllItems(@Param(value = "includeArchived") Boolean includeArchived,
                                      @Param(value = "pageNumber") Integer pageNumber,
                                      @Param(value = "numberOfItemsPerPage") Integer numberOfItemsPerPage,

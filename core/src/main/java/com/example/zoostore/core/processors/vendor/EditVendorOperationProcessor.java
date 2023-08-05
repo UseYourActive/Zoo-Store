@@ -12,9 +12,7 @@ import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -24,30 +22,18 @@ public class EditVendorOperationProcessor implements EditVendorOperation {
     private final ItemRepository itemRepository;
 
     @Override
-    public EditVendorResponse process(EditVendorRequest editVendorRequest) {
+    public EditVendorResponse process(final EditVendorRequest editVendorRequest) {
         Vendor vendor = vendorRepository.findById(editVendorRequest.getId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
-        if (editVendorRequest.getName() != null) {
-            vendor.setName(editVendorRequest.getName());
-        }
+        Optional.ofNullable(editVendorRequest.getName())
+                .ifPresent(vendor::setName);
 
-        if (editVendorRequest.getPhone() != null) {
-            vendor.setPhone(editVendorRequest.getPhone());
-        }
+        Optional.ofNullable(editVendorRequest.getPhone())
+                .ifPresent(vendor::setPhone);
 
-        if (editVendorRequest.getItems() != null) {
-
-            List<UUID> itemIds = editVendorRequest.getItems().stream()
-                    .toList();
-            List<Item> items = this.itemRepository.findAllById(itemIds);
-
-            if (items.size() != editVendorRequest.getItems().size()) {
-                throw new ItemNotFoundInRepositoryException();
-            }
-
-            vendor.setItems(new HashSet<>(items));
-        }
+        Optional.ofNullable(editVendorRequest.getItems())
+                .ifPresent(items -> updateVendorItems(vendor, editVendorRequest.getItems()));
 
         Vendor saved = this.vendorRepository.save(vendor);
 
@@ -59,5 +45,15 @@ public class EditVendorOperationProcessor implements EditVendorOperation {
                         .map(Item::getId)
                         .collect(Collectors.toSet()))
                 .build();
+    }
+
+    private void updateVendorItems(Vendor vendor, final Set<UUID> items) {
+        List<Item> fetchedItems = this.itemRepository.findAllById(items);
+
+        if (fetchedItems.size() != items.size()) {
+            throw new ItemNotFoundInRepositoryException();
+        }
+
+        vendor.setItems(new HashSet<>(fetchedItems));
     }
 }

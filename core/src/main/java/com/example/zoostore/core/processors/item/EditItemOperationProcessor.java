@@ -29,7 +29,7 @@ public class EditItemOperationProcessor implements EditItemOperation {
     private final MultimediaRepository multimediaRepository;
 
     @Override
-    public EditItemResponse process(EditItemRequest editItemRequest) {
+    public EditItemResponse process(final EditItemRequest editItemRequest) {
         Item item = this.itemRepository.findById(UUID.fromString(editItemRequest.getId()))
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
 

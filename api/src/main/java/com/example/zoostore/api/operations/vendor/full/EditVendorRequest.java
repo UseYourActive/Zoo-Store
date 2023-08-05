@@ -1,6 +1,7 @@
 package com.example.zoostore.api.operations.vendor.full;
 
 import com.example.zoostore.api.base.OperationInput;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,14 +19,12 @@ public class EditVendorRequest implements OperationInput {
     @NotNull(message = "Vendor id is required!")
     private UUID id;
 
-    @NotBlank(message = "Vendor name is required!")
-    @Size(min = 1, max = 50, message = "Vendor name must be between 1 and 50 characters long to be valid!")
+    @Nullable
     private String name;
 
-    @NotBlank(message = "Vendor phone is required!")
-    @Size(min = 1, max = 50, message = "Vendor phone number must be between 1 and 50 characters long to be valid!")
+    @Nullable
     private String phone;
 
-    @org.hibernate.validator.constraints.UUID
+    @Nullable
     private Set<UUID> items;
 }

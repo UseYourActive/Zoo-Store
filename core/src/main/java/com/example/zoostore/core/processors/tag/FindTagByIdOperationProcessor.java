@@ -1,8 +1,8 @@
 package com.example.zoostore.core.processors.tag;
 
-import com.example.zoostore.api.operations.tag.findbyid.FindTagByIdOperation;
-import com.example.zoostore.api.operations.tag.findbyid.FindTagByIdRequest;
-import com.example.zoostore.api.operations.tag.findbyid.FindTagByIdResponse;
+import com.example.zoostore.api.operations.tag.find.byid.FindTagByIdOperation;
+import com.example.zoostore.api.operations.tag.find.byid.FindTagByIdRequest;
+import com.example.zoostore.api.operations.tag.find.byid.FindTagByIdResponse;
 import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Tag;

@@ -1,16 +1,13 @@
 package com.example.zoostore.core.processors.tag;
 
-import com.example.zoostore.api.operations.tag.findall.FindAllTagsInRepo;
-import com.example.zoostore.api.operations.tag.findall.FindAllTagsOperation;
-import com.example.zoostore.api.operations.tag.findall.FindAllTagsRequest;
-import com.example.zoostore.api.operations.tag.findall.FindAllTagsResponse;
+import com.example.zoostore.api.operations.tag.find.all.FindAllTagsInRepo;
+import com.example.zoostore.api.operations.tag.find.all.FindAllTagsOperation;
+import com.example.zoostore.api.operations.tag.find.all.FindAllTagsRequest;
+import com.example.zoostore.api.operations.tag.find.all.FindAllTagsResponse;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

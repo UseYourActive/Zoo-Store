@@ -1,16 +1,13 @@
 package com.example.zoostore.core.processors.vendor;
 
-import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsInRepo;
-import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsOperation;
-import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsRequest;
-import com.example.zoostore.api.operations.vendor.findall.FindAllVendorsResponse;
+import com.example.zoostore.api.operations.vendor.find.all.FindAllVendorsInRepo;
+import com.example.zoostore.api.operations.vendor.find.all.FindAllVendorsOperation;
+import com.example.zoostore.api.operations.vendor.find.all.FindAllVendorsRequest;
+import com.example.zoostore.api.operations.vendor.find.all.FindAllVendorsResponse;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Vendor;
 import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

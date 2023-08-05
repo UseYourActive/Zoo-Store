@@ -1,15 +1,12 @@
 package com.example.zoostore.core.processors.multimedia;
 
-import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaOperation;
-import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaRepo;
-import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaRequest;
-import com.example.zoostore.api.operations.multimedia.findall.FindAllMultimediaResponse;
+import com.example.zoostore.api.operations.multimedia.find.all.FindAllMultimediaOperation;
+import com.example.zoostore.api.operations.multimedia.find.all.FindAllMultimediaRepo;
+import com.example.zoostore.api.operations.multimedia.find.all.FindAllMultimediaRequest;
+import com.example.zoostore.api.operations.multimedia.find.all.FindAllMultimediaResponse;
 import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

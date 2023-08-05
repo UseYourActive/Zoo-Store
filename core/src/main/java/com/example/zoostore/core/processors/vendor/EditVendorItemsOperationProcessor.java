@@ -1,8 +1,8 @@
 package com.example.zoostore.core.processors.vendor;
 
-import com.example.zoostore.api.operations.vendor.items.EditVendorItemsOperation;
-import com.example.zoostore.api.operations.vendor.items.EditVendorItemsRequest;
-import com.example.zoostore.api.operations.vendor.items.EditVendorItemsResponse;
+import com.example.zoostore.api.operations.vendor.edit.items.EditVendorItemsOperation;
+import com.example.zoostore.api.operations.vendor.edit.items.EditVendorItemsRequest;
+import com.example.zoostore.api.operations.vendor.edit.items.EditVendorItemsResponse;
 import com.example.zoostore.core.exceptions.vendor.VendorNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Vendor;

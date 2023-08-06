@@ -31,7 +31,7 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
 
         return CreateNewMultimediaResponse.builder()
                 .id(save.getId())
-                .itemId(save.getId())
+                .itemId(save.getItem().getId())
                 .url(save.getUrl())
                 .build();
     }

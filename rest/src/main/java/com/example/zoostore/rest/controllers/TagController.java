@@ -3,9 +3,9 @@ package com.example.zoostore.rest.controllers;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagRequest;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagResponse;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagOperation;
-import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameRequest;
-import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameResponse;
-import com.example.zoostore.api.operations.tag.edit.tag.EditTagOperation;
+import com.example.zoostore.api.operations.tag.edit.title.EditTagTitleRequest;
+import com.example.zoostore.api.operations.tag.edit.title.EditTagTitleResponse;
+import com.example.zoostore.api.operations.tag.edit.title.EditTagTitleOperation;
 import com.example.zoostore.api.operations.tag.find.all.FindAllTagsOperation;
 import com.example.zoostore.api.operations.tag.find.all.FindAllTagsRequest;
 import com.example.zoostore.api.operations.tag.find.all.FindAllTagsResponse;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/tags")
 public class TagController {
     private final CreateNewTagOperation createNewTagOperation;
-    private final EditTagOperation editTagOperation;
+    private final EditTagTitleOperation editTagOperation;
     private final FindAllTagsOperation findAllTagsOperation;
     private final FindTagByIdOperation findTagByIdOperation;
 
@@ -64,7 +64,7 @@ public class TagController {
     @Operation(description = "Edits an existing in the database tag title with the given id from the users request.",
             summary = "Edits a tag name.")
     @PatchMapping("/name")
-    public ResponseEntity<EditTagNameResponse> editTagName(@Valid @RequestBody EditTagNameRequest request) {
+    public ResponseEntity<EditTagTitleResponse> editTagName(@Valid @RequestBody EditTagTitleRequest request) {
         return new ResponseEntity<>(editTagOperation.process(request), HttpStatus.ACCEPTED);
     }
     //endregion

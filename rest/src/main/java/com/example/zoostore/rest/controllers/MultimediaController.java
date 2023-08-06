@@ -3,7 +3,13 @@ package com.example.zoostore.rest.controllers;
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaRequest;
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaResponse;
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaOperation;
-import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaOperation;
+import com.example.zoostore.api.operations.multimedia.edit.full.EditMultimediaOperation;
+import com.example.zoostore.api.operations.multimedia.edit.full.EditMultimediaRequest;
+import com.example.zoostore.api.operations.multimedia.edit.full.EditMultimediaResponse;
+import com.example.zoostore.api.operations.multimedia.edit.item.EditMultimediaItemOperation;
+import com.example.zoostore.api.operations.multimedia.edit.item.EditMultimediaItemRequest;
+import com.example.zoostore.api.operations.multimedia.edit.item.EditMultimediaItemResponse;
+import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLOperation;
 import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLRequest;
 import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLResponse;
 import com.example.zoostore.api.operations.multimedia.find.all.FindAllMultimediaOperation;
@@ -27,7 +33,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/multimedia")
 public class MultimediaController {
     private final CreateNewMultimediaOperation createNewMultimediaOperation;
+    private final EditMultimediaURLOperation editMultimediaURLOperation;
     private final EditMultimediaOperation editMultimediaOperation;
+    private final EditMultimediaItemOperation editMultimediaItemOperation;
     private final FindAllMultimediaOperation findAllMultimediaOperation;
     private final FindMultimediaByIdOperation findMultimediaByIdOperation;
 
@@ -61,11 +69,25 @@ public class MultimediaController {
     //endregion
 
     //region PUT/PATCH
+    @Operation(description = "Edits the entire multimedia provided by the users information input.",
+            summary = "Edits an existing multimedia.")
+    @PatchMapping("/full")
+    public ResponseEntity<EditMultimediaResponse> editMultimedia(@Valid @RequestBody EditMultimediaRequest request) {
+        return new ResponseEntity<>(editMultimediaOperation.process(request), HttpStatus.ACCEPTED);
+    }
+
+    @Operation(description = "Provided by the user item id replaces the existing in the multimedia one if the item exists.",
+            summary = "Edits an existing multimedia item.")
+    @PatchMapping("/item")
+    public ResponseEntity<EditMultimediaItemResponse> editMultimediaItem(@Valid @RequestBody EditMultimediaItemRequest request) {
+        return new ResponseEntity<>(editMultimediaItemOperation.process(request), HttpStatus.ACCEPTED);
+    }
+
     @Operation(description = "Replaces an existing in the database urls with another with the given id from the users request.",
             summary = "Edits existing urls.")
     @PatchMapping("/url")
     public ResponseEntity<EditMultimediaURLResponse> editMultimediaURl(@Valid @RequestBody EditMultimediaURLRequest request) {
-        return new ResponseEntity<>(editMultimediaOperation.process(request), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(editMultimediaURLOperation.process(request), HttpStatus.ACCEPTED);
     }
     //endregion
 

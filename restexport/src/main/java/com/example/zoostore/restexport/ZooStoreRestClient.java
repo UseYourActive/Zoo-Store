@@ -23,14 +23,18 @@ import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemRequest;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemResponse;
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaRequest;
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaResponse;
+import com.example.zoostore.api.operations.multimedia.edit.full.EditMultimediaRequest;
+import com.example.zoostore.api.operations.multimedia.edit.full.EditMultimediaResponse;
+import com.example.zoostore.api.operations.multimedia.edit.item.EditMultimediaItemRequest;
+import com.example.zoostore.api.operations.multimedia.edit.item.EditMultimediaItemResponse;
 import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLRequest;
 import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLResponse;
 import com.example.zoostore.api.operations.multimedia.find.all.FindAllMultimediaResponse;
 import com.example.zoostore.api.operations.multimedia.find.byid.FindMultimediaByIdResponse;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagRequest;
 import com.example.zoostore.api.operations.tag.create.CreateNewTagResponse;
-import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameRequest;
-import com.example.zoostore.api.operations.tag.edit.tag.EditTagNameResponse;
+import com.example.zoostore.api.operations.tag.edit.title.EditTagTitleRequest;
+import com.example.zoostore.api.operations.tag.edit.title.EditTagTitleResponse;
 import com.example.zoostore.api.operations.tag.find.all.FindAllTagsResponse;
 import com.example.zoostore.api.operations.tag.find.byid.FindTagByIdResponse;
 import com.example.zoostore.api.operations.vendor.create.CreateNewVendorRequest;
@@ -104,6 +108,12 @@ public interface ZooStoreRestClient {
     @RequestLine("POST /multimedia/create")
     CreateNewMultimediaResponse createMultimedia(@Param CreateNewMultimediaRequest request);
 
+    @RequestLine("PATCH /multimedia/full")
+    EditMultimediaResponse editMultimedia(@Param EditMultimediaRequest request);
+
+    @RequestLine("PATCH /multimedia/item")
+    EditMultimediaItemResponse editMultimediaItem(@Param EditMultimediaItemRequest request);
+
     @RequestLine("PATCH /multimedia/url")
     EditMultimediaURLResponse editMultimediaURl(@Param EditMultimediaURLRequest request);
     //endregion
@@ -119,7 +129,7 @@ public interface ZooStoreRestClient {
     CreateNewTagResponse createNewTag(@Param CreateNewTagRequest request);
 
     @RequestLine("PATCH /tags/name")
-    EditTagNameResponse editTagName(@Param EditTagNameRequest request);
+    EditTagTitleResponse editTagName(@Param EditTagTitleRequest request);
     //endregion
 
     //region Vendors

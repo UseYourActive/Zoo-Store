@@ -1,11 +1,14 @@
 package com.example.zoostore.core.processors.multimedia;
 
-import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaOperation;
-import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLRequest;
-import com.example.zoostore.api.operations.multimedia.edit.url.EditMultimediaURLResponse;
-import com.example.zoostore.persistence.entities.Multimedia;
-import com.example.zoostore.persistence.repositories.MultimediaRepository;
+import com.example.zoostore.api.operations.multimedia.edit.full.EditMultimediaOperation;
+import com.example.zoostore.api.operations.multimedia.edit.full.EditMultimediaRequest;
+import com.example.zoostore.api.operations.multimedia.edit.full.EditMultimediaResponse;
+import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import com.example.zoostore.core.exceptions.multimedia.MultimediaNotFoundInRepositoryException;
+import com.example.zoostore.persistence.entities.Item;
+import com.example.zoostore.persistence.entities.Multimedia;
+import com.example.zoostore.persistence.repositories.ItemRepository;
+import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +18,29 @@ import java.util.Optional;
 @Service
 public class EditMultimediaOperationProcessor implements EditMultimediaOperation {
     private final MultimediaRepository multimediaRepository;
+    private final ItemRepository itemRepository;
 
     @Override
-    public EditMultimediaURLResponse process(EditMultimediaURLRequest editMultimediaURLRequest) {
-        Multimedia multimedia = multimediaRepository.findMultimediaById(editMultimediaURLRequest.getMultimediaId())
+    public EditMultimediaResponse process(EditMultimediaRequest editMultimediaRequest) {
+        Multimedia multimedia = multimediaRepository.findById(editMultimediaRequest.getMultimediaId())
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
 
-        multimedia.setUrl(editMultimediaURLRequest.getUrl());
+        Optional.ofNullable(editMultimediaRequest.getItemId())
+                .ifPresent(itemId -> {
+                    Item item = itemRepository.findById(editMultimediaRequest.getItemId())
+                            .orElseThrow(ItemNotFoundInRepositoryException::new);
+                    multimedia.setItem(item);
+                });
 
-        Multimedia save = multimediaRepository.save(multimedia);
+        Optional.ofNullable(editMultimediaRequest.getUrl())
+                .ifPresent(multimedia::setUrl);
 
-        return EditMultimediaURLResponse.builder()
+        Multimedia save = this.multimediaRepository.save(multimedia);
+
+        return EditMultimediaResponse.builder()
                 .id(save.getId())
-                .itemId(save.getId())
                 .url(save.getUrl())
+                .itemId(save.getItem().getId())
                 .build();
     }
 }

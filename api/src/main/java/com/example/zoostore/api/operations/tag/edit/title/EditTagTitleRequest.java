@@ -1,4 +1,4 @@
-package com.example.zoostore.api.operations.tag.edit.tag;
+package com.example.zoostore.api.operations.tag.edit.title;
 
 import com.example.zoostore.api.base.OperationInput;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class EditTagNameRequest implements OperationInput {
+public class EditTagTitleRequest implements OperationInput {
     @NotNull(message = "Tag UUID is required!")
     private UUID tagId;
 

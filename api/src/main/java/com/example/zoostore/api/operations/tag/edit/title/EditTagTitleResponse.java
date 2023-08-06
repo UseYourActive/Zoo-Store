@@ -1,4 +1,4 @@
-package com.example.zoostore.api.operations.tag.edit.tag;
+package com.example.zoostore.api.operations.tag.edit.title;
 
 import com.example.zoostore.api.base.OperationResult;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class EditTagNameResponse implements OperationResult {
+public class EditTagTitleResponse implements OperationResult {
     private UUID tagId;
     private String title;
     private Set<UUID> itemIds;

@@ -12,7 +12,6 @@ import com.example.zoostore.persistence.repositories.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class FindItemsByProductNameOperationProcessor implements FindItemsByProd
 
     @Override
     public FindItemsByProductNameResponse process(FindItemsByProductNameRequest findItemByProductNameRequest) {
-        Pageable pageable = PageRequest.of(findItemByProductNameRequest.getPageNumber(), findItemByProductNameRequest.getNumberOfItemsPerPage());
+        PageRequest pageable = PageRequest.of(findItemByProductNameRequest.getPageNumber(), findItemByProductNameRequest.getNumberOfItemsPerPage());
         Page<Item> items = itemRepository.findItemsByProductName(findItemByProductNameRequest.getProductName(), false, pageable);
 
         return FindItemsByProductNameResponse.builder()

@@ -94,7 +94,7 @@ public class ItemController {
 
     @Operation(description = "Finds all items in the database by a provided by the user product name.",
             summary = "Finds all items by product name.")
-    @GetMapping("/by-product-names/{request}")
+    @GetMapping("/by-product-name/{request}")
     public ResponseEntity<FindItemsByProductNameResponse> findItemsByProductName(@PathVariable String request,
                                                                                  @RequestParam(defaultValue = "1") Integer pageNumber,
                                                                                  @RequestParam(defaultValue = "2") Integer numberOfItemsPerPage){

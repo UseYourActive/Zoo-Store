@@ -31,7 +31,7 @@ public class CreateNewTagOperationProcessor implements CreateNewTagOperation {
                 .title(save.getTitle())
                 .itemIds(save.getItems().stream()
                         .map(Item::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

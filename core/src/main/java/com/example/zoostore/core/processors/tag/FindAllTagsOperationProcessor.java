@@ -25,7 +25,7 @@ public class FindAllTagsOperationProcessor implements FindAllTagsOperation {
         return FindAllTagsResponse.builder()
                 .tags(tagsFoundInRepo.stream()
                         .map(this::mapAllTags)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 
@@ -35,7 +35,7 @@ public class FindAllTagsOperationProcessor implements FindAllTagsOperation {
                 .title(tag.getTitle())
                 .itemIds(tag.getItems().stream()
                         .map(Item::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

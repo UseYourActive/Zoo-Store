@@ -2,6 +2,7 @@ package com.example.zoostore.api.operations.item.find.byproductname;
 
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ public class FindItemsByProductNamesRepo {
     private String productName;
     private String description;
     private UUID vendorId;
-    private Set<UUID> multimediaIds;
-    private Set<UUID> tagIds;
+    private List<UUID> multimediaIds;
+    private List<UUID> tagIds;
     private Boolean isArchived;
 }

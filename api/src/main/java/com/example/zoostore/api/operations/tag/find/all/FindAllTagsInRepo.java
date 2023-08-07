@@ -2,6 +2,7 @@ package com.example.zoostore.api.operations.tag.find.all;
 
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -13,5 +14,5 @@ import java.util.UUID;
 public class FindAllTagsInRepo {
     private UUID id;
     private String title;
-    private Set<UUID> itemIds;
+    private List<UUID> itemIds;
 }

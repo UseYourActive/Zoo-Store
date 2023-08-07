@@ -24,7 +24,7 @@ public class FindAllMultimediaOperationProcessor implements FindAllMultimediaOpe
         return FindAllMultimediaResponse.builder()
                 .multimedia(itemsFoundInRepo.stream()
                         .map(this::mapAllMultimediaInRepo)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 

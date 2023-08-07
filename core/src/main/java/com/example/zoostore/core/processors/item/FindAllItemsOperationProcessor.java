@@ -13,7 +13,6 @@ import com.example.zoostore.persistence.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -29,13 +28,13 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
         Tag tag = tagRepository.findById(findAllItemsInput.getTagId())
                 .orElseThrow(TagNotFoundInRepositoryException::new);
 
-        Pageable pageable = PageRequest.of(findAllItemsInput.getPageNumber(), findAllItemsInput.getNumberOfItemsPerPage());
+        PageRequest pageable = PageRequest.of(findAllItemsInput.getPageNumber(), findAllItemsInput.getNumberOfItemsPerPage());
         Page<Item> allItems = itemRepository.findAllByArchivedAndTagsContaining(false, tag, pageable);
 
         return FindAllItemsResponse.builder()
                 .items(allItems.stream()
                         .map(this::mapAllItemsToObject)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 
@@ -47,10 +46,10 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
                 .vendorId(item.getVendor().getId())
                 .tagIds(item.getTags().stream()
                         .map(Tag::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .multimediaIds(item.getMultimedia().stream()
                         .map(Multimedia::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .isArchived(item.getArchived())
                 .build();
     }

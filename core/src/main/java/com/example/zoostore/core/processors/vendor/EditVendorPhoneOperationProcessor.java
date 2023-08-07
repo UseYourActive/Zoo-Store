@@ -34,7 +34,7 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
                 .phone(save.getPhone())
                 .itemIds(save.getItems().stream()
                         .map(Item::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

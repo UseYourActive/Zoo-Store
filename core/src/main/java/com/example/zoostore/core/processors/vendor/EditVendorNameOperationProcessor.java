@@ -35,7 +35,7 @@ public class EditVendorNameOperationProcessor implements EditVendorNameOperation
                 .phone(save.getPhone())
                 .itemIds(save.getItems().stream()
                         .map(Item::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

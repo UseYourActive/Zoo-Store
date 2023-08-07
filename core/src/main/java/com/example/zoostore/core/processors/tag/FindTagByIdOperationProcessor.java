@@ -27,7 +27,7 @@ public class FindTagByIdOperationProcessor implements FindTagByIdOperation {
                 .title(tag.getTitle())
                 .itemIds(tag.getItems().stream()
                         .map(Item::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

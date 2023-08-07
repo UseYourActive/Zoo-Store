@@ -3,6 +3,7 @@ package com.example.zoostore.api.operations.tag.edit.title;
 import com.example.zoostore.api.base.OperationResult;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,5 +15,5 @@ import java.util.UUID;
 public class EditTagTitleResponse implements OperationResult {
     private UUID tagId;
     private String title;
-    private Set<UUID> itemIds;
+    private List<UUID> itemIds;
 }

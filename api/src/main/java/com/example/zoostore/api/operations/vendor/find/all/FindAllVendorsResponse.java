@@ -3,6 +3,7 @@ package com.example.zoostore.api.operations.vendor.find.all;
 import com.example.zoostore.api.base.OperationResult;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -11,5 +12,5 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindAllVendorsResponse implements OperationResult {
-    private Set<FindAllVendorsInRepo> vendors;
+    private List<FindAllVendorsInRepo> vendors;
 }

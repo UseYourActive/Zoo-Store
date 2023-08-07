@@ -28,7 +28,7 @@ public class FindVendorByIdOperationProcessor implements FindVendorByIdOperation
                 .phone(vendor.getPhone())
                 .itemIds(vendor.getItems().stream()
                         .map(Item::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

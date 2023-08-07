@@ -29,7 +29,7 @@ public class FindItemsByProductNameOperationProcessor implements FindItemsByProd
         return FindItemsByProductNameResponse.builder()
                 .items(items.stream()
                         .map(this::mapToObject)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 
@@ -41,11 +41,11 @@ public class FindItemsByProductNameOperationProcessor implements FindItemsByProd
                 .isArchived(item.getArchived())
                 .multimediaIds(item.getMultimedia().stream()
                         .map(Multimedia::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .vendorId(item.getVendor().getId())
                 .tagIds(item.getTags().stream()
                         .map(Tag::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

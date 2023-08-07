@@ -38,11 +38,11 @@ public class EditItemTagOperationProcessor implements EditItemTagOperation {
                 .isArchived(savedItem.getArchived())
                 .tagIds(savedItem.getTags().stream()
                         .map(Tag::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .vendorId(savedItem.getVendor().getId())
                 .multimediaIds(savedItem.getMultimedia().stream()
                         .map(Multimedia::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .description(savedItem.getDescription())
                 .build();
     }

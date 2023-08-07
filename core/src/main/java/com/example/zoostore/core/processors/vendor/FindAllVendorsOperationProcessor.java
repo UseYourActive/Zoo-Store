@@ -25,7 +25,7 @@ public class FindAllVendorsOperationProcessor implements FindAllVendorsOperation
         return FindAllVendorsResponse.builder()
                 .vendors(vendorsFoundInRepo.stream()
                         .map(this::mapAllFoundVendors)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 
@@ -36,7 +36,7 @@ public class FindAllVendorsOperationProcessor implements FindAllVendorsOperation
                 .phone(vendor.getPhone())
                 .itemIds(vendor.getItems().stream()
                         .map(Item::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

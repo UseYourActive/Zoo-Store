@@ -29,11 +29,11 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation {
                 .isArchived(item.getArchived())
                 .tagIds(item.getTags().stream()
                         .map(Tag::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .vendorId(item.getVendor().getId())
                 .multimediaIds(item.getMultimedia().stream()
                         .map(Multimedia::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .description(item.getDescription())
                 .build();
     }

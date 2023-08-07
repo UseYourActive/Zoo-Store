@@ -70,10 +70,10 @@ public class EditItemOperationProcessor implements EditItemOperation {
                 .vendorId(item.getVendor().getId())
                 .multimediaIds(item.getMultimedia().stream()
                         .map(Multimedia::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .tagIds(item.getTags().stream()
                         .map(Tag::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .isArchived(item.getArchived())
                 .build();
     }

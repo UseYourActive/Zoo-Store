@@ -38,7 +38,7 @@ public class EditVendorItemsOperationProcessor implements EditVendorItemsOperati
                 .name(save.getName())
                 .itemIds(save.getItems().stream()
                         .map(Item::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .build();
     }
 }

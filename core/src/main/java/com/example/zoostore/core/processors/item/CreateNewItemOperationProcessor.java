@@ -14,6 +14,7 @@ import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -53,8 +54,8 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
                 .productName(save.getProductName())
                 .tagIds(save.getTags().stream()
                         .map(Tag::getId)
-                        .collect(Collectors.toSet()))
-                .multimediaIds(new HashSet<>())
+                        .toList())
+                .multimediaIds(new ArrayList<>())
                 .isArchived(save.getArchived())
                 .build();
     }

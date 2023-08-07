@@ -34,11 +34,11 @@ public class UnArchiveItemOperationProcessor implements UnArchiveItemOperation {
                 .description(save.getDescription())
                 .multimediaIds(save.getMultimedia().stream()
                         .map(Multimedia::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .productName(save.getProductName())
                 .tagIds(save.getTags().stream()
                         .map(Tag::getId)
-                        .collect(Collectors.toSet()))
+                        .toList())
                 .isArchived(true)
                 .build();
     }

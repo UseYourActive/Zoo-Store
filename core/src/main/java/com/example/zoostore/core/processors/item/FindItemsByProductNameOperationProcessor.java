@@ -24,7 +24,7 @@ public class FindItemsByProductNameOperationProcessor implements FindItemsByProd
     @Override
     public FindItemsByProductNameResponse process(FindItemsByProductNameRequest findItemByProductNameRequest) {
         PageRequest pageable = PageRequest.of(findItemByProductNameRequest.getPageNumber(), findItemByProductNameRequest.getNumberOfItemsPerPage());
-        Page<Item> items = itemRepository.findItemsByProductName(findItemByProductNameRequest.getProductName(), false, pageable);
+        Page<Item> items = itemRepository.findItemsByProductNameContainingAndArchived(findItemByProductNameRequest.getProductName(), false, pageable);
 
         return FindItemsByProductNameResponse.builder()
                 .items(items.stream()

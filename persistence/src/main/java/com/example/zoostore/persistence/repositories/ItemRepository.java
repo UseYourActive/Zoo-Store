@@ -6,12 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public interface ItemRepository extends JpaRepository<Item, UUID> {
     Page<Item> findAllByArchivedAndTagsContaining(Boolean archived, Tag tag, Pageable pageable);
     Page<Item> findAllByTagsContaining(Tag tag, Pageable pageable);
-    Page<Item> findItemsByProductName(String productName, Boolean archived, Pageable pageable);
+    Page<Item> findItemsByProductNameContainingAndArchived(String productName, Boolean archived, Pageable pageable);
+    Page<Item> findItemsByTagsContainingAndArchived(Tag tag, Boolean archived, Pageable pageable);
 }

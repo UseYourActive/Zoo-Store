@@ -19,6 +19,7 @@ import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorRespon
 import com.example.zoostore.api.operations.item.find.all.FindAllItemsResponse;
 import com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse;
 import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameResponse;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagResponse;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemRequest;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemResponse;
 import com.example.zoostore.api.operations.multimedia.create.CreateNewMultimediaRequest;
@@ -69,6 +70,11 @@ public interface ZooStoreRestClient {
     FindItemsByProductNameResponse findItemsByProductName(@Param(value = "productName") String productName,
                                                           @Param(value = "pageNumber") Integer pageNumber,
                                                           @Param(value = "numberOfItemsPerPage") Integer numberOfItemsPerPage);
+
+    @RequestLine("GET /items/find-by-tag?pageNumber={pageNumber}&numberOfItemsPerPage={numberOfItemsPerPage}&tagId={tagId}")
+    FindItemsByTagResponse getItemByTagId(@Param(value = "pageNumber") Integer pageNumber,
+                                          @Param(value = "numberOfItemsPerPage") Integer numberOfItemsPerPage,
+                                          @Param(value = "tagId") String tagId);
 
     @RequestLine("POST /items/create")
     CreateNewItemResponse createItem(@Param CreateNewItemRequest request);

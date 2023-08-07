@@ -33,6 +33,9 @@ import com.example.zoostore.api.operations.item.find.byid.FindItemByIdOperation;
 import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameOperation;
 import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameRequest;
 import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameResponse;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagOperation;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagRequest;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagResponse;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemOperation;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemRequest;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemResponse;
@@ -61,6 +64,7 @@ public class ItemController {
     private final ArchiveItemOperation archiveItemOperation;
     private final FindItemByIdOperation findItemByIdOperation;
     private final FindAllItemsOperation findAllItemsOperation;
+    private final FindItemsByTagOperation findItemsByTagOperation;
     private final FindItemsByProductNameOperation findItemsByProductNameOperation;
     private final UnArchiveItemOperation unArchiveItemOperation;
     //region GET
@@ -105,6 +109,21 @@ public class ItemController {
                 .build();
 
         return new ResponseEntity<>(findItemsByProductNameOperation.process(build), HttpStatus.OK);
+    }
+
+    @Operation(description = "Finds an item in the database by a given by the user id.",
+            summary = "Finds items by tag.")
+    @GetMapping("/find-by-tag")
+    public ResponseEntity<FindItemsByTagResponse> getItemByTagId(@RequestParam(defaultValue = "1") Integer pageNumber,
+                                                              @RequestParam(defaultValue = "2") Integer numberOfItemsPerPage,
+                                                                 @RequestParam(required = false, defaultValue = "") @org.hibernate.validator.constraints.UUID String tagId){
+        FindItemsByTagRequest build = FindItemsByTagRequest.builder()
+                .numberOfItemsPerPage(numberOfItemsPerPage)
+                .pageNumber(pageNumber)
+                .tagId(UUID.fromString(tagId))
+                .build();
+
+        return new ResponseEntity<>(findItemsByTagOperation.process(build), HttpStatus.OK);
     }
     //endregion
 

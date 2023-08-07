@@ -1,9 +1,9 @@
 package com.example.zoostore.core.processors.item;
 
-import com.example.zoostore.api.operations.item.find.all.FindAllItemsInRepo;
-import com.example.zoostore.api.operations.item.find.all.FindAllItemsRequest;
-import com.example.zoostore.api.operations.item.find.all.FindAllItemsOperation;
-import com.example.zoostore.api.operations.item.find.all.FindAllItemsResponse;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagInRepo;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagOperation;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagRequest;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagResponse;
 import com.example.zoostore.core.exceptions.tag.TagNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Multimedia;
@@ -15,42 +15,40 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @RequiredArgsConstructor
 @Service
-public class FindAllItemsOperationProcessor implements FindAllItemsOperation { // fix from find by tag to find all
-    private final ItemRepository itemRepository;
+public class FindItemsByTagOperationProcessor implements FindItemsByTagOperation {
     private final TagRepository tagRepository;
+    private final ItemRepository itemRepository;
 
     @Override
-    public FindAllItemsResponse process(FindAllItemsRequest findAllItemsInput) {
-        Tag tag = tagRepository.findById(findAllItemsInput.getTagId())
+    public FindItemsByTagResponse process(FindItemsByTagRequest findItemByTagRequest) {
+        Tag tag = this.tagRepository.findById(findItemByTagRequest.getTagId())
                 .orElseThrow(TagNotFoundInRepositoryException::new);
 
-        PageRequest pageable = PageRequest.of(findAllItemsInput.getPageNumber(), findAllItemsInput.getNumberOfItemsPerPage());
-        Page<Item> allItems = itemRepository.findAllByArchivedAndTagsContaining(false, tag, pageable);
+        PageRequest pageable = PageRequest.of(findItemByTagRequest.getPageNumber(), findItemByTagRequest.getNumberOfItemsPerPage());
+        Page<Item> items = this.itemRepository.findItemsByTagsContainingAndArchived(tag, false, pageable);
 
-        return FindAllItemsResponse.builder()
-                .items(allItems.stream()
-                        .map(this::mapAllItemsToObject)
+        return FindItemsByTagResponse.builder()
+                .items(items.stream()
+                        .map(this::mapToObject)
                         .toList())
                 .build();
     }
 
-    private FindAllItemsInRepo mapAllItemsToObject(Item item){
-        return FindAllItemsInRepo.builder()
+    private FindItemsByTagInRepo mapToObject(Item item){
+        return FindItemsByTagInRepo.builder()
                 .itemId(item.getId())
+                .isArchived(item.getArchived())
                 .productName(item.getProductName())
-                .description(item.getDescription())
                 .vendorId(item.getVendor().getId())
+                .description(item.getDescription())
                 .tagIds(item.getTags().stream()
                         .map(Tag::getId)
                         .toList())
                 .multimediaIds(item.getMultimedia().stream()
                         .map(Multimedia::getId)
                         .toList())
-                .isArchived(item.getArchived())
                 .build();
     }
 }

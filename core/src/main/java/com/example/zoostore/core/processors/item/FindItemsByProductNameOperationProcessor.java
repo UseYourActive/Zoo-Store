@@ -12,8 +12,10 @@ import com.example.zoostore.persistence.repositories.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -23,8 +25,10 @@ public class FindItemsByProductNameOperationProcessor implements FindItemsByProd
 
     @Override
     public FindItemsByProductNameResponse process(FindItemsByProductNameRequest findItemByProductNameRequest) {
-        PageRequest pageable = PageRequest.of(findItemByProductNameRequest.getPageNumber(), findItemByProductNameRequest.getNumberOfItemsPerPage());
-        Page<Item> items = itemRepository.findItemsByProductNameContainingAndArchived(findItemByProductNameRequest.getProductName(), false, pageable);
+        PageRequest pageable = PageRequest.of(findItemByProductNameRequest.getPageNumber(), findItemByProductNameRequest.getNumberOfItemsPerPage(), Sort.by("productName").ascending());
+
+        String concat = findItemByProductNameRequest.getProductName().concat("/i"); // makes it key insensitive
+        List<Item> items = itemRepository.findAllByPartialProductName(concat, pageable).getContent();
 
         return FindItemsByProductNameResponse.builder()
                 .items(items.stream()

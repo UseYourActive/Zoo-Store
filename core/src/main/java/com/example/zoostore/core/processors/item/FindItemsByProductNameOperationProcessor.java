@@ -27,8 +27,8 @@ public class FindItemsByProductNameOperationProcessor implements FindItemsByProd
     public FindItemsByProductNameResponse process(FindItemsByProductNameRequest findItemByProductNameRequest) {
         PageRequest pageable = PageRequest.of(findItemByProductNameRequest.getPageNumber(), findItemByProductNameRequest.getNumberOfItemsPerPage(), Sort.by("productName").ascending());
 
-        String concat = findItemByProductNameRequest.getProductName().concat("/i"); // makes it key insensitive
-        List<Item> items = itemRepository.findAllByPartialProductName(concat, pageable).getContent();
+        //String concat = findItemByProductNameRequest.getProductName().concat("/i"); // makes it key insensitive
+        List<Item> items = itemRepository.findAllByPartialProductName(findItemByProductNameRequest.getProductName(), pageable).getContent();
 
         return FindItemsByProductNameResponse.builder()
                 .items(items.stream()

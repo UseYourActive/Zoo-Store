@@ -17,8 +17,8 @@ public interface ItemRepository extends JpaRepository<Item, UUID> {
     @Query(value = """
             SELECT *
             FROM items i
-            WHERE i.productName REGEXP :regex
-            ORDER BY title ASC
+            WHERE i.product_name REGEXP :regex
+            ORDER BY i.product_name ASC
             """, nativeQuery = true)
     Page<Item> findAllByPartialProductName(String regex, Pageable pageable);
 }

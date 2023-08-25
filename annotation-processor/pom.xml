@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.example.zoostore</groupId>
+        <artifactId>zoostore</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>annotation-processor</artifactId>
+    <version>${revision}</version>
+    <name>annotation-processor</name>
+    <description>annotation-processor</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.auto.service</groupId>
+            <artifactId>auto-service</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tinqin.restexport</groupId>
+            <artifactId>restexport</artifactId>
+            <version>${rest-export-revision}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <goals>
+                    <goal>compile</goal>
+                </goals>
+                <configuration>
+                    <failOnError>true</failOnError>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>com.example.zoostore</groupId>
+                        <artifactId>api</artifactId>
+                        <version>${revision}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

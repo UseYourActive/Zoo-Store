@@ -21,10 +21,12 @@
         <module>persistence</module>
         <module>rest</module>
         <module>restexport</module>
+        <module>annotation-processor</module>
     </modules>
 
     <properties>
         <revision>0.0.4-SNAPSHOT</revision>
+        <rest-export-revision>0.0.2-SNAPSHOT</rest-export-revision>
         <java.version>17</java.version>
     </properties>
 

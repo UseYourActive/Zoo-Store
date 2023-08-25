@@ -18,6 +18,7 @@ import com.example.zoostore.api.operations.multimedia.find.all.FindAllMultimedia
 import com.example.zoostore.api.operations.multimedia.find.byid.FindMultimediaByIdOperation;
 import com.example.zoostore.api.operations.multimedia.find.byid.FindMultimediaByIdRequest;
 import com.example.zoostore.api.operations.multimedia.find.byid.FindMultimediaByIdResponse;
+import com.tinqin.restexport.annotation.RestExport;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,7 @@ public class MultimediaController {
     private final FindMultimediaByIdOperation findMultimediaByIdOperation;
 
     //region GET
+    @RestExport
     @Operation(description = "Finds all multimedia in the database.",
             summary = "Finds all multimedia in the database.")
     @GetMapping()
@@ -48,9 +50,10 @@ public class MultimediaController {
         return new ResponseEntity<>(findAllMultimediaOperation.process(build), HttpStatus.OK);
     }
 
+    @RestExport
     @Operation(description = "Finds a multimedia in the database by a given by the user id.",
             summary = "Finds a multimedia by id.")
-    @GetMapping("/{multimediaId}")
+    @GetMapping(path = "/{multimediaId}")
     public ResponseEntity<FindMultimediaByIdResponse> findMultimediaById(@PathVariable @UUID String multimediaId) {
         FindMultimediaByIdRequest build = FindMultimediaByIdRequest.builder()
                 .id(java.util.UUID.fromString(multimediaId))
@@ -60,32 +63,36 @@ public class MultimediaController {
     //endregion
 
     //region POST
+    @RestExport
     @Operation(description = "From the users request creates a new url that does not exist in the database yet.",
             summary = "Creates a new URL.")
-    @PostMapping("/create")
+    @PostMapping(path = "/create")
     public ResponseEntity<CreateNewMultimediaResponse> createMultimedia(@Valid @RequestBody CreateNewMultimediaRequest request) {
         return new ResponseEntity<>(createNewMultimediaOperation.process(request), HttpStatus.CREATED);
     }
     //endregion
 
     //region PUT/PATCH
+    @RestExport
     @Operation(description = "Edits the entire multimedia provided by the users information input.",
             summary = "Edits an existing multimedia.")
-    @PatchMapping("/full")
+    @PatchMapping(path = "/full")
     public ResponseEntity<EditMultimediaResponse> editMultimedia(@Valid @RequestBody EditMultimediaRequest request) {
         return new ResponseEntity<>(editMultimediaOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Provided by the user item id replaces the existing in the multimedia one if the item exists.",
             summary = "Edits an existing multimedia item.")
-    @PatchMapping("/item")
+    @PatchMapping(path = "/item")
     public ResponseEntity<EditMultimediaItemResponse> editMultimediaItem(@Valid @RequestBody EditMultimediaItemRequest request) {
         return new ResponseEntity<>(editMultimediaItemOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Replaces an existing in the database urls with another with the given id from the users request.",
             summary = "Edits existing urls.")
-    @PatchMapping("/url")
+    @PatchMapping(path = "/url")
     public ResponseEntity<EditMultimediaURLResponse> editMultimediaURl(@Valid @RequestBody EditMultimediaURLRequest request) {
         return new ResponseEntity<>(editMultimediaURLOperation.process(request), HttpStatus.ACCEPTED);
     }

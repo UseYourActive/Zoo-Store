@@ -26,6 +26,16 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.tinqin.restexport</groupId>
+            <artifactId>restexport</artifactId>
+            <version>${rest-export-revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.example.zoostore</groupId>
+            <artifactId>annotation-processor</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -39,6 +39,7 @@ import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagRespons
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemOperation;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemRequest;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemResponse;
+import com.tinqin.restexport.annotation.RestExport;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 @Validated
-@RequestMapping("/items")
+@RequestMapping(path = "/items")
 public class ItemController {
     private final CreateNewItemOperation createNewItemOperation;
     private final EditItemVendorOperation editItemVendorOperation;
@@ -68,9 +69,10 @@ public class ItemController {
     private final FindItemsByProductNameOperation findItemsByProductNameOperation;
     private final UnArchiveItemOperation unArchiveItemOperation;
     //region GET
+    @RestExport
     @Operation(description = "Finds an item in the database by a given by the user id.",
             summary = "Finds an item by id.")
-    @GetMapping("/{request}")
+    @GetMapping(path = "/{request}")
     public ResponseEntity<FindItemByIdResponse> getItemById(@PathVariable @org.hibernate.validator.constraints.UUID String request){
         FindItemByIdRequest build = FindItemByIdRequest.builder()
                 .id(UUID.fromString(request))
@@ -79,6 +81,7 @@ public class ItemController {
         return new ResponseEntity<>(findItemByIdOperation.process(build), HttpStatus.OK);
     }
 
+    @RestExport
     @Operation(description = "Finds all items with a tag id provided by the user with the number of pages and number of items per page for pagination and if he wishes to include archived items.",
             summary = "Finds all items by tag and archive status and then returns them paginated.")
     @GetMapping()
@@ -96,9 +99,10 @@ public class ItemController {
         return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
     }
 
+    @RestExport
     @Operation(description = "Finds all items in the database by a provided by the user product name.",
             summary = "Finds all items by product name.")
-    @GetMapping("/by-product-name/{request}")
+    @GetMapping(path = "/by-product-name/{request}")
     public ResponseEntity<FindItemsByProductNameResponse> findItemsByProductName(@PathVariable String request,
                                                                                  @RequestParam(defaultValue = "1") Integer pageNumber,
                                                                                  @RequestParam(defaultValue = "2") Integer numberOfItemsPerPage){
@@ -111,11 +115,12 @@ public class ItemController {
         return new ResponseEntity<>(findItemsByProductNameOperation.process(build), HttpStatus.OK);
     }
 
+    @RestExport
     @Operation(description = "Finds an item in the database by a given by the user id.",
             summary = "Finds items by tag.")
-    @GetMapping("/find-by-tag")
+    @GetMapping(path = "/find-by-tag")
     public ResponseEntity<FindItemsByTagResponse> getItemByTagId(@RequestParam(defaultValue = "1") Integer pageNumber,
-                                                              @RequestParam(defaultValue = "2") Integer numberOfItemsPerPage,
+                                                                 @RequestParam(defaultValue = "2") Integer numberOfItemsPerPage,
                                                                  @RequestParam(required = false, defaultValue = "") @org.hibernate.validator.constraints.UUID String tagId){
         FindItemsByTagRequest build = FindItemsByTagRequest.builder()
                 .numberOfItemsPerPage(numberOfItemsPerPage)
@@ -128,67 +133,76 @@ public class ItemController {
     //endregion
 
     //region POST
+    @RestExport
     @Operation(description = "From the users request creates a new item that does not exist in the database yet.",
             summary = "Creates a new item.")
-    @PostMapping("/create")
+    @PostMapping(path = "/create")
     public ResponseEntity<CreateNewItemResponse> createItem(@Valid  @RequestBody CreateNewItemRequest request) {
         return new ResponseEntity<>(createNewItemOperation.process(request), HttpStatus.CREATED);
     }
     //endregion
 
     //region PUT/PATCH
+    @RestExport
     @Operation(description = "Edits an existing in the database with the given id from the users request.",
             summary = "Edits a product.")
-    @PatchMapping("/full")
+    @PatchMapping(path = "/full")
     public ResponseEntity<EditItemResponse> editItem(@Valid @RequestBody EditItemRequest request) {
         return new ResponseEntity<>(editItemOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Edits an existing in the database name of the product with the given id from the users request.",
             summary = "Edits a products name.")
-    @PatchMapping("/product-name")
+    @PatchMapping(path = "/product-name")
     public ResponseEntity<EditItemProductNameResponse> editItemProductName(@Valid @RequestBody EditItemProductNameRequest request) {
         return new ResponseEntity<>(editItemProductNameOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Edits an existing in the database description of the product with the given id from the users request.",
             summary = "Edits a products description.")
-    @PatchMapping("/description")
+    @PatchMapping(path = "/description")
     public ResponseEntity<EditItemDescriptionResponse> editItemDescription(@Valid @RequestBody EditItemDescriptionRequest request) {
         return new ResponseEntity<>(editItemDescriptionOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Edits an existing in the database vendor of the product with the given id from the users request.",
             summary = "Edits a products vendor.")
-    @PatchMapping("/vendor")
+    @PatchMapping(path = "/vendor")
     public ResponseEntity<EditItemVendorResponse> editItemVendor(@Valid @RequestBody EditItemVendorRequest request) {
         return new ResponseEntity<>(editItemVendorOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Edits an existing in the database urls of the product with the given id from the users request.",
             summary = "Edits a products urls.")
-    @PatchMapping("/multimedia")
+    @PatchMapping(path = "/multimedia")
     public ResponseEntity<EditItemMultimediaURLResponse> editItemMultimediaURL(@Valid @RequestBody EditItemMultimediaURLRequest request) {
         return new ResponseEntity<>(editItemMultimediaURLOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Edits an existing in the database tag title of the product with the given id from the users request.",
             summary = "Edits a products tag title.")
-    @PatchMapping("/tag")
+    @PatchMapping(path = "/tag")
     public ResponseEntity<EditItemTagResponse> editItemTag(@Valid @RequestBody EditItemTagRequest request) {
         return new ResponseEntity<>(editItemTagOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Archives an existing in the database product with the given id from the users request, hiding it from the clients vision.",
             summary = "Archives an item.")
-    @PatchMapping("/archive")
+    @PatchMapping(path = "/archive")
     public ResponseEntity<ArchiveItemResponse> archiveItem(@Valid @RequestBody ArchiveItemRequest request) {
         return new ResponseEntity<>(archiveItemOperation.process(request), HttpStatus.ACCEPTED);
     }
 
+    @RestExport
     @Operation(description = "Archives an existing in the database product with the given id from the users request, hiding it from the clients vision.",
             summary = "Un-archives an item.")
-    @PatchMapping("/un-archive")
+    @PatchMapping(path = "/un-archive")
     public ResponseEntity<UnArchiveItemResponse> unArchiveItem(@Valid @RequestBody UnArchiveItemRequest request) {
         return new ResponseEntity<>(unArchiveItemOperation.process(request), HttpStatus.ACCEPTED);
     }

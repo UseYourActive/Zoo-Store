@@ -12,12 +12,14 @@ import com.example.zoostore.persistence.entities.Vendor;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class EditItemVendorOperationProcessor implements EditItemVendorOperation {
     private final ItemRepository itemRepository;
@@ -25,17 +27,22 @@ public class EditItemVendorOperationProcessor implements EditItemVendorOperation
 
     @Override
     public EditItemVendorResponse process(EditItemVendorRequest editItemVendorRequest) {
+        log.info("Starting edit item vendor operation");
+
         Item itemFoundInRepository = itemRepository.findById(editItemVendorRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
+        log.info("Found item for vendor editing. ItemId: {}", itemFoundInRepository.getId());
 
         Vendor vendor = vendorRepository.findById(editItemVendorRequest.getVendorId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
+        log.info("Updating vendor to VendorId: {}", vendor.getId());
 
         itemFoundInRepository.setVendor(vendor);
 
         Item savedItem = itemRepository.save(itemFoundInRepository);
+        log.info("Vendor edited for item. ItemId: {}", savedItem.getId());
 
-        return EditItemVendorResponse.builder()
+        EditItemVendorResponse response = EditItemVendorResponse.builder()
                 .itemId(savedItem.getId())
                 .productName(savedItem.getProductName())
                 .isArchived(savedItem.getArchived())
@@ -48,5 +55,8 @@ public class EditItemVendorOperationProcessor implements EditItemVendorOperation
                         .toList())
                 .description(savedItem.getDescription())
                 .build();
+        log.info("Edit item vendor operation completed");
+
+        return response;
     }
 }

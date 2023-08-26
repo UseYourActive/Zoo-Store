@@ -12,7 +12,6 @@ import com.example.zoostore.api.operations.tag.find.all.FindAllTagsResponse;
 import com.example.zoostore.api.operations.tag.find.byid.FindTagByIdOperation;
 import com.example.zoostore.api.operations.tag.find.byid.FindTagByIdRequest;
 import com.example.zoostore.api.operations.tag.find.byid.FindTagByIdResponse;
-import com.tinqin.restexport.annotation.RestExport;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,16 +32,16 @@ public class TagController {
     private final FindTagByIdOperation findTagByIdOperation;
 
     //region GET
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds all tags in the database.",
             summary = "Finds all tags in the database.")
-    @GetMapping()
+    @GetMapping(path = "/")
     public ResponseEntity<FindAllTagsResponse> findAllTags() {
         FindAllTagsRequest build = FindAllTagsRequest.builder().build();
         return new ResponseEntity<>(findAllTagsOperation.process(build), HttpStatus.OK);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds a tag in the database by a given by the user id.",
             summary = "Finds a tag by id.")
     @GetMapping(path = "/{tagId}")
@@ -55,7 +54,7 @@ public class TagController {
     //endregion
 
     //region POST
-    @RestExport
+    //@RestExport
     @Operation(description = "From the users request creates a new tag that does not exist in the database yet.",
             summary = "Creates a new tag.")
     @PostMapping(path = "/create")
@@ -65,7 +64,7 @@ public class TagController {
     //endregion
 
     //region PUT/PATCH
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database tag title with the given id from the users request.",
             summary = "Edits a tag name.")
     @PatchMapping(path = "/name")

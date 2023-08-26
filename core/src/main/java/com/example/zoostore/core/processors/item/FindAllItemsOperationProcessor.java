@@ -11,31 +11,44 @@ import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
-public class FindAllItemsOperationProcessor implements FindAllItemsOperation { // fix from find by tag to find all
+public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
     private final ItemRepository itemRepository;
     private final TagRepository tagRepository;
 
     @Override
     public FindAllItemsResponse process(FindAllItemsRequest findAllItemsInput) {
+        log.info("Starting find all items operation");
+
         Tag tag = tagRepository.findById(findAllItemsInput.getTagId())
                 .orElseThrow(TagNotFoundInRepositoryException::new);
+        log.info("Found tag for find all items operation. TagId: {}", tag.getId());
 
         PageRequest pageable = PageRequest.of(findAllItemsInput.getPageNumber(), findAllItemsInput.getNumberOfItemsPerPage());
         Page<Item> allItems = itemRepository.findAllByArchivedAndTagsContaining(false, tag, pageable);
+        log.info("Found {} items with tag {}. Page number: {}", allItems.getTotalElements(), tag.getId(), pageable.getPageNumber());
 
-        return FindAllItemsResponse.builder()
-                .items(allItems.stream()
-                        .map(this::mapAllItemsToObject)
-                        .toList())
+        List<FindAllItemsInRepo> mappedItems = allItems.stream()
+                .map(this::mapAllItemsToObject)
+                .toList();
+        log.info("Mapping items to response objects completed. Count: {}", mappedItems.size());
+
+        FindAllItemsResponse response = FindAllItemsResponse.builder()
+                .items(mappedItems)
                 .build();
+        log.info("Find all items operation completed");
+
+        return response;
     }
 
     private FindAllItemsInRepo mapAllItemsToObject(Item item){

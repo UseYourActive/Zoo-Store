@@ -10,12 +10,14 @@ import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class EditItemTagOperationProcessor implements EditItemTagOperation {
     private final ItemRepository itemRepository;
@@ -23,16 +25,20 @@ public class EditItemTagOperationProcessor implements EditItemTagOperation {
 
     @Override
     public EditItemTagResponse process(EditItemTagRequest editItemTagRequest) {
+        log.info("Starting edit item tag operation");
+
         Item itemFoundInRepository = itemRepository.findById(editItemTagRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
+        log.info("Found item for tag editing. ItemId: {}", itemFoundInRepository.getId());
 
         Set<Tag> tags = tagRepository.findAllByIdIn(editItemTagRequest.getTagIds());
 
         itemFoundInRepository.setTags(tags);
 
         Item savedItem = itemRepository.save(itemFoundInRepository);
+        log.info("Tags edited for item. ItemId: {}", savedItem.getId());
 
-        return EditItemTagResponse.builder()
+        EditItemTagResponse response = EditItemTagResponse.builder()
                 .itemId(savedItem.getId())
                 .productName(savedItem.getProductName())
                 .isArchived(savedItem.getArchived())
@@ -45,5 +51,8 @@ public class EditItemTagOperationProcessor implements EditItemTagOperation {
                         .toList())
                 .description(savedItem.getDescription())
                 .build();
+        log.info("Edit item tag operation completed");
+
+        return response;
     }
 }

@@ -9,6 +9,7 @@ import com.example.zoostore.persistence.entities.Vendor;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class EditVendorItemsOperationProcessor implements EditVendorItemsOperation {
     private final VendorRepository vendorRepository;
@@ -23,6 +25,8 @@ public class EditVendorItemsOperationProcessor implements EditVendorItemsOperati
 
     @Override
     public EditVendorItemsResponse process(EditVendorItemsRequest editVendorItemsRequest) {
+        log.info("Starting edit vendor items operation for vendor with ID: {}", editVendorItemsRequest.getVendorId());
+
         Vendor vendor = vendorRepository.findById(editVendorItemsRequest.getVendorId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
@@ -31,6 +35,7 @@ public class EditVendorItemsOperationProcessor implements EditVendorItemsOperati
         vendor.setItems(new HashSet<>(items));
 
         Vendor save = vendorRepository.save(vendor);
+        log.info("Vendor items edited for vendor with ID: {}", save.getId());
 
         return EditVendorItemsResponse.builder()
                 .id(save.getId())

@@ -81,16 +81,22 @@ public interface ZooStoreRestExport {
     EditVendorItemsResponse editVendorItems(@Param EditVendorItemsRequest request);
 
     @RequestLine("GET /")
-    FindAllTagsResponse findAllTags();
+    FindAllMultimediaResponse findAllMultimedia();
 
-    @RequestLine("GET /{tagId}")
-    FindTagByIdResponse findTagById(@Param("tagId") String tagId);
+    @RequestLine("GET /{multimediaId}")
+    FindMultimediaByIdResponse findMultimediaById(@Param("multimediaId") String multimediaId);
 
     @RequestLine("POST /create")
-    CreateNewTagResponse createNewTag(@Param CreateNewTagRequest request);
+    CreateNewMultimediaResponse createMultimedia(@Param CreateNewMultimediaRequest request);
 
-    @RequestLine("PATCH /name")
-    EditTagTitleResponse editTagName(@Param EditTagTitleRequest request);
+    @RequestLine("PATCH /full")
+    EditMultimediaResponse editMultimedia(@Param EditMultimediaRequest request);
+
+    @RequestLine("PATCH /item")
+    EditMultimediaItemResponse editMultimediaItem(@Param EditMultimediaItemRequest request);
+
+    @RequestLine("PATCH /url")
+    EditMultimediaURLResponse editMultimediaURl(@Param EditMultimediaURLRequest request);
 
     @RequestLine("GET /items/{request}")
     FindItemByIdResponse getItemById(@Param("request") String request);
@@ -135,20 +141,14 @@ public interface ZooStoreRestExport {
     UnArchiveItemResponse unArchiveItem(@Param UnArchiveItemRequest request);
 
     @RequestLine("GET /")
-    FindAllMultimediaResponse findAllMultimedia();
+    FindAllTagsResponse findAllTags();
 
-    @RequestLine("GET /{multimediaId}")
-    FindMultimediaByIdResponse findMultimediaById(@Param("multimediaId") String multimediaId);
+    @RequestLine("GET /{tagId}")
+    FindTagByIdResponse findTagById(@Param("tagId") String tagId);
 
     @RequestLine("POST /create")
-    CreateNewMultimediaResponse createMultimedia(@Param CreateNewMultimediaRequest request);
+    CreateNewTagResponse createNewTag(@Param CreateNewTagRequest request);
 
-    @RequestLine("PATCH /full")
-    EditMultimediaResponse editMultimedia(@Param EditMultimediaRequest request);
-
-    @RequestLine("PATCH /item")
-    EditMultimediaItemResponse editMultimediaItem(@Param EditMultimediaItemRequest request);
-
-    @RequestLine("PATCH /url")
-    EditMultimediaURLResponse editMultimediaURl(@Param EditMultimediaURLRequest request);
+    @RequestLine("PATCH /name")
+    EditTagTitleResponse editTagName(@Param EditTagTitleRequest request);
 }

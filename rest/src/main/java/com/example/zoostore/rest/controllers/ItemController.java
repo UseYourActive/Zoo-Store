@@ -39,7 +39,6 @@ import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagRespons
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemOperation;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemRequest;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemResponse;
-import com.tinqin.restexport.annotation.RestExport;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -69,7 +68,7 @@ public class ItemController {
     private final FindItemsByProductNameOperation findItemsByProductNameOperation;
     private final UnArchiveItemOperation unArchiveItemOperation;
     //region GET
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds an item in the database by a given by the user id.",
             summary = "Finds an item by id.")
     @GetMapping(path = "/{request}")
@@ -81,10 +80,10 @@ public class ItemController {
         return new ResponseEntity<>(findItemByIdOperation.process(build), HttpStatus.OK);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds all items with a tag id provided by the user with the number of pages and number of items per page for pagination and if he wishes to include archived items.",
             summary = "Finds all items by tag and archive status and then returns them paginated.")
-    @GetMapping()
+    @GetMapping(path = "/")
     public ResponseEntity<FindAllItemsResponse> getAllItems(@RequestParam(required = false, defaultValue = "false") Boolean includeArchived,
                                                             @RequestParam(defaultValue = "1") Integer pageNumber,
                                                             @RequestParam(defaultValue = "2") Integer numberOfItemsPerPage,
@@ -99,7 +98,7 @@ public class ItemController {
         return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds all items in the database by a provided by the user product name.",
             summary = "Finds all items by product name.")
     @GetMapping(path = "/by-product-name/{request}")
@@ -115,7 +114,7 @@ public class ItemController {
         return new ResponseEntity<>(findItemsByProductNameOperation.process(build), HttpStatus.OK);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds an item in the database by a given by the user id.",
             summary = "Finds items by tag.")
     @GetMapping(path = "/find-by-tag")
@@ -133,7 +132,7 @@ public class ItemController {
     //endregion
 
     //region POST
-    @RestExport
+    //@RestExport
     @Operation(description = "From the users request creates a new item that does not exist in the database yet.",
             summary = "Creates a new item.")
     @PostMapping(path = "/create")
@@ -143,7 +142,7 @@ public class ItemController {
     //endregion
 
     //region PUT/PATCH
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database with the given id from the users request.",
             summary = "Edits a product.")
     @PatchMapping(path = "/full")
@@ -151,7 +150,7 @@ public class ItemController {
         return new ResponseEntity<>(editItemOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database name of the product with the given id from the users request.",
             summary = "Edits a products name.")
     @PatchMapping(path = "/product-name")
@@ -159,7 +158,7 @@ public class ItemController {
         return new ResponseEntity<>(editItemProductNameOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database description of the product with the given id from the users request.",
             summary = "Edits a products description.")
     @PatchMapping(path = "/description")
@@ -167,7 +166,7 @@ public class ItemController {
         return new ResponseEntity<>(editItemDescriptionOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database vendor of the product with the given id from the users request.",
             summary = "Edits a products vendor.")
     @PatchMapping(path = "/vendor")
@@ -175,7 +174,7 @@ public class ItemController {
         return new ResponseEntity<>(editItemVendorOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database urls of the product with the given id from the users request.",
             summary = "Edits a products urls.")
     @PatchMapping(path = "/multimedia")
@@ -183,7 +182,7 @@ public class ItemController {
         return new ResponseEntity<>(editItemMultimediaURLOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database tag title of the product with the given id from the users request.",
             summary = "Edits a products tag title.")
     @PatchMapping(path = "/tag")
@@ -191,7 +190,7 @@ public class ItemController {
         return new ResponseEntity<>(editItemTagOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Archives an existing in the database product with the given id from the users request, hiding it from the clients vision.",
             summary = "Archives an item.")
     @PatchMapping(path = "/archive")
@@ -199,7 +198,7 @@ public class ItemController {
         return new ResponseEntity<>(archiveItemOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Archives an existing in the database product with the given id from the users request, hiding it from the clients vision.",
             summary = "Un-archives an item.")
     @PatchMapping(path = "/un-archive")

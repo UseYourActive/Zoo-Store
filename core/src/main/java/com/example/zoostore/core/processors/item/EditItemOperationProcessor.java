@@ -14,6 +14,7 @@ import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import com.example.zoostore.persistence.repositories.TagRepository;
 import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +22,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class EditItemOperationProcessor implements EditItemOperation {
     private final ItemRepository itemRepository;
@@ -30,20 +32,33 @@ public class EditItemOperationProcessor implements EditItemOperation {
 
     @Override
     public EditItemResponse process(final EditItemRequest editItemRequest) {
+        log.info("Starting edit item operation");
+
         Item item = this.itemRepository.findById(UUID.fromString(editItemRequest.getId()))
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
+        log.info("Found item to edit. ItemId: {}", item.getId());
 
         Optional.ofNullable(editItemRequest.getProductName())
-                .ifPresent(item::setProductName);
+                .ifPresent(productName -> {
+                    log.info("Updating product name to: {}", productName);
+                    item.setProductName(productName);
+                });
 
         Optional.ofNullable(editItemRequest.getDescription())
-                .ifPresent(item::setDescription);
+                .ifPresent(description -> {
+                    log.info("Updating description to: {}", description);
+                    item.setDescription(description);
+                });
 
         Optional.ofNullable(editItemRequest.getIsArchived())
-                .ifPresent(item::setArchived);
+                .ifPresent(isArchived -> {
+                    log.info("Updating archived status to: {}", isArchived);
+                    item.setArchived(isArchived);
+                });
 
         Optional.ofNullable(editItemRequest.getVendorId())
                 .ifPresent(vendorId -> {
+                    log.info("Updating vendor to VendorId: {}", vendorId);
                     Vendor vendor = this.vendorRepository.findById(vendorId)
                             .orElseThrow(() -> new VendorNotFoundInRepositoryException("Vendor not found in repository!"));
                     item.setVendor(vendor);
@@ -51,15 +66,25 @@ public class EditItemOperationProcessor implements EditItemOperation {
 
         Optional.ofNullable(editItemRequest.getMultimedia())
                 .map(multimediaRepository::findAllByIdIn)
-                .ifPresent(item::setMultimedia);
+                .ifPresent(multimedia -> {
+                    log.info("Updating multimedia");
+                    item.setMultimedia(multimedia);
+                });
 
         Optional.ofNullable(editItemRequest.getTags())
                 .map(tagRepository::findAllByIdIn)
-                .ifPresent(item::setTags);
+                .ifPresent(tags -> {
+                    log.info("Updating tags");
+                    item.setTags(tags);
+                });
 
-        Item save = this.itemRepository.save(item);
+        Item savedItem = this.itemRepository.save(item);
+        log.info("Item edited successfully. ItemId: {}", savedItem.getId());
 
-        return buildEditItemResponse(save);
+        EditItemResponse response = buildEditItemResponse(savedItem);
+        log.info("Edit item operation completed");
+
+        return response;
     }
 
     private EditItemResponse buildEditItemResponse(Item item) {

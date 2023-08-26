@@ -9,26 +9,32 @@ import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class UnArchiveItemOperationProcessor implements UnArchiveItemOperation {
     private final ItemRepository itemRepository;
 
     @Override
     public UnArchiveItemResponse process(UnArchiveItemRequest unArchiveItemRequest) {
+        log.info("Starting unarchive item operation");
+
         Item item = itemRepository.findById(unArchiveItemRequest.getId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
+        log.info("Item found in repository with ID: {}", item.getId());
 
         item.setArchived(false);
 
         Item save = itemRepository.save(item);
+        log.info("Item successfully unarchived with ID: {}", save.getId());
 
-        return UnArchiveItemResponse.builder()
+        UnArchiveItemResponse response = UnArchiveItemResponse.builder()
                 .itemId(save.getId())
                 .vendorId(save.getVendor().getId())
                 .description(save.getDescription())
@@ -39,7 +45,10 @@ public class UnArchiveItemOperationProcessor implements UnArchiveItemOperation {
                 .tagIds(save.getTags().stream()
                         .map(Tag::getId)
                         .toList())
-                .isArchived(true)
+                .isArchived(false)
                 .build();
+        log.info("Unarchive item operation completed");
+
+        return response;
     }
 }

@@ -8,19 +8,24 @@ import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class FindAllTagsOperationProcessor implements FindAllTagsOperation {
     private final TagRepository tagRepository;
 
     @Override
     public FindAllTagsResponse process(FindAllTagsRequest findAllTagsRequest) {
+        log.info("Starting find all tags operation");
+
         List<Tag> tagsFoundInRepo = tagRepository.findAll();
+        log.info("Found {} tags in the repository", tagsFoundInRepo.size());
 
         return FindAllTagsResponse.builder()
                 .tags(tagsFoundInRepo.stream()

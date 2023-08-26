@@ -8,19 +8,24 @@ import com.example.zoostore.persistence.entities.Item;
 import com.example.zoostore.persistence.entities.Vendor;
 import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class FindVendorByIdOperationProcessor implements FindVendorByIdOperation {
     private final VendorRepository vendorRepository;
 
     @Override
     public FindVendorByIdResponse process(FindVendorByIdRequest findVendorByIdRequest) {
+        log.info("Starting find vendor by ID operation for vendor ID: {}", findVendorByIdRequest.getId());
+
         Vendor vendor = vendorRepository.findById(findVendorByIdRequest.getId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
+        log.info("Find vendor by ID operation completed for vendor ID: {}", findVendorByIdRequest.getId());
 
         return FindVendorByIdResponse.builder()
                 .id(vendor.getId())

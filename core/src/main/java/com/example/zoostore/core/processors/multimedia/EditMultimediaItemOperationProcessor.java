@@ -10,9 +10,11 @@ import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class EditMultimediaItemOperationProcessor implements EditMultimediaItemOperation {
     private final MultimediaRepository multimediaRepository;
@@ -20,20 +22,28 @@ public class EditMultimediaItemOperationProcessor implements EditMultimediaItemO
 
     @Override
     public EditMultimediaItemResponse process(EditMultimediaItemRequest editMultimediaItemRequest) {
+        log.info("Starting edit multimedia item operation");
+
         Multimedia multimedia = multimediaRepository.findById(editMultimediaItemRequest.getMultimediaId())
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
+        log.info("Multimedia found in repository with ID: {}", multimedia.getId());
 
         Item item = itemRepository.findById(editMultimediaItemRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
+        log.info("Item found in repository with ID: {}", item.getId());
 
         multimedia.setItem(item);
 
         Multimedia save = multimediaRepository.save(multimedia);
+        log.info("Multimedia updated with ID: {}", save.getId());
 
-        return EditMultimediaItemResponse.builder()
+        EditMultimediaItemResponse response = EditMultimediaItemResponse.builder()
                 .id(save.getId())
                 .itemId(save.getItem().getId())
                 .url(save.getUrl())
                 .build();
+        log.info("Edit multimedia item operation completed");
+
+        return response;
     }
 }

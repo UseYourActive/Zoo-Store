@@ -9,21 +9,26 @@ import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class FindItemByIdOperationProcessor implements FindItemByIdOperation {
     private final ItemRepository itemRepository;
 
     @Override
     public FindItemByIdResponse process(FindItemByIdRequest findItemByIdRequest) {
+        log.info("Starting find item by ID operation");
+
         Item item = this.itemRepository.findById(findItemByIdRequest.getId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
+        log.info("Found item with ID: {}", item.getId());
 
-        return FindItemByIdResponse.builder()
+        FindItemByIdResponse response = FindItemByIdResponse.builder()
                 .itemId(item.getId())
                 .productName(item.getProductName())
                 .isArchived(item.getArchived())
@@ -36,5 +41,8 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation {
                         .toList())
                 .description(item.getDescription())
                 .build();
+        log.info("Find item by ID operation completed");
+
+        return response;
     }
 }

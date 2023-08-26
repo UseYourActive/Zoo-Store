@@ -10,11 +10,13 @@ import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class EditMultimediaOperationProcessor implements EditMultimediaOperation {
     private final MultimediaRepository multimediaRepository;
@@ -22,25 +24,36 @@ public class EditMultimediaOperationProcessor implements EditMultimediaOperation
 
     @Override
     public EditMultimediaResponse process(EditMultimediaRequest editMultimediaRequest) {
+        log.info("Starting edit multimedia operation");
+
         Multimedia multimedia = multimediaRepository.findById(editMultimediaRequest.getMultimediaId())
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
+        log.info("Multimedia found in repository with ID: {}", multimedia.getId());
 
         Optional.ofNullable(editMultimediaRequest.getItemId())
                 .ifPresent(itemId -> {
-                    Item item = itemRepository.findById(editMultimediaRequest.getItemId())
+                    Item item = itemRepository.findById(itemId)
                             .orElseThrow(ItemNotFoundInRepositoryException::new);
                     multimedia.setItem(item);
+                    log.info("Associated multimedia with item: {}", item.getId());
                 });
 
         Optional.ofNullable(editMultimediaRequest.getUrl())
-                .ifPresent(multimedia::setUrl);
+                .ifPresent(url -> {
+                    multimedia.setUrl(url);
+                    log.info("Updated multimedia URL: {}", url);
+                });
 
         Multimedia save = this.multimediaRepository.save(multimedia);
+        log.info("Multimedia updated with ID: {}", save.getId());
 
-        return EditMultimediaResponse.builder()
+        EditMultimediaResponse response = EditMultimediaResponse.builder()
                 .id(save.getId())
                 .url(save.getUrl())
                 .itemId(save.getItem().getId())
                 .build();
+        log.info("Edit multimedia operation completed");
+
+        return response;
     }
 }

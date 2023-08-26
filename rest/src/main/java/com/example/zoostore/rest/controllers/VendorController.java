@@ -21,7 +21,6 @@ import com.example.zoostore.api.operations.vendor.edit.full.EditVendorResponse;
 import com.example.zoostore.api.operations.vendor.edit.items.EditVendorItemsOperation;
 import com.example.zoostore.api.operations.vendor.edit.items.EditVendorItemsRequest;
 import com.example.zoostore.api.operations.vendor.edit.items.EditVendorItemsResponse;
-import com.tinqin.restexport.annotation.RestExport;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,16 +44,16 @@ public class VendorController {
     private final FindVendorByIdOperation findVendorByIdOperation;
 
     //region GET
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds all vendors in the database.",
             summary = "Finds all vendors in the database.")
-    @GetMapping()
+    @GetMapping(path = "/")
     public ResponseEntity<FindAllVendorsResponse> findAllVendors() {
         FindAllVendorsRequest build = FindAllVendorsRequest.builder().build();
         return new ResponseEntity<>(findAllVendorsOperation.process(build), HttpStatus.OK);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds a vendor in the database by a given by the user id.",
             summary = "Finds a vendor by id.")
     @GetMapping(path = "/{vendorId}")
@@ -67,7 +66,7 @@ public class VendorController {
     //endregion
 
     //region POST
-    @RestExport
+    //@RestExport
     @Operation(description = "From the users request creates a new vendor that does not exist in the database yet.",
             summary = "Creates a new tag.")
     @PostMapping(path = "/create")
@@ -77,7 +76,7 @@ public class VendorController {
     //endregion
 
     //region PUT/PATCH
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database vendor with the given id from the users request.",
             summary = "Edits a vendor.")
     @PatchMapping(path = "/full")
@@ -85,7 +84,7 @@ public class VendorController {
         return new ResponseEntity<>(editVendorOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database vendor name with the given id from the users request.",
             summary = "Edits a vendors name.")
     @PatchMapping(path = "/name")
@@ -93,7 +92,7 @@ public class VendorController {
         return new ResponseEntity<>(editVendorNameOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database vendor phone with the given id from the users request.",
             summary = "Edits a vendors phone.")
     @PatchMapping(path = "/phone")
@@ -101,7 +100,7 @@ public class VendorController {
         return new ResponseEntity<>(editVendorPhoneOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits an existing in the database vendor phone with the given id from the users request.",
             summary = "Edits a vendors phone.")
     @PatchMapping(path = "/items")

@@ -9,9 +9,11 @@ import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.MultimediaRepository;
 import com.example.zoostore.core.exceptions.item.ItemNotFoundInRepositoryException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class CreateNewMultimediaOperationProcessor implements CreateNewMultimediaOperation {
     private final ItemRepository itemRepository;
@@ -19,8 +21,11 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
 
     @Override
     public CreateNewMultimediaResponse process(CreateNewMultimediaRequest createNewMultimediaRequest) {
+        log.info("Starting create new multimedia operation");
+
         Item item = itemRepository.findById(createNewMultimediaRequest.getItemId())
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
+        log.info("Item found in repository with ID: {}", item.getId());
 
         Multimedia multimedia = Multimedia.builder()
                 .item(item)
@@ -28,11 +33,15 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
                 .build();
 
         Multimedia save = multimediaRepository.save(multimedia);
+        log.info("Multimedia created with ID: {}", save.getId());
 
-        return CreateNewMultimediaResponse.builder()
+        CreateNewMultimediaResponse response = CreateNewMultimediaResponse.builder()
                 .id(save.getId())
                 .itemId(save.getItem().getId())
                 .url(save.getUrl())
                 .build();
+        log.info("Create new multimedia operation completed");
+
+        return response;
     }
 }

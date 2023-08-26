@@ -10,12 +10,14 @@ import com.example.zoostore.persistence.entities.Vendor;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class EditVendorOperationProcessor implements EditVendorOperation {
     private final VendorRepository vendorRepository;
@@ -23,19 +25,28 @@ public class EditVendorOperationProcessor implements EditVendorOperation {
 
     @Override
     public EditVendorResponse process(final EditVendorRequest editVendorRequest) {
+        log.info("Starting edit vendor operation for vendor with ID: {}", editVendorRequest.getId());
+
         Vendor vendor = vendorRepository.findById(editVendorRequest.getId())
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         Optional.ofNullable(editVendorRequest.getName())
-                .ifPresent(vendor::setName);
+                .ifPresent(name -> {
+                    vendor.setName(name);
+                    log.info("Vendor name updated for vendor with ID: {}", vendor.getId());
+                });
 
         Optional.ofNullable(editVendorRequest.getPhone())
-                .ifPresent(vendor::setPhone);
+                .ifPresent(phone -> {
+                    vendor.setPhone(phone);
+                    log.info("Vendor phone updated for vendor with ID: {}", vendor.getId());
+                });
 
         Optional.ofNullable(editVendorRequest.getItems())
-                .ifPresent(items -> updateVendorItems(vendor, editVendorRequest.getItems()));
+                .ifPresent(items -> updateVendorItems(vendor, items));
 
         Vendor saved = this.vendorRepository.save(vendor);
+        log.info("Edit vendor operation completed for vendor with ID: {}", saved.getId());
 
         return EditVendorResponse.builder()
                 .id(saved.getId())

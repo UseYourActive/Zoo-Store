@@ -12,6 +12,7 @@ import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.TagRepository;
 import com.example.zoostore.persistence.repositories.VendorRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
     private final ItemRepository itemRepository;
@@ -28,14 +30,19 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
 
     @Override
     public CreateNewItemResponse process(CreateNewItemRequest createNewItemRequest) {
+        log.info("Starting create new item operation");
+
         Vendor vendor = vendorRepository.findById(createNewItemRequest.getVendorId())
                 .orElseThrow(() -> new VendorNotFoundInRepositoryException("Vendor not found while creating a new item!"));
+        log.info("Found vendor for new item. VendorId: {}", vendor.getId());
 
         Set<Tag> tags = tagRepository.findAllByIdIn(createNewItemRequest.getTagIds());
 
-        if(tags.size() != createNewItemRequest.getTagIds().size()){ //TODO ruchen fetch ot bazata findbyid na vseki tak i da se natrupat nesushtestvuvashtite ID-ta v list
+        if(tags.size() != createNewItemRequest.getTagIds().size()) {
+            log.error("Not all tags were found in the repository");
             throw new TagNotFoundInRepositoryException();
         }
+        log.info("All tags were found in the repository");
 
         Item item = Item.builder()
                 .tags(tags)
@@ -45,18 +52,22 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
                 .productName(createNewItemRequest.getProductName())
                 .build();
 
-        Item save = itemRepository.save(item);
+        Item savedItem = itemRepository.save(item);
+        log.info("New item created. ItemId: {}", savedItem.getId());
 
-        return CreateNewItemResponse.builder()
-                .itemId(save.getId())
-                .vendorId(save.getVendor().getId())
-                .description(save.getDescription())
-                .productName(save.getProductName())
-                .tagIds(save.getTags().stream()
+        CreateNewItemResponse response = CreateNewItemResponse.builder()
+                .itemId(savedItem.getId())
+                .vendorId(savedItem.getVendor().getId())
+                .description(savedItem.getDescription())
+                .productName(savedItem.getProductName())
+                .tagIds(savedItem.getTags().stream()
                         .map(Tag::getId)
                         .toList())
                 .multimediaIds(new ArrayList<>())
-                .isArchived(save.getArchived())
+                .isArchived(savedItem.getArchived())
                 .build();
+        log.info("Create new item operation completed");
+
+        return response;
     }
 }

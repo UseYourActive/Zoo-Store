@@ -18,7 +18,6 @@ import com.example.zoostore.api.operations.multimedia.find.all.FindAllMultimedia
 import com.example.zoostore.api.operations.multimedia.find.byid.FindMultimediaByIdOperation;
 import com.example.zoostore.api.operations.multimedia.find.byid.FindMultimediaByIdRequest;
 import com.example.zoostore.api.operations.multimedia.find.byid.FindMultimediaByIdResponse;
-import com.tinqin.restexport.annotation.RestExport;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,16 +40,16 @@ public class MultimediaController {
     private final FindMultimediaByIdOperation findMultimediaByIdOperation;
 
     //region GET
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds all multimedia in the database.",
             summary = "Finds all multimedia in the database.")
-    @GetMapping()
+    @GetMapping(path = "/")
     public ResponseEntity<FindAllMultimediaResponse> findAllMultimedia() {
         FindAllMultimediaRequest build = FindAllMultimediaRequest.builder().build();
         return new ResponseEntity<>(findAllMultimediaOperation.process(build), HttpStatus.OK);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Finds a multimedia in the database by a given by the user id.",
             summary = "Finds a multimedia by id.")
     @GetMapping(path = "/{multimediaId}")
@@ -63,7 +62,7 @@ public class MultimediaController {
     //endregion
 
     //region POST
-    @RestExport
+    //@RestExport
     @Operation(description = "From the users request creates a new url that does not exist in the database yet.",
             summary = "Creates a new URL.")
     @PostMapping(path = "/create")
@@ -73,7 +72,7 @@ public class MultimediaController {
     //endregion
 
     //region PUT/PATCH
-    @RestExport
+    //@RestExport
     @Operation(description = "Edits the entire multimedia provided by the users information input.",
             summary = "Edits an existing multimedia.")
     @PatchMapping(path = "/full")
@@ -81,7 +80,7 @@ public class MultimediaController {
         return new ResponseEntity<>(editMultimediaOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Provided by the user item id replaces the existing in the multimedia one if the item exists.",
             summary = "Edits an existing multimedia item.")
     @PatchMapping(path = "/item")
@@ -89,7 +88,7 @@ public class MultimediaController {
         return new ResponseEntity<>(editMultimediaItemOperation.process(request), HttpStatus.ACCEPTED);
     }
 
-    @RestExport
+    //@RestExport
     @Operation(description = "Replaces an existing in the database urls with another with the given id from the users request.",
             summary = "Edits existing urls.")
     @PatchMapping(path = "/url")

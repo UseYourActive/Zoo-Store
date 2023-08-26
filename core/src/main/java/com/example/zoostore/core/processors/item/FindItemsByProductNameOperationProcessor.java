@@ -10,6 +10,7 @@ import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.entities.Tag;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,22 +20,32 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class FindItemsByProductNameOperationProcessor implements FindItemsByProductNameOperation {
     private final ItemRepository itemRepository;
 
     @Override
     public FindItemsByProductNameResponse process(FindItemsByProductNameRequest findItemByProductNameRequest) {
+        log.info("Starting find items by product name operation");
+
         PageRequest pageable = PageRequest.of(findItemByProductNameRequest.getPageNumber(), findItemByProductNameRequest.getNumberOfItemsPerPage(), Sort.by("productName").ascending());
 
-        //String concat = findItemByProductNameRequest.getProductName().concat("/i"); // makes it key insensitive
+        //String concat = findItemByProductNameRequest.getProductName().concat("/i"); // makes it case insensitive
         List<Item> items = itemRepository.findAllByPartialProductName(findItemByProductNameRequest.getProductName(), pageable).getContent();
+        log.info("Found {} items matching the product name '{}'", items.size(), findItemByProductNameRequest.getProductName());
 
-        return FindItemsByProductNameResponse.builder()
-                .items(items.stream()
-                        .map(this::mapToObject)
-                        .toList())
+        List<FindItemsByProductNamesRepo> mappedItems = items.stream()
+                .map(this::mapToObject)
+                .toList();
+        log.info("Mapping items to response objects completed. Count: {}", mappedItems.size());
+
+        FindItemsByProductNameResponse response = FindItemsByProductNameResponse.builder()
+                .items(mappedItems)
                 .build();
+        log.info("Find items by product name operation completed");
+
+        return response;
     }
 
     private FindItemsByProductNamesRepo mapToObject(Item item){

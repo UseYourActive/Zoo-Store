@@ -23,7 +23,7 @@ public class EditVendorNameOperationProcessor implements EditVendorNameOperation
     private final VendorRepository vendorRepository;
 
     @Override
-    public EditVendorNameResponse process(EditVendorNameRequest editVendorNameRequest) {
+    public EditVendorNameResponse process(final EditVendorNameRequest editVendorNameRequest) {
         log.info("Starting edit vendor name operation for vendor with ID: {}", editVendorNameRequest.getVendorId());
 
         Vendor vendor = vendorRepository.findById(UUID.fromString(editVendorNameRequest.getVendorId()))

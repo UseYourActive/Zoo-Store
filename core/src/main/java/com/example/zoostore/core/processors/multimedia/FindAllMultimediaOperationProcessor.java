@@ -20,7 +20,7 @@ public class FindAllMultimediaOperationProcessor implements FindAllMultimediaOpe
     private final MultimediaRepository multimediaRepository;
 
     @Override
-    public FindAllMultimediaResponse process(FindAllMultimediaRequest findAllMultimediaRequest) {
+    public FindAllMultimediaResponse process(final FindAllMultimediaRequest findAllMultimediaRequest) {
         log.info("Starting find all multimedia operation");
 
         List<Multimedia> itemsFoundInRepo = multimediaRepository.findAll();

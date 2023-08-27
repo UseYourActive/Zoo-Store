@@ -19,7 +19,7 @@ public class EditMultimediaURLOperationProcessor implements EditMultimediaURLOpe
     private final MultimediaRepository multimediaRepository;
 
     @Override
-    public EditMultimediaURLResponse process(EditMultimediaURLRequest editMultimediaURLRequest) {
+    public EditMultimediaURLResponse process(final EditMultimediaURLRequest editMultimediaURLRequest) {
         log.info("Starting edit multimedia URL operation");
 
         Multimedia multimedia = multimediaRepository.findMultimediaById(UUID.fromString(editMultimediaURLRequest.getMultimediaId()))

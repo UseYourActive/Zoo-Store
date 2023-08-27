@@ -28,7 +28,7 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
     private final TagRepository tagRepository;
 
     @Override
-    public FindAllItemsResponse process(FindAllItemsRequest findAllItemsInput) {
+    public FindAllItemsResponse process(final FindAllItemsRequest findAllItemsInput) {
         log.info("Starting find all items operation");
 
         Tag tag = tagRepository.findById(UUID.fromString(findAllItemsInput.getTagId()))

@@ -23,7 +23,7 @@ public class EditMultimediaItemOperationProcessor implements EditMultimediaItemO
     private final ItemRepository itemRepository;
 
     @Override
-    public EditMultimediaItemResponse process(EditMultimediaItemRequest editMultimediaItemRequest) {
+    public EditMultimediaItemResponse process(final EditMultimediaItemRequest editMultimediaItemRequest) {
         log.info("Starting edit multimedia item operation");
 
         Multimedia multimedia = multimediaRepository.findById(UUID.fromString(editMultimediaItemRequest.getMultimediaId()))

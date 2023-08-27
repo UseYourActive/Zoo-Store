@@ -26,7 +26,7 @@ public class ArchiveItemOperationProcessor implements ArchiveItemOperation {
     private final ItemRepository itemRepository;
 
     @Override
-    public ArchiveItemResponse process(ArchiveItemRequest request) {
+    public ArchiveItemResponse process(final ArchiveItemRequest request) {
         log.info("Starting archive item operation");
 
         Item found = itemRepository.findById(UUID.fromString(request.getItemId()))

@@ -21,7 +21,7 @@ public class FindAllVendorsOperationProcessor implements FindAllVendorsOperation
     private final VendorRepository vendorRepository;
 
     @Override
-    public FindAllVendorsResponse process(FindAllVendorsRequest findAllVendorsRequest) {
+    public FindAllVendorsResponse process(final FindAllVendorsRequest findAllVendorsRequest) {
         log.info("Starting find all vendors operation.");
 
         List<Vendor> vendorsFoundInRepo = vendorRepository.findAll();

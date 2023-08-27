@@ -28,7 +28,7 @@ public class EditItemMultimediaURLOperationProcessor implements EditItemMultimed
     private final MultimediaRepository multimediaRepository;
 
     @Override
-    public EditItemMultimediaURLResponse process(EditItemMultimediaURLRequest editItemMultimediaURLRequest) {
+    public EditItemMultimediaURLResponse process(final EditItemMultimediaURLRequest editItemMultimediaURLRequest) {
         log.info("Starting edit item multimedia URL operation");
 
         Item itemFoundInRepository = itemRepository.findById(UUID.fromString(editItemMultimediaURLRequest.getItemId()))

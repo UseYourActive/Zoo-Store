@@ -20,7 +20,7 @@ public class CreateNewVendorOperationProcessor implements CreateNewVendorOperati
     private final VendorRepository vendorRepository;
 
     @Override
-    public CreateNewVendorResponse process(CreateNewVendorRequest createNewVendorRequest) {
+    public CreateNewVendorResponse process(final CreateNewVendorRequest createNewVendorRequest) {
         log.info("Starting create new vendor operation for vendor: {}", createNewVendorRequest.getName());
 
         Vendor vendor = Vendor.builder()

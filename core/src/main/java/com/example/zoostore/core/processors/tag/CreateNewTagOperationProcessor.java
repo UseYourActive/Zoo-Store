@@ -21,7 +21,7 @@ public class CreateNewTagOperationProcessor implements CreateNewTagOperation {
     private final TagRepository tagRepository;
 
     @Override
-    public CreateNewTagResponse process(CreateNewTagRequest createNewTagRequest) {
+    public CreateNewTagResponse process(final CreateNewTagRequest createNewTagRequest) {
         log.info("Starting create new tag operation with title: {}", createNewTagRequest.getTitle());
 
         Tag tag = Tag.builder()

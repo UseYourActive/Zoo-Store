@@ -23,7 +23,7 @@ public class EditItemDescriptionOperationProcessor implements EditItemDescriptio
     private final ItemRepository itemRepository;
 
     @Override
-    public EditItemDescriptionResponse process(EditItemDescriptionRequest editItemDescriptionRequest) {
+    public EditItemDescriptionResponse process(final EditItemDescriptionRequest editItemDescriptionRequest) {
         log.info("Starting edit item description operation");
 
         Item itemFoundInRepository = itemRepository.findById(UUID.fromString(editItemDescriptionRequest.getItemId()))

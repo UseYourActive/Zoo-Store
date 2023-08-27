@@ -27,7 +27,7 @@ public class FindItemsByTagOperationProcessor implements FindItemsByTagOperation
     private final ItemRepository itemRepository;
 
     @Override
-    public FindItemsByTagResponse process(FindItemsByTagRequest findItemByTagRequest) {
+    public FindItemsByTagResponse process(final FindItemsByTagRequest findItemByTagRequest) {
         log.info("Starting find items by tag operation");
 
         Tag tag = this.tagRepository.findById(UUID.fromString(findItemByTagRequest.getTagId()))

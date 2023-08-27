@@ -26,7 +26,7 @@ public class EditItemTagOperationProcessor implements EditItemTagOperation {
     private final TagRepository tagRepository;
 
     @Override
-    public EditItemTagResponse process(EditItemTagRequest editItemTagRequest) {
+    public EditItemTagResponse process(final EditItemTagRequest editItemTagRequest) {
         log.info("Starting edit item tag operation");
 
         Item itemFoundInRepository = itemRepository.findById(UUID.fromString(editItemTagRequest.getItemId()))

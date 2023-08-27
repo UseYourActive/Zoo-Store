@@ -20,7 +20,7 @@ public class EditTagOperationProcessor implements EditTagTitleOperation {
     private final TagRepository tagRepository;
 
     @Override
-    public EditTagTitleResponse process(EditTagTitleRequest editTagNameRequest) {
+    public EditTagTitleResponse process(final EditTagTitleRequest editTagNameRequest) {
         log.info("Starting edit tag operation for tag ID: {}", editTagNameRequest.getTagId());
 
         Tag tag = tagRepository.findTagById(UUID.fromString(editTagNameRequest.getTagId()))

@@ -22,7 +22,7 @@ public class FindTagByIdOperationProcessor implements FindTagByIdOperation {
     private final TagRepository tagRepository;
 
     @Override
-    public FindTagByIdResponse process(FindTagByIdRequest findTagByIdRequest) {
+    public FindTagByIdResponse process(final FindTagByIdRequest findTagByIdRequest) {
         log.info("Starting find tag by ID operation for tag ID: {}", findTagByIdRequest.getId());
 
         Tag tag = tagRepository.findById(UUID.fromString(findTagByIdRequest.getId()))

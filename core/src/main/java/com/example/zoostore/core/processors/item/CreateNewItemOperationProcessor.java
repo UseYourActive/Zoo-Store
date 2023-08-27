@@ -27,7 +27,7 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
     private final VendorRepository vendorRepository;
 
     @Override
-    public CreateNewItemResponse process(CreateNewItemRequest createNewItemRequest) {
+    public CreateNewItemResponse process(final CreateNewItemRequest createNewItemRequest) {
         log.info("Starting create new item operation");
 
         Vendor vendor = vendorRepository.findById(UUID.fromString(createNewItemRequest.getVendorId()))

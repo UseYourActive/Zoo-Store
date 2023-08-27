@@ -22,7 +22,7 @@ public class FindVendorByIdOperationProcessor implements FindVendorByIdOperation
     private final VendorRepository vendorRepository;
 
     @Override
-    public FindVendorByIdResponse process(FindVendorByIdRequest findVendorByIdRequest) {
+    public FindVendorByIdResponse process(final FindVendorByIdRequest findVendorByIdRequest) {
         log.info("Starting find vendor by ID operation for vendor ID: {}", findVendorByIdRequest.getId());
 
         Vendor vendor = vendorRepository.findById(UUID.fromString(findVendorByIdRequest.getId()))

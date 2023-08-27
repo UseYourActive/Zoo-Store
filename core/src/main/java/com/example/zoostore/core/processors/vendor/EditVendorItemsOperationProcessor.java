@@ -27,7 +27,7 @@ public class EditVendorItemsOperationProcessor implements EditVendorItemsOperati
     private final ItemRepository itemRepository;
 
     @Override
-    public EditVendorItemsResponse process(EditVendorItemsRequest editVendorItemsRequest) {
+    public EditVendorItemsResponse process(final EditVendorItemsRequest editVendorItemsRequest) {
         log.info("Starting edit vendor items operation for vendor with ID: {}", editVendorItemsRequest.getVendorId());
 
         Vendor vendor = vendorRepository.findById(UUID.fromString(editVendorItemsRequest.getVendorId()))

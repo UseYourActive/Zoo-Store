@@ -19,7 +19,7 @@ public class FindMultimediaByIdOperationProcessor implements FindMultimediaByIdO
     private final MultimediaRepository multimediaRepository;
 
     @Override
-    public FindMultimediaByIdResponse process(FindMultimediaByIdRequest findMultimediaByIdRequest) {
+    public FindMultimediaByIdResponse process(final FindMultimediaByIdRequest findMultimediaByIdRequest) {
         log.info("Starting find multimedia by ID operation for ID: {}", findMultimediaByIdRequest.getId());
 
         Multimedia multimedia = multimediaRepository.findById(UUID.fromString(findMultimediaByIdRequest.getId()))

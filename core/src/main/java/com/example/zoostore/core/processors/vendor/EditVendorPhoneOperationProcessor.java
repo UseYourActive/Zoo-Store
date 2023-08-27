@@ -21,7 +21,7 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
     private final VendorRepository vendorRepository;
 
     @Override
-    public EditVendorPhoneResponse process(EditVendorPhoneRequest editVendorPhoneRequest) {
+    public EditVendorPhoneResponse process(final EditVendorPhoneRequest editVendorPhoneRequest) {
         log.info("Starting edit vendor phone operation for vendor with ID: {}", editVendorPhoneRequest.getVendorId());
 
         Vendor vendor = vendorRepository.findById(UUID.fromString(editVendorPhoneRequest.getVendorId()))

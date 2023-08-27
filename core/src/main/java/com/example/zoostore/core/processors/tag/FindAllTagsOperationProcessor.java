@@ -21,7 +21,7 @@ public class FindAllTagsOperationProcessor implements FindAllTagsOperation {
     private final TagRepository tagRepository;
 
     @Override
-    public FindAllTagsResponse process(FindAllTagsRequest findAllTagsRequest) {
+    public FindAllTagsResponse process(final FindAllTagsRequest findAllTagsRequest) {
         log.info("Starting find all tags operation");
 
         List<Tag> tagsFoundInRepo = tagRepository.findAll();

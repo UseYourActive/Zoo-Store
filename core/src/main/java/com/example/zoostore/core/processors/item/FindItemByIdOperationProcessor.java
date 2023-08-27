@@ -23,7 +23,7 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation {
     private final ItemRepository itemRepository;
 
     @Override
-    public FindItemByIdResponse process(FindItemByIdRequest findItemByIdRequest) {
+    public FindItemByIdResponse process(final FindItemByIdRequest findItemByIdRequest) {
         log.info("Starting find item by ID operation");
 
         Item item = this.itemRepository.findById(UUID.fromString(findItemByIdRequest.getId()))

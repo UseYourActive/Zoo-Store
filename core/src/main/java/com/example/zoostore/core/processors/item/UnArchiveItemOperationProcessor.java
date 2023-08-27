@@ -24,7 +24,7 @@ public class UnArchiveItemOperationProcessor implements UnArchiveItemOperation {
     private final ItemRepository itemRepository;
 
     @Override
-    public UnArchiveItemResponse process(UnArchiveItemRequest unArchiveItemRequest) {
+    public UnArchiveItemResponse process(final UnArchiveItemRequest unArchiveItemRequest) {
         log.info("Starting unarchive item operation");
 
         Item item = itemRepository.findById(UUID.fromString(unArchiveItemRequest.getId()))

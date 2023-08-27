@@ -22,7 +22,7 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
     private final MultimediaRepository multimediaRepository;
 
     @Override
-    public CreateNewMultimediaResponse process(CreateNewMultimediaRequest createNewMultimediaRequest) {
+    public CreateNewMultimediaResponse process(final CreateNewMultimediaRequest createNewMultimediaRequest) {
         log.info("Starting create new multimedia operation");
 
         Item item = itemRepository.findById(UUID.fromString(createNewMultimediaRequest.getItemId()))

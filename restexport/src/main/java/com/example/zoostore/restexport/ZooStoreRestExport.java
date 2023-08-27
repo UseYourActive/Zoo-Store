@@ -1,5 +1,6 @@
 package com.example.zoostore.restexport;
 
+import java.util.List;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemRequest;
 import com.example.zoostore.api.operations.item.archive.ArchiveItemResponse;
 import com.example.zoostore.api.operations.item.create.CreateNewItemRequest;
@@ -18,6 +19,7 @@ import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorReques
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorResponse;
 import com.example.zoostore.api.operations.item.find.all.FindAllItemsResponse;
 import com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse;
+import com.example.zoostore.api.operations.item.find.byids.FindItemsByIdsResponse;
 import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameResponse;
 import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagResponse;
 import com.example.zoostore.api.operations.item.unarchive.UnArchiveItemRequest;
@@ -112,6 +114,9 @@ public interface ZooStoreRestExport {
 
     @RequestLine("GET /items/find-by-tag?pageNumber={pageNumber}&numberOfItemsPerPage={numberOfItemsPerPage}&tagId={tagId}")
     FindItemsByTagResponse getItemByTagId(@Param("pageNumber") Integer pageNumber, @Param("numberOfItemsPerPage") Integer numberOfItemsPerPage, @Param("tagId") String tagId);
+
+    @RequestLine("GET /items")
+    FindItemsByIdsResponse findItemsByIds(@Param("ids") List<String> ids);
 
     @RequestLine("POST /items/create")
     CreateNewItemResponse createItem(@Param CreateNewItemRequest request);

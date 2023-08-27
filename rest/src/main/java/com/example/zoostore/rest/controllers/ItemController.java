@@ -30,6 +30,9 @@ import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorReques
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorResponse;
 import com.example.zoostore.api.operations.item.edit.vendor.EditItemVendorOperation;
 import com.example.zoostore.api.operations.item.find.byid.FindItemByIdOperation;
+import com.example.zoostore.api.operations.item.find.byids.FindItemsByIdsOperation;
+import com.example.zoostore.api.operations.item.find.byids.FindItemsByIdsRequest;
+import com.example.zoostore.api.operations.item.find.byids.FindItemsByIdsResponse;
 import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameOperation;
 import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameRequest;
 import com.example.zoostore.api.operations.item.find.byproductname.FindItemsByProductNameResponse;
@@ -47,7 +50,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -66,6 +69,7 @@ public class ItemController {
     private final FindAllItemsOperation findAllItemsOperation;
     private final FindItemsByTagOperation findItemsByTagOperation;
     private final FindItemsByProductNameOperation findItemsByProductNameOperation;
+    private final FindItemsByIdsOperation findItemsByIdsOperation;
     private final UnArchiveItemOperation unArchiveItemOperation;
     //region GET
     //@RestExport
@@ -128,6 +132,18 @@ public class ItemController {
                 .build();
 
         return new ResponseEntity<>(findItemsByTagOperation.process(build), HttpStatus.OK);
+    }
+
+    //@RestExport
+    @Operation(description = "Provided by the user multiple Ids gives back the specific items.",
+            summary = "Finds list of items.")
+    @GetMapping("/find-by-ids/{ids}")
+    public ResponseEntity<FindItemsByIdsResponse> findItemsByIds(@PathVariable List<String> ids) {
+        FindItemsByIdsRequest request = FindItemsByIdsRequest.builder()
+                .ids(ids)
+                .build();
+
+        return new ResponseEntity<>(this.findItemsByIdsOperation.process(request), HttpStatus.OK);
     }
     //endregion
 

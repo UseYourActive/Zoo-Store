@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -29,7 +30,7 @@ public class FindItemsByTagOperationProcessor implements FindItemsByTagOperation
     public FindItemsByTagResponse process(FindItemsByTagRequest findItemByTagRequest) {
         log.info("Starting find items by tag operation");
 
-        Tag tag = this.tagRepository.findById(findItemByTagRequest.getTagId())
+        Tag tag = this.tagRepository.findById(UUID.fromString(findItemByTagRequest.getTagId()))
                 .orElseThrow(TagNotFoundInRepositoryException::new);
         log.info("Tag found in repository with ID: {}", tag.getId());
 
@@ -51,18 +52,22 @@ public class FindItemsByTagOperationProcessor implements FindItemsByTagOperation
     }
 
     private FindItemsByTagInRepo mapToObject(Item item){
+        List<String> multimediaIds = item.getMultimedia().stream()
+                .map(multimedia -> String.valueOf(multimedia.getId()))
+                .toList();
+
+        List<String> tagIds = item.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         return FindItemsByTagInRepo.builder()
-                .itemId(item.getId())
+                .itemId(String.valueOf(item.getId()))
                 .isArchived(item.getArchived())
                 .productName(item.getProductName())
-                .vendorId(item.getVendor().getId())
+                .vendorId(String.valueOf(item.getVendor().getId()))
                 .description(item.getDescription())
-                .tagIds(item.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
-                .multimediaIds(item.getMultimedia().stream()
-                        .map(Multimedia::getId)
-                        .toList())
+                .tagIds(tagIds)
+                .multimediaIds(multimediaIds)
                 .build();
     }
 }

@@ -13,5 +13,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class FindTagByIdRequest implements OperationInput {
     @NotNull(message = "Tag id is required!")
-    private UUID id;
+    private String id;
 }

@@ -13,8 +13,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditMultimediaItemRequest implements OperationInput {
     @NotNull(message = "Multimedia id is required!")
-    private UUID multimediaId;
+    private String multimediaId;
 
     @NotNull(message = "Item id is required!")
-    private UUID itemId;
+    private String itemId;
 }

@@ -10,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindAllMultimediaRepo {
-    private UUID id;
+    private String id;
     private String url;
-    private UUID itemId;
+    private String itemId;
 }

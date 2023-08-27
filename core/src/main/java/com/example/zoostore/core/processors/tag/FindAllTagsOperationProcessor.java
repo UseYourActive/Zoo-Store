@@ -35,12 +35,14 @@ public class FindAllTagsOperationProcessor implements FindAllTagsOperation {
     }
 
     private FindAllTagsInRepo mapAllTags(Tag tag){
+        List<String> itemIds = tag.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
         return FindAllTagsInRepo.builder()
-                .id(tag.getId())
+                .id(String.valueOf(tag.getId()))
                 .title(tag.getTitle())
-                .itemIds(tag.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
     }
 }

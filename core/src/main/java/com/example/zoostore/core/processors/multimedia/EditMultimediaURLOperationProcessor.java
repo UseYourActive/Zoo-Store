@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -20,7 +22,7 @@ public class EditMultimediaURLOperationProcessor implements EditMultimediaURLOpe
     public EditMultimediaURLResponse process(EditMultimediaURLRequest editMultimediaURLRequest) {
         log.info("Starting edit multimedia URL operation");
 
-        Multimedia multimedia = multimediaRepository.findMultimediaById(editMultimediaURLRequest.getMultimediaId())
+        Multimedia multimedia = multimediaRepository.findMultimediaById(UUID.fromString(editMultimediaURLRequest.getMultimediaId()))
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
         log.info("Multimedia found in repository with ID: {}", multimedia.getId());
 
@@ -30,8 +32,8 @@ public class EditMultimediaURLOperationProcessor implements EditMultimediaURLOpe
         log.info("Multimedia URL updated with ID: {}", save.getId());
 
         EditMultimediaURLResponse response = EditMultimediaURLResponse.builder()
-                .id(save.getId())
-                .itemId(save.getId()) // This should probably be "itemId" instead of "id"
+                .id(String.valueOf(save.getId()))
+                .itemId(String.valueOf(save.getId())) // This should probably be "itemId" instead of "id"
                 .url(save.getUrl())
                 .build();
         log.info("Edit multimedia URL operation completed");

@@ -15,9 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -32,11 +30,13 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
     public CreateNewItemResponse process(CreateNewItemRequest createNewItemRequest) {
         log.info("Starting create new item operation");
 
-        Vendor vendor = vendorRepository.findById(createNewItemRequest.getVendorId())
+        Vendor vendor = vendorRepository.findById(UUID.fromString(createNewItemRequest.getVendorId()))
                 .orElseThrow(() -> new VendorNotFoundInRepositoryException("Vendor not found while creating a new item!"));
         log.info("Found vendor for new item. VendorId: {}", vendor.getId());
 
-        Set<Tag> tags = tagRepository.findAllByIdIn(createNewItemRequest.getTagIds());
+        Set<Tag> tags = tagRepository.findAllByIdIn(createNewItemRequest.getTagIds().stream()
+                .map(UUID::fromString)
+                .collect(Collectors.toSet()));
 
         if(tags.size() != createNewItemRequest.getTagIds().size()) {
             log.error("Not all tags were found in the repository");
@@ -55,14 +55,16 @@ public class CreateNewItemOperationProcessor implements CreateNewItemOperation {
         Item savedItem = itemRepository.save(item);
         log.info("New item created. ItemId: {}", savedItem.getId());
 
+        List<String> tagIds = savedItem.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         CreateNewItemResponse response = CreateNewItemResponse.builder()
-                .itemId(savedItem.getId())
-                .vendorId(savedItem.getVendor().getId())
+                .itemId(String.valueOf(savedItem.getId()))
+                .vendorId(String.valueOf(savedItem.getVendor().getId()))
                 .description(savedItem.getDescription())
                 .productName(savedItem.getProductName())
-                .tagIds(savedItem.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
+                .tagIds(tagIds)
                 .multimediaIds(new ArrayList<>())
                 .isArchived(savedItem.getArchived())
                 .build();

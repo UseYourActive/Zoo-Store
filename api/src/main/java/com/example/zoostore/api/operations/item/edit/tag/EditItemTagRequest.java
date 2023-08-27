@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,9 +17,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditItemTagRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private UUID itemId;
+    private String itemId;
 
     //@NotNull(message = "Tags UUIDs are required!")
     @org.hibernate.validator.constraints.UUID
-    private Set<UUID> tagIds;
+    private List<String> tagIds;
 }

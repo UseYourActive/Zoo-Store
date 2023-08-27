@@ -15,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -29,11 +31,11 @@ public class EditItemVendorOperationProcessor implements EditItemVendorOperation
     public EditItemVendorResponse process(EditItemVendorRequest editItemVendorRequest) {
         log.info("Starting edit item vendor operation");
 
-        Item itemFoundInRepository = itemRepository.findById(editItemVendorRequest.getItemId())
+        Item itemFoundInRepository = itemRepository.findById(UUID.fromString(editItemVendorRequest.getItemId()))
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
         log.info("Found item for vendor editing. ItemId: {}", itemFoundInRepository.getId());
 
-        Vendor vendor = vendorRepository.findById(editItemVendorRequest.getVendorId())
+        Vendor vendor = vendorRepository.findById(UUID.fromString(editItemVendorRequest.getVendorId()))
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
         log.info("Updating vendor to VendorId: {}", vendor.getId());
 
@@ -42,17 +44,21 @@ public class EditItemVendorOperationProcessor implements EditItemVendorOperation
         Item savedItem = itemRepository.save(itemFoundInRepository);
         log.info("Vendor edited for item. ItemId: {}", savedItem.getId());
 
+        List<String> multimediaIds = savedItem.getMultimedia().stream()
+                .map(multimedia -> String.valueOf(multimedia.getId()))
+                .toList();
+
+        List<String> tagIds = savedItem.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         EditItemVendorResponse response = EditItemVendorResponse.builder()
-                .itemId(savedItem.getId())
+                .itemId(String.valueOf(savedItem.getId()))
                 .productName(savedItem.getProductName())
                 .isArchived(savedItem.getArchived())
-                .tagIds(savedItem.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
-                .vendorId(savedItem.getVendor().getId())
-                .multimediaIds(savedItem.getMultimedia().stream()
-                        .map(Multimedia::getId)
-                        .toList())
+                .tagIds(tagIds)
+                .vendorId(String.valueOf(savedItem.getVendor().getId()))
+                .multimediaIds(multimediaIds)
                 .description(savedItem.getDescription())
                 .build();
         log.info("Edit item vendor operation completed");

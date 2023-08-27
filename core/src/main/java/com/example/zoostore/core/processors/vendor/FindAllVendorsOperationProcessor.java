@@ -35,13 +35,15 @@ public class FindAllVendorsOperationProcessor implements FindAllVendorsOperation
     }
 
     private FindAllVendorsInRepo mapAllFoundVendors(Vendor vendor){
+        List<String> itemIds = vendor.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
         return FindAllVendorsInRepo.builder()
-                .id(vendor.getId())
+                .id(String.valueOf(vendor.getId()))
                 .name(vendor.getName())
                 .phone(vendor.getPhone())
-                .itemIds(vendor.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
     }
 }

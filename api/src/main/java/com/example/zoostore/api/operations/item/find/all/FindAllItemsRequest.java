@@ -16,7 +16,7 @@ public class FindAllItemsRequest implements OperationInput {
     private Boolean shouldIncludeArchivedItems;
 
     @NotNull(message = "Tag id is required!")
-    private UUID tagId;
+    private String tagId;
 
     @NotNull(message = "Page number is required!")
     @Positive(message = "Page number must be a positive number!")

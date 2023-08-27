@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CreateNewMultimediaRequest implements OperationInput {
     @NotNull(message = "Item UUID is required!")
-    private UUID itemId;
+    private String itemId;
 
     @NotBlank(message = "URL is required!")
     @Size(min = 1, max = 300, message = "URL must be between 1 and 300 characters long to be valid!")

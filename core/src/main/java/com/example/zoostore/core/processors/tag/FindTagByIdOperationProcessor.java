@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -23,16 +25,18 @@ public class FindTagByIdOperationProcessor implements FindTagByIdOperation {
     public FindTagByIdResponse process(FindTagByIdRequest findTagByIdRequest) {
         log.info("Starting find tag by ID operation for tag ID: {}", findTagByIdRequest.getId());
 
-        Tag tag = tagRepository.findById(findTagByIdRequest.getId())
+        Tag tag = tagRepository.findById(UUID.fromString(findTagByIdRequest.getId()))
                 .orElseThrow(TagNotFoundInRepositoryException::new);
         log.info("Found tag with ID: {}, Title: {}", tag.getId(), tag.getTitle());
 
+        List<String> itemIds = tag.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
         return FindTagByIdResponse.builder()
-                .id(tag.getId())
+                .id(String.valueOf(tag.getId()))
                 .title(tag.getTitle())
-                .itemIds(tag.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
     }
 }

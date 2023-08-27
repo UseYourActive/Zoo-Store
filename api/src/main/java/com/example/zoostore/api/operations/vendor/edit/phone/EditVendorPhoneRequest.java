@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditVendorPhoneRequest implements OperationInput {
     @NotNull(message = "Vendor UUID is required!")
-    private UUID vendorId;
+    private String vendorId;
 
     @NotBlank(message = "Phone is required!")
     @Size(min = 1, max = 20, message = "Phone number must be between 1 and 20 characters long to be valid!")

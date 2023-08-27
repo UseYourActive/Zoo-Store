@@ -13,5 +13,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class FindVendorByIdRequest implements OperationInput {
     @NotNull(message = "Vendor id is required!")
-    private UUID id;
+    private String id;
 }

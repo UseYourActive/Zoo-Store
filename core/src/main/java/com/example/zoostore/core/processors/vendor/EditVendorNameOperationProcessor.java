@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,7 +26,7 @@ public class EditVendorNameOperationProcessor implements EditVendorNameOperation
     public EditVendorNameResponse process(EditVendorNameRequest editVendorNameRequest) {
         log.info("Starting edit vendor name operation for vendor with ID: {}", editVendorNameRequest.getVendorId());
 
-        Vendor vendor = vendorRepository.findById(editVendorNameRequest.getVendorId())
+        Vendor vendor = vendorRepository.findById(UUID.fromString(editVendorNameRequest.getVendorId()))
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         vendor.setName(editVendorNameRequest.getName());
@@ -34,13 +35,16 @@ public class EditVendorNameOperationProcessor implements EditVendorNameOperation
         Vendor save = vendorRepository.save(vendor);
         log.info("Vendor name edited for vendor with ID: {}", save.getId());
 
+        List<String> itemIds = save.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
+
         return EditVendorNameResponse.builder()
-                .id(save.getId())
+                .id(String.valueOf(save.getId()))
                 .name(save.getName())
                 .phone(save.getPhone())
-                .itemIds(save.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
     }
 }

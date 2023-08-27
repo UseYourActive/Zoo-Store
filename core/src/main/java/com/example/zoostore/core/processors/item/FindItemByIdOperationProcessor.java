@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -24,21 +26,25 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation {
     public FindItemByIdResponse process(FindItemByIdRequest findItemByIdRequest) {
         log.info("Starting find item by ID operation");
 
-        Item item = this.itemRepository.findById(findItemByIdRequest.getId())
+        Item item = this.itemRepository.findById(UUID.fromString(findItemByIdRequest.getId()))
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
         log.info("Found item with ID: {}", item.getId());
 
+        List<String> multimediaIds = item.getMultimedia().stream()
+                .map(multimedia -> String.valueOf(multimedia.getId()))
+                .toList();
+
+        List<String> tagIds = item.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         FindItemByIdResponse response = FindItemByIdResponse.builder()
-                .itemId(item.getId())
+                .itemId(String.valueOf(item.getId()))
                 .productName(item.getProductName())
                 .isArchived(item.getArchived())
-                .tagIds(item.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
-                .vendorId(item.getVendor().getId())
-                .multimediaIds(item.getMultimedia().stream()
-                        .map(Multimedia::getId)
-                        .toList())
+                .tagIds(tagIds)
+                .vendorId(String.valueOf(item.getVendor().getId()))
+                .multimediaIds(multimediaIds)
                 .description(item.getDescription())
                 .build();
         log.info("Find item by ID operation completed");

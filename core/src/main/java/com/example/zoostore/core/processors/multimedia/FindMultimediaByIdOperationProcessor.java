@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -20,14 +22,14 @@ public class FindMultimediaByIdOperationProcessor implements FindMultimediaByIdO
     public FindMultimediaByIdResponse process(FindMultimediaByIdRequest findMultimediaByIdRequest) {
         log.info("Starting find multimedia by ID operation for ID: {}", findMultimediaByIdRequest.getId());
 
-        Multimedia multimedia = multimediaRepository.findById(findMultimediaByIdRequest.getId())
+        Multimedia multimedia = multimediaRepository.findById(UUID.fromString(findMultimediaByIdRequest.getId()))
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
         log.info("Found multimedia with ID: {}", multimedia.getId());
 
         FindMultimediaByIdResponse build = FindMultimediaByIdResponse.builder()
-                .id(multimedia.getId())
+                .id(String.valueOf(multimedia.getId()))
                 .url(multimedia.getUrl())
-                .itemId(multimedia.getItem().getId())
+                .itemId(String.valueOf(multimedia.getItem().getId()))
                 .build();
         log.info("Find multimedia by ID operation completed");
 

@@ -17,7 +17,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -59,23 +61,33 @@ public class EditItemOperationProcessor implements EditItemOperation {
         Optional.ofNullable(editItemRequest.getVendorId())
                 .ifPresent(vendorId -> {
                     log.info("Updating vendor to VendorId: {}", vendorId);
-                    Vendor vendor = this.vendorRepository.findById(vendorId)
+                    Vendor vendor = this.vendorRepository.findById(UUID.fromString(vendorId))
                             .orElseThrow(() -> new VendorNotFoundInRepositoryException("Vendor not found in repository!"));
                     item.setVendor(vendor);
                 });
 
         Optional.ofNullable(editItemRequest.getMultimedia())
-                .map(multimediaRepository::findAllByIdIn)
-                .ifPresent(multimedia -> {
+                .ifPresent(multimediaIds -> {
+                    Set<Multimedia> multimediaSet = multimediaIds.stream()
+                            .map(UUID::fromString)
+                            .map(multimediaRepository::findMultimediaById)
+                            .filter(Optional::isPresent)
+                            .map(Optional::get)
+                            .collect(Collectors.toSet());
                     log.info("Updating multimedia");
-                    item.setMultimedia(multimedia);
+                    item.setMultimedia(multimediaSet);
                 });
 
         Optional.ofNullable(editItemRequest.getTags())
-                .map(tagRepository::findAllByIdIn)
-                .ifPresent(tags -> {
+                .ifPresent(tagIds -> {
+                    Set<Tag> tagSet = tagIds.stream()
+                            .map(UUID::fromString)
+                            .map(tagRepository::findTagById)
+                            .filter(Optional::isPresent)
+                            .map(Optional::get)
+                            .collect(Collectors.toSet());
                     log.info("Updating tags");
-                    item.setTags(tags);
+                    item.setTags(tagSet);
                 });
 
         Item savedItem = this.itemRepository.save(item);
@@ -88,17 +100,21 @@ public class EditItemOperationProcessor implements EditItemOperation {
     }
 
     private EditItemResponse buildEditItemResponse(Item item) {
+        List<String> multimediaIds = item.getMultimedia().stream()
+                .map(multimedia -> String.valueOf(multimedia.getId()))
+                .toList();
+
+        List<String> tagIds = item.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         return EditItemResponse.builder()
-                .itemId(item.getId())
+                .itemId(String.valueOf(item.getId()))
                 .productName(item.getProductName())
                 .description(item.getDescription())
-                .vendorId(item.getVendor().getId())
-                .multimediaIds(item.getMultimedia().stream()
-                        .map(Multimedia::getId)
-                        .toList())
-                .tagIds(item.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
+                .vendorId(String.valueOf(item.getVendor().getId()))
+                .multimediaIds(multimediaIds)
+                .tagIds(tagIds)
                 .isArchived(item.getArchived())
                 .build();
     }

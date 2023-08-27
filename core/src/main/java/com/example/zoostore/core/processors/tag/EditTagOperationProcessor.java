@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -21,7 +23,7 @@ public class EditTagOperationProcessor implements EditTagTitleOperation {
     public EditTagTitleResponse process(EditTagTitleRequest editTagNameRequest) {
         log.info("Starting edit tag operation for tag ID: {}", editTagNameRequest.getTagId());
 
-        Tag tag = tagRepository.findTagById(editTagNameRequest.getTagId())
+        Tag tag = tagRepository.findTagById(UUID.fromString(editTagNameRequest.getTagId()))
                 .orElseThrow(TagNotFoundInRepositoryException::new);
 
         tag.setTitle(editTagNameRequest.getTitle());
@@ -33,7 +35,7 @@ public class EditTagOperationProcessor implements EditTagTitleOperation {
         log.info("Edit tag operation completed");
 
         return EditTagTitleResponse.builder()
-                .tagId(save.getId())
+                .tagId(String.valueOf(save.getId()))
                 .title(save.getTitle())
                 .build();
     }

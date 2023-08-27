@@ -13,5 +13,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class FindMultimediaByIdRequest implements OperationInput {
     @NotNull(message = "Multimedia id is required!")
-    private UUID id;
+    private String id;
 }

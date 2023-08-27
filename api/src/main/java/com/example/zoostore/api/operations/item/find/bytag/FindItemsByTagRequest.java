@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class FindItemsByTagRequest implements OperationInput {
     @NotNull(message = "Tag id is required!")
-    private UUID tagId;
+    private String tagId;
 
     @Positive
     private Integer pageNumber;

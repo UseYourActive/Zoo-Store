@@ -38,8 +38,8 @@ public class FindAllMultimediaOperationProcessor implements FindAllMultimediaOpe
 
     private FindAllMultimediaRepo mapAllMultimediaInRepo(Multimedia multimedia){
         return FindAllMultimediaRepo.builder()
-                .id(multimedia.getId())
-                .itemId(multimedia.getItem().getId())
+                .id(String.valueOf(multimedia.getId()))
+                .itemId(String.valueOf(multimedia.getItem().getId()))
                 .url(multimedia.getUrl())
                 .build();
     }

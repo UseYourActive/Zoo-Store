@@ -49,18 +49,22 @@ public class FindItemsByProductNameOperationProcessor implements FindItemsByProd
     }
 
     private FindItemsByProductNamesRepo mapToObject(Item item){
+        List<String> multimediaIds = item.getMultimedia().stream()
+                .map(multimedia -> String.valueOf(multimedia.getId()))
+                .toList();
+
+        List<String> tagIds = item.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         return FindItemsByProductNamesRepo.builder()
-                .itemId(item.getId())
+                .itemId(String.valueOf(item.getId()))
                 .productName(item.getProductName())
                 .description(item.getDescription())
                 .isArchived(item.getArchived())
-                .multimediaIds(item.getMultimedia().stream()
-                        .map(Multimedia::getId)
-                        .toList())
-                .vendorId(item.getVendor().getId())
-                .tagIds(item.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
+                .multimediaIds(multimediaIds)
+                .vendorId(String.valueOf(item.getVendor().getId()))
+                .tagIds(tagIds)
                 .build();
     }
 }

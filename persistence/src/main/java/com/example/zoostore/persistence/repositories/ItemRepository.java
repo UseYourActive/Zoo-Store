@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface ItemRepository extends JpaRepository<Item, UUID> {
@@ -21,4 +23,6 @@ public interface ItemRepository extends JpaRepository<Item, UUID> {
             ORDER BY i.product_name ASC
             """, nativeQuery = true)
     Page<Item> findAllByPartialProductName(String regex, Pageable pageable);
+
+    List<Item> findAllByIdIn(List<UUID> itemIds);
 }

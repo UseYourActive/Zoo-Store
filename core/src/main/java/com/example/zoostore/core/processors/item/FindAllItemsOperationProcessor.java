@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
     public FindAllItemsResponse process(FindAllItemsRequest findAllItemsInput) {
         log.info("Starting find all items operation");
 
-        Tag tag = tagRepository.findById(findAllItemsInput.getTagId())
+        Tag tag = tagRepository.findById(UUID.fromString(findAllItemsInput.getTagId()))
                 .orElseThrow(TagNotFoundInRepositoryException::new);
         log.info("Found tag for find all items operation. TagId: {}", tag.getId());
 
@@ -52,17 +53,21 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
     }
 
     private FindAllItemsInRepo mapAllItemsToObject(Item item){
+        List<String> multimediaIds = item.getMultimedia().stream()
+                .map(multimedia -> String.valueOf(multimedia.getId()))
+                .toList();
+
+        List<String> tagIds = item.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         return FindAllItemsInRepo.builder()
-                .itemId(item.getId())
+                .itemId(String.valueOf(item.getId()))
                 .productName(item.getProductName())
                 .description(item.getDescription())
-                .vendorId(item.getVendor().getId())
-                .tagIds(item.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
-                .multimediaIds(item.getMultimedia().stream()
-                        .map(Multimedia::getId)
-                        .toList())
+                .vendorId(String.valueOf(item.getVendor().getId()))
+                .tagIds(tagIds)
+                .multimediaIds(multimediaIds)
                 .isArchived(item.getArchived())
                 .build();
     }

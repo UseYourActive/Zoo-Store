@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -31,13 +32,15 @@ public class CreateNewVendorOperationProcessor implements CreateNewVendorOperati
         Vendor save = vendorRepository.save(vendor);
         log.info("Vendor created with ID: {}, Name: {}", save.getId(), save.getName());
 
+        List<String> itemIds = save.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
         return CreateNewVendorResponse.builder()
-                .id(save.getId())
+                .id(String.valueOf(save.getId()))
                 .name(save.getName())
                 .phone(save.getPhone())
-                .itemIds(save.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
     }
 }

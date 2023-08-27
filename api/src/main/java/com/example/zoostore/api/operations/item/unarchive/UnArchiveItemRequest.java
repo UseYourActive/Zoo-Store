@@ -13,5 +13,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UnArchiveItemRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private UUID id;
+    private String id;
 }

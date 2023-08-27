@@ -14,5 +14,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ArchiveItemRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private UUID itemId;
+    private String itemId;
 }

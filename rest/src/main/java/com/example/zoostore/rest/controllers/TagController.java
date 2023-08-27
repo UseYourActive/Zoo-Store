@@ -47,7 +47,7 @@ public class TagController {
     @GetMapping(path = "/{tagId}")
     public ResponseEntity<FindTagByIdResponse> findTagById(@PathVariable @UUID String tagId) {
         FindTagByIdRequest build = FindTagByIdRequest.builder()
-                .id(java.util.UUID.fromString(tagId))
+                .id(tagId)
                 .build();
         return new ResponseEntity<>(findTagByIdOperation.process(build), HttpStatus.OK);
     }

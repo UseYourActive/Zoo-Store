@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -23,17 +25,19 @@ public class FindVendorByIdOperationProcessor implements FindVendorByIdOperation
     public FindVendorByIdResponse process(FindVendorByIdRequest findVendorByIdRequest) {
         log.info("Starting find vendor by ID operation for vendor ID: {}", findVendorByIdRequest.getId());
 
-        Vendor vendor = vendorRepository.findById(findVendorByIdRequest.getId())
+        Vendor vendor = vendorRepository.findById(UUID.fromString(findVendorByIdRequest.getId()))
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
         log.info("Find vendor by ID operation completed for vendor ID: {}", findVendorByIdRequest.getId());
 
+        List<String> itemIds = vendor.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
         return FindVendorByIdResponse.builder()
-                .id(vendor.getId())
+                .id(String.valueOf(vendor.getId()))
                 .name(vendor.getName())
                 .phone(vendor.getPhone())
-                .itemIds(vendor.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
     }
 }

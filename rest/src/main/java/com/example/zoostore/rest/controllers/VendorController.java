@@ -59,7 +59,7 @@ public class VendorController {
     @GetMapping(path = "/{vendorId}")
     public ResponseEntity<FindVendorByIdResponse> findVendorById(@PathVariable @UUID String vendorId) {
         FindVendorByIdRequest build = FindVendorByIdRequest.builder()
-                .id(java.util.UUID.fromString(vendorId))
+                .id(vendorId)
                 .build();
         return new ResponseEntity<>(findVendorByIdOperation.process(build), HttpStatus.OK);
     }

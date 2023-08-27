@@ -14,8 +14,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditItemVendorRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private UUID itemId;
+    private String itemId;
 
     @NotNull(message = "Vendor id is required!")
-    private UUID vendorId;
+    private String vendorId;
 }

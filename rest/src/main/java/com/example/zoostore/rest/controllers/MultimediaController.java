@@ -55,7 +55,7 @@ public class MultimediaController {
     @GetMapping(path = "/{multimediaId}")
     public ResponseEntity<FindMultimediaByIdResponse> findMultimediaById(@PathVariable @UUID String multimediaId) {
         FindMultimediaByIdRequest build = FindMultimediaByIdRequest.builder()
-                .id(java.util.UUID.fromString(multimediaId))
+                .id(multimediaId)
                 .build();
         return new ResponseEntity<>(findMultimediaByIdOperation.process(build), HttpStatus.OK);
     }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,13 +26,13 @@ public class EditItemRequest implements OperationInput {
     private String description;
 
     @Nullable
-    private UUID vendorId;
+    private String vendorId;
 
     @Nullable
-    private Set<UUID> multimedia;
+    private List<String> multimedia;
 
     @Nullable
-    private Set<UUID> tags;
+    private List<String> tags;
 
     @Nullable
     private Boolean isArchived;

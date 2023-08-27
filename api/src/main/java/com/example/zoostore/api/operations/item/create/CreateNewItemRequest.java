@@ -24,8 +24,8 @@ public class CreateNewItemRequest implements OperationInput {
     private String description;
 
     @NotNull(message = "Vendor UUID is required!")
-    private UUID vendorId;
+    private String vendorId;
 
     @NotNull(message = "Tags UUIDs are required!")
-    private Set<UUID> tagIds;
+    private Set<String> tagIds;
 }

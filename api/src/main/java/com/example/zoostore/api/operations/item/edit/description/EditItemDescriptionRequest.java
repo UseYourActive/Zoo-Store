@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditItemDescriptionRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private UUID itemId;
+    private String itemId;
 
     @NotBlank(message = "Description is required!")
     @Size(min = 10, max = 100, message = "Description must be between 10 and 100 characters long to be valid!")

@@ -5,6 +5,7 @@ import com.example.zoostore.api.operations.vendor.edit.items.EditVendorItemsRequ
 import com.example.zoostore.api.operations.vendor.edit.items.EditVendorItemsResponse;
 import com.example.zoostore.core.exceptions.vendor.VendorNotFoundInRepositoryException;
 import com.example.zoostore.persistence.entities.Item;
+import com.example.zoostore.persistence.entities.Multimedia;
 import com.example.zoostore.persistence.entities.Vendor;
 import com.example.zoostore.persistence.repositories.ItemRepository;
 import com.example.zoostore.persistence.repositories.VendorRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -27,10 +30,12 @@ public class EditVendorItemsOperationProcessor implements EditVendorItemsOperati
     public EditVendorItemsResponse process(EditVendorItemsRequest editVendorItemsRequest) {
         log.info("Starting edit vendor items operation for vendor with ID: {}", editVendorItemsRequest.getVendorId());
 
-        Vendor vendor = vendorRepository.findById(editVendorItemsRequest.getVendorId())
+        Vendor vendor = vendorRepository.findById(UUID.fromString(editVendorItemsRequest.getVendorId()))
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
-        List<Item> items = itemRepository.findAllById(editVendorItemsRequest.getItemIds());
+        List<Item> items = this.itemRepository.findAllByIdIn(editVendorItemsRequest.getItemIds().stream()
+                .map(UUID::fromString)
+                .toList());
 
         vendor.setItems(new HashSet<>(items));
 
@@ -38,11 +43,11 @@ public class EditVendorItemsOperationProcessor implements EditVendorItemsOperati
         log.info("Vendor items edited for vendor with ID: {}", save.getId());
 
         return EditVendorItemsResponse.builder()
-                .id(save.getId())
+                .id(String.valueOf(save.getId()))
                 .phone(save.getPhone())
                 .name(save.getName())
                 .itemIds(save.getItems().stream()
-                        .map(Item::getId)
+                        .map(i -> String.valueOf(i.getId()))
                         .toList())
                 .build();
     }

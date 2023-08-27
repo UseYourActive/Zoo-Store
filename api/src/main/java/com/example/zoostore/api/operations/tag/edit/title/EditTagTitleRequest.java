@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditTagTitleRequest implements OperationInput {
     @NotNull(message = "Tag UUID is required!")
-    private UUID tagId;
+    private String tagId;
 
     @NotBlank(message = "Title is required!")
     @Size(min = 1, max = 50, message = "Tag title must be between 1 and 50 characters long to be valid!")

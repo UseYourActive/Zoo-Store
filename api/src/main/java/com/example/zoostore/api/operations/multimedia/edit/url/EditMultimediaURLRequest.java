@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditMultimediaURLRequest implements OperationInput {
     @NotNull(message = "Multimedia id is required!")
-    private UUID multimediaId;
+    private String multimediaId;
 
     @NotBlank(message = "URL is required!")
     @Size(min = 1, max = 300, message = "URL must be between 1 and 300 characters long to be valid!")

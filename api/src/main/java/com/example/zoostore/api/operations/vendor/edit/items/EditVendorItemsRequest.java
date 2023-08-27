@@ -4,6 +4,7 @@ import com.example.zoostore.api.base.OperationInput;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,8 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditVendorItemsRequest implements OperationInput {
     @NotNull(message = "Vendor id is required!")
-    private UUID vendorId;
+    private String vendorId;
 
     @org.hibernate.validator.constraints.UUID
-    private Set<UUID> itemIds;
+    private List<String> itemIds;
 }

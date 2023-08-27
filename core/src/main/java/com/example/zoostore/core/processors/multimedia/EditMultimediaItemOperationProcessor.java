@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -24,11 +26,11 @@ public class EditMultimediaItemOperationProcessor implements EditMultimediaItemO
     public EditMultimediaItemResponse process(EditMultimediaItemRequest editMultimediaItemRequest) {
         log.info("Starting edit multimedia item operation");
 
-        Multimedia multimedia = multimediaRepository.findById(editMultimediaItemRequest.getMultimediaId())
+        Multimedia multimedia = multimediaRepository.findById(UUID.fromString(editMultimediaItemRequest.getMultimediaId()))
                 .orElseThrow(MultimediaNotFoundInRepositoryException::new);
         log.info("Multimedia found in repository with ID: {}", multimedia.getId());
 
-        Item item = itemRepository.findById(editMultimediaItemRequest.getItemId())
+        Item item = itemRepository.findById(UUID.fromString(editMultimediaItemRequest.getItemId()))
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
         log.info("Item found in repository with ID: {}", item.getId());
 
@@ -38,8 +40,8 @@ public class EditMultimediaItemOperationProcessor implements EditMultimediaItemO
         log.info("Multimedia updated with ID: {}", save.getId());
 
         EditMultimediaItemResponse response = EditMultimediaItemResponse.builder()
-                .id(save.getId())
-                .itemId(save.getItem().getId())
+                .id(String.valueOf(save.getId()))
+                .itemId(String.valueOf(save.getItem().getId()))
                 .url(save.getUrl())
                 .build();
         log.info("Edit multimedia item operation completed");

@@ -27,7 +27,7 @@ public class EditVendorOperationProcessor implements EditVendorOperation {
     public EditVendorResponse process(final EditVendorRequest editVendorRequest) {
         log.info("Starting edit vendor operation for vendor with ID: {}", editVendorRequest.getId());
 
-        Vendor vendor = vendorRepository.findById(editVendorRequest.getId())
+        Vendor vendor = vendorRepository.findById(UUID.fromString(editVendorRequest.getId()))
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         Optional.ofNullable(editVendorRequest.getName())
@@ -48,18 +48,24 @@ public class EditVendorOperationProcessor implements EditVendorOperation {
         Vendor saved = this.vendorRepository.save(vendor);
         log.info("Edit vendor operation completed for vendor with ID: {}", saved.getId());
 
+        List<String> itemIds = saved.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
         return EditVendorResponse.builder()
-                .id(saved.getId())
+                .id(String.valueOf(saved.getId()))
                 .phone(saved.getPhone())
                 .name(saved.getName())
-                .itemIds(saved.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
     }
 
-    private void updateVendorItems(Vendor vendor, final Set<UUID> items) {
-        List<Item> fetchedItems = this.itemRepository.findAllById(items);
+    private void updateVendorItems(Vendor vendor, final List<String> items) {
+        List<UUID> itemUUIDs = items.stream()
+                .map(UUID::fromString)
+                .toList();
+
+        List<Item> fetchedItems = this.itemRepository.findAllByIdIn(itemUUIDs);
 
         if (fetchedItems.size() != items.size()) {
             throw new ItemNotFoundInRepositoryException();

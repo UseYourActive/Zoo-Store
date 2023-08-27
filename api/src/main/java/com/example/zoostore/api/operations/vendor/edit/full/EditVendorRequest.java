@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditVendorRequest implements OperationInput {
     @NotNull(message = "Vendor id is required!")
-    private UUID id;
+    private String id;
 
     @Nullable
     private String name;
@@ -26,5 +27,5 @@ public class EditVendorRequest implements OperationInput {
     private String phone;
 
     @Nullable
-    private Set<UUID> items;
+    private List<String> items;
 }

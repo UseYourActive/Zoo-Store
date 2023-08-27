@@ -74,7 +74,7 @@ public class ItemController {
     @GetMapping(path = "/{request}")
     public ResponseEntity<FindItemByIdResponse> getItemById(@PathVariable @org.hibernate.validator.constraints.UUID String request){
         FindItemByIdRequest build = FindItemByIdRequest.builder()
-                .id(UUID.fromString(request))
+                .id(request)
                 .build();
 
         return new ResponseEntity<>(findItemByIdOperation.process(build), HttpStatus.OK);
@@ -92,7 +92,7 @@ public class ItemController {
                 .shouldIncludeArchivedItems(includeArchived)
                 .numberOfItemsPerPage(numberOfItemsPerPage)
                 .pageNumber(pageNumber)
-                .tagId(UUID.fromString(tagId))
+                .tagId(tagId)
                 .build();
 
         return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
@@ -124,7 +124,7 @@ public class ItemController {
         FindItemsByTagRequest build = FindItemsByTagRequest.builder()
                 .numberOfItemsPerPage(numberOfItemsPerPage)
                 .pageNumber(pageNumber)
-                .tagId(UUID.fromString(tagId))
+                .tagId(tagId)
                 .build();
 
         return new ResponseEntity<>(findItemsByTagOperation.process(build), HttpStatus.OK);

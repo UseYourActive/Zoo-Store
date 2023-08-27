@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class UnArchiveItemOperationProcessor implements UnArchiveItemOperation {
     public UnArchiveItemResponse process(UnArchiveItemRequest unArchiveItemRequest) {
         log.info("Starting unarchive item operation");
 
-        Item item = itemRepository.findById(unArchiveItemRequest.getId())
+        Item item = itemRepository.findById(UUID.fromString(unArchiveItemRequest.getId()))
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
         log.info("Item found in repository with ID: {}", item.getId());
 
@@ -34,18 +36,22 @@ public class UnArchiveItemOperationProcessor implements UnArchiveItemOperation {
         Item save = itemRepository.save(item);
         log.info("Item successfully unarchived with ID: {}", save.getId());
 
+        List<String> multimediaIds = save.getMultimedia().stream()
+                .map(multimedia -> String.valueOf(multimedia.getId()))
+                .toList();
+
+        List<String> tagIds = save.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         UnArchiveItemResponse response = UnArchiveItemResponse.builder()
-                .itemId(save.getId())
-                .vendorId(save.getVendor().getId())
+                .itemId(String.valueOf(save.getId()))
+                .vendorId(String.valueOf(save.getVendor().getId()))
                 .description(save.getDescription())
-                .multimediaIds(save.getMultimedia().stream()
-                        .map(Multimedia::getId)
-                        .toList())
+                .multimediaIds(multimediaIds)
                 .productName(save.getProductName())
-                .tagIds(save.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
-                .isArchived(false)
+                .tagIds(tagIds)
+                .isArchived(save.getArchived())
                 .build();
         log.info("Unarchive item operation completed");
 

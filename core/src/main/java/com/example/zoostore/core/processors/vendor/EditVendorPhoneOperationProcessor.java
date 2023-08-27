@@ -11,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -21,7 +24,7 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
     public EditVendorPhoneResponse process(EditVendorPhoneRequest editVendorPhoneRequest) {
         log.info("Starting edit vendor phone operation for vendor with ID: {}", editVendorPhoneRequest.getVendorId());
 
-        Vendor vendor = vendorRepository.findById(editVendorPhoneRequest.getVendorId())
+        Vendor vendor = vendorRepository.findById(UUID.fromString(editVendorPhoneRequest.getVendorId()))
                 .orElseThrow(VendorNotFoundInRepositoryException::new);
 
         vendor.setPhone(editVendorPhoneRequest.getPhone());
@@ -30,13 +33,15 @@ public class EditVendorPhoneOperationProcessor implements EditVendorPhoneOperati
         Vendor save = vendorRepository.save(vendor);
         log.info("Edit vendor phone operation completed for vendor with ID: {}", save.getId());
 
+        List<String> itemIds = save.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
         return EditVendorPhoneResponse.builder()
-                .id(save.getId())
+                .id(String.valueOf(save.getId()))
                 .name(save.getName())
                 .phone(save.getPhone())
-                .itemIds(save.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
     }
 }

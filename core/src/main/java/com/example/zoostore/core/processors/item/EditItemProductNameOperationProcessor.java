@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class EditItemProductNameOperationProcessor implements EditItemProductNam
     public EditItemProductNameResponse process(EditItemProductNameRequest editItemProductNameRequest) {
         log.info("Starting edit item product name operation");
 
-        Item itemFoundInRepository = itemRepository.findById(editItemProductNameRequest.getItemId())
+        Item itemFoundInRepository = itemRepository.findById(UUID.fromString(editItemProductNameRequest.getItemId()))
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
         log.info("Found item for product name editing. ItemId: {}", itemFoundInRepository.getId());
 
@@ -34,17 +36,21 @@ public class EditItemProductNameOperationProcessor implements EditItemProductNam
         Item savedItem = itemRepository.save(itemFoundInRepository);
         log.info("Product name edited for item. ItemId: {}", savedItem.getId());
 
+        List<String> multimediaIds = savedItem.getMultimedia().stream()
+                .map(multimedia -> String.valueOf(multimedia.getId()))
+                .toList();
+
+        List<String> tagIds = savedItem.getTags().stream()
+                .map(tag -> String.valueOf(tag.getId()))
+                .toList();
+
         EditItemProductNameResponse response = EditItemProductNameResponse.builder()
-                .itemId(savedItem.getId())
+                .itemId(String.valueOf(savedItem.getId()))
                 .productName(savedItem.getProductName())
                 .isArchived(savedItem.getArchived())
-                .tagIds(savedItem.getTags().stream()
-                        .map(Tag::getId)
-                        .toList())
-                .vendorId(savedItem.getVendor().getId())
-                .multimediaIds(savedItem.getMultimedia().stream()
-                        .map(Multimedia::getId)
-                        .toList())
+                .tagIds(tagIds)
+                .vendorId(String.valueOf(savedItem.getVendor().getId()))
+                .multimediaIds(multimediaIds)
                 .description(savedItem.getDescription())
                 .build();
         log.info("Edit item product name operation completed");

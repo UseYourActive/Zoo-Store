@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class CreateNewTagResponse implements OperationResult {
-    private UUID tagId;
+    private String tagId;
     private String title;
-    private List<UUID> itemIds;
+    private List<String> itemIds;
 }

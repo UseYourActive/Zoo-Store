@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,8 +18,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EditItemMultimediaURLRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private UUID itemId;
+    private String itemId;
 
     @org.hibernate.validator.constraints.UUID
-    private Set<UUID> multimediaIds;
+    private List<String> multimediaIds;
 }

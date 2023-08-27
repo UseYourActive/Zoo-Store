@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -31,12 +32,14 @@ public class CreateNewTagOperationProcessor implements CreateNewTagOperation {
         Tag save = tagRepository.save(tag);
         log.info("Tag created with ID: {}", save.getId());
 
+        List<String> itemIds = tag.getItems().stream()
+                .map(i -> String.valueOf(i.getId()))
+                .toList();
+
         CreateNewTagResponse response = CreateNewTagResponse.builder()
-                .tagId(save.getId())
+                .tagId(String.valueOf(save.getId()))
                 .title(save.getTitle())
-                .itemIds(save.getItems().stream()
-                        .map(Item::getId)
-                        .toList())
+                .itemIds(itemIds)
                 .build();
         log.info("Create new tag operation completed");
 

@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindTagByIdResponse implements OperationResult {
-    private UUID id;
+    private String id;
     private String title;
-    private List<UUID> itemIds;
+    private List<String> itemIds;
 }

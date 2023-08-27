@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -23,7 +25,7 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
     public CreateNewMultimediaResponse process(CreateNewMultimediaRequest createNewMultimediaRequest) {
         log.info("Starting create new multimedia operation");
 
-        Item item = itemRepository.findById(createNewMultimediaRequest.getItemId())
+        Item item = itemRepository.findById(UUID.fromString(createNewMultimediaRequest.getItemId()))
                 .orElseThrow(ItemNotFoundInRepositoryException::new);
         log.info("Item found in repository with ID: {}", item.getId());
 
@@ -36,8 +38,8 @@ public class CreateNewMultimediaOperationProcessor implements CreateNewMultimedi
         log.info("Multimedia created with ID: {}", save.getId());
 
         CreateNewMultimediaResponse response = CreateNewMultimediaResponse.builder()
-                .id(save.getId())
-                .itemId(save.getItem().getId())
+                .id(String.valueOf(save.getId()))
+                .itemId(String.valueOf(save.getItem().getId()))
                 .url(save.getUrl())
                 .build();
         log.info("Create new multimedia operation completed");

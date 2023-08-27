@@ -115,7 +115,7 @@ public interface ZooStoreRestExport {
     @RequestLine("GET /items/find-by-tag?pageNumber={pageNumber}&numberOfItemsPerPage={numberOfItemsPerPage}&tagId={tagId}")
     FindItemsByTagResponse getItemByTagId(@Param("pageNumber") Integer pageNumber, @Param("numberOfItemsPerPage") Integer numberOfItemsPerPage, @Param("tagId") String tagId);
 
-    @RequestLine("GET /items")
+    @RequestLine("GET /items/{ids}")
     FindItemsByIdsResponse findItemsByIds(@Param("ids") List<String> ids);
 
     @RequestLine("POST /items/create")

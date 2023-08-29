@@ -10,12 +10,11 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemVendorRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private String itemId;
+    private final String itemId;
 
     @NotNull(message = "Vendor id is required!")
-    private String vendorId;
+    private final String vendorId;
 }

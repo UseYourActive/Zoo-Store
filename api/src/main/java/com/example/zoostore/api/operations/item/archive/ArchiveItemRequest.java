@@ -10,9 +10,8 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class ArchiveItemRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private String itemId;
+    private final String itemId;
 }

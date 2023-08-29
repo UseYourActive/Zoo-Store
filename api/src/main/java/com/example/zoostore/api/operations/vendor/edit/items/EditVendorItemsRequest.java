@@ -11,12 +11,11 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditVendorItemsRequest implements OperationInput {
     @NotNull(message = "Vendor id is required!")
-    private String vendorId;
+    private final String vendorId;
 
     @org.hibernate.validator.constraints.UUID
-    private List<String> itemIds;
+    private final List<String> itemIds;
 }

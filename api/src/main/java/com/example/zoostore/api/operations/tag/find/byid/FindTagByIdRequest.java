@@ -9,9 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindTagByIdRequest implements OperationInput {
     @NotNull(message = "Tag id is required!")
-    private String id;
+    private final String id;
 }

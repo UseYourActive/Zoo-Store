@@ -9,9 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindMultimediaByIdRequest implements OperationInput {
     @NotNull(message = "Multimedia id is required!")
-    private String id;
+    private final String id;
 }

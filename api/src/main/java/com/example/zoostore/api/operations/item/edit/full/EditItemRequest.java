@@ -12,28 +12,27 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemRequest implements OperationInput {
     @org.hibernate.validator.constraints.UUID
     @JsonIgnore
-    private String id;
+    private final String id;
 
     @Nullable
-    private String productName;
+    private final String productName;
 
     @Nullable
-    private String description;
+    private final String description;
 
     @Nullable
-    private String vendorId;
+    private final String vendorId;
 
     @Nullable
-    private List<String> multimedia;
+    private final List<String> multimedia;
 
     @Nullable
-    private List<String> tags;
+    private final List<String> tags;
 
     @Nullable
-    private Boolean isArchived;
+    private final Boolean isArchived;
 }

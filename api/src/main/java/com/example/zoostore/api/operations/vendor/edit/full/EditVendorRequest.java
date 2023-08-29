@@ -14,18 +14,17 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditVendorRequest implements OperationInput {
     @NotNull(message = "Vendor id is required!")
-    private String id;
+    private final String id;
 
     @Nullable
-    private String name;
+    private final String name;
 
     @Nullable
-    private String phone;
+    private final String phone;
 
     @Nullable
-    private List<String> items;
+    private final List<String> items;
 }

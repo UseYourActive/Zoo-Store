@@ -11,13 +11,12 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemProductNameRequest implements OperationInput {
     @NotNull(message = "Item UUID is required!")
-    private String itemId;
+    private final String itemId;
 
     @NotBlank(message = "Product name is required!")
     @Size(min = 1, max = 50, message = "Product name must be between 1 and 50 characters long to be valid!")
-    private String productName;
+    private final String productName;
 }

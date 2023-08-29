@@ -10,15 +10,14 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditMultimediaRequest implements OperationInput {
     @NotNull(message = "Multimedia id is required!")
-    private String multimediaId;
+    private final String multimediaId;
 
     @Nullable
-    private String url;
+    private final String url;
 
     @Nullable
-    private String itemId;
+    private final String itemId;
 }

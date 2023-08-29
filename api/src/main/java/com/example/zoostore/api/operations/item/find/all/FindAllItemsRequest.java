@@ -10,19 +10,18 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindAllItemsRequest implements OperationInput {
-    private Boolean shouldIncludeArchivedItems;
+    private final Boolean shouldIncludeArchivedItems;
 
     @NotNull(message = "Tag id is required!")
-    private String tagId;
+    private final String tagId;
 
     @NotNull(message = "Page number is required!")
     @Positive(message = "Page number must be a positive number!")
-    private Integer pageNumber;
+    private final Integer pageNumber;
 
     @NotNull(message = "Number of items per page is required!")
     @Positive(message = "Number of pages must be a positive number!")
-    private Integer numberOfItemsPerPage;
+    private final Integer numberOfItemsPerPage;
 }

@@ -10,15 +10,14 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindItemsByTagRequest implements OperationInput {
     @NotNull(message = "Tag id is required!")
-    private String tagId;
+    private final String tagId;
 
     @Positive
-    private Integer pageNumber;
+    private final Integer pageNumber;
 
     @Positive
-    private Integer numberOfItemsPerPage;
+    private final Integer numberOfItemsPerPage;
 }

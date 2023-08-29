@@ -11,13 +11,12 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemDescriptionRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private String itemId;
+    private final String itemId;
 
     @NotBlank(message = "Description is required!")
     @Size(min = 10, max = 100, message = "Description must be between 10 and 100 characters long to be valid!")
-    private String description;
+    private final String description;
 }

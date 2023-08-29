@@ -9,9 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindVendorByIdRequest implements OperationInput {
     @NotNull(message = "Vendor id is required!")
-    private String id;
+    private final String id;
 }

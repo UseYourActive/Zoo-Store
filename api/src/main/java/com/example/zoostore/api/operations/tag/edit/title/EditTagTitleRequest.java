@@ -11,13 +11,12 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditTagTitleRequest implements OperationInput {
     @NotNull(message = "Tag UUID is required!")
-    private String tagId;
+    private final String tagId;
 
     @NotBlank(message = "Title is required!")
     @Size(min = 1, max = 50, message = "Tag title must be between 1 and 50 characters long to be valid!")
-    private String title;
+    private final String title;
 }

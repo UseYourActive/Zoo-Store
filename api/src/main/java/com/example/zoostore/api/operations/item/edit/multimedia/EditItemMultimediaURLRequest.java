@@ -14,12 +14,11 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class EditItemMultimediaURLRequest implements OperationInput {
     @NotNull(message = "Item id is required!")
-    private String itemId;
+    private final String itemId;
 
     @org.hibernate.validator.constraints.UUID
-    private List<String> multimediaIds;
+    private final List<String> multimediaIds;
 }
